@@ -26,7 +26,7 @@ So, a recursive data structure refers to itself, and a recursive algorithm refer
 
 The above gibberish will make sense once we start programming recursive data structures and algorithms.
 
-## Fibonacci numbers
+### Fibonacci numbers
 
 The classic introduction to recursion is via "Fibonacci numbers."
 
