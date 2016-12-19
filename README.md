@@ -48,3 +48,27 @@ See the pattern? Get it?
  
 I assume you get it.
 
+Fibonacci numbers are recurisve because the *n*th Fibonacci number is defined in terms of other Fibonacci numbers.
+
+Let's write a JS function that computes the *nth* Fibonacci number.
+
+```js
+function fibonacci(n) {
+  if (n <= 0) {
+    console.error("Fiboncci numbers are not defined when n <= 0");
+  } else if (n == 1 || n == 2) {
+    return 1;
+  } else {
+    return fibonacci(n - 1) + fibonacci(n - 2);
+  }
+}
+
+console.log(fibonacci(1));
+console.log(fibonacci(2));
+console.log(fibonacci(3));
+console.log(fibonacci(4));
+console.log(fibonacci(5));
+console.log(fibonacci(6));
+```
+
+View your JS console to verify that `fibonacci(...)` computes the first 6 Fibonacci numbers correctly.
