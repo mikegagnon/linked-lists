@@ -26,6 +26,31 @@ So, a recursive data structure refers to itself, and a recursive algorithm refer
 
 The above gibberish will make sense once we start programming recursive data structures and algorithms.
 
+## Fibonacci numbers
+
+The classic introduction to recursion is via "Fibonacci numbers."
+
+A Fibonacci number is defined as follows:
+
+- The first Fibonacci number is 1
+- The second Fibonacci number is 1
+- The *n*th Fibonacci number is the sum of
+  - the (*n*th - 1) Fibonacci number and
+  - the (*n*th - 2) Fibonacci number
+  
+ Therefore the third Fibonacci number is the second Fibonacci number plus the first Fibonacci number, which equals to 1 + 1 = 2.
+ 
+ To clarify futher, here is the series of Fibonacci numbers:
+ 
+ 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
+ 
+See the pattern? Get it?
+ 
+I assume you get it.
+
+
+
+
 
 
 
