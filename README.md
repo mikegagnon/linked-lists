@@ -32,8 +32,8 @@ The classic introduction to recursion is via "Fibonacci numbers."
 
 A Fibonacci number is defined as follows:
 
-- The first Fibonacci number (where *n* == 1) is 1
-- The second Fibonacci number (where *n* == 2) is 1
+- The first Fibonacci number is 1
+- The second Fibonacci number is 1
 - The *n*th Fibonacci number is the sum of
   - the (*n*th - 1) Fibonacci number and
   - the (*n*th - 2) Fibonacci number
