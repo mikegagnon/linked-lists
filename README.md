@@ -18,6 +18,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
 
 - [Lecture 1. Recursion](#lec1)
 - [Lecture 2. Node append](#lec2)
+- [Lecture 3. ListWithTail](#lec3)
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -257,3 +258,66 @@ Here's a graphical representation of what happens:
 
 Essentially, the `current` variable iterates over each node, until it finds a node 
 with `current.next == undefined`, which is the last node.
+
+Having found the last node, it sets last-node.next to a `new Node(value)`, thereby
+appending the `value` to the end of the list.
+
+## <a name="lec3">Lecture 3. ListWithTail</a>
+
+Notice, each call to `append(...)` and `append2(...)` requires
+execution time that is proportional to the number of nodes in the list.
+
+I.e.: if there are *N* nodes in the list, then `append(...)` and `append2(...)`
+each require execution time that is proportional to *N*.
+
+If *N* is large, say *N* is one billion, then the append functions will
+take a long time.
+
+This slow performance is undesirable.
+
+Here we define a new data structure (and a new append algorithm)
+that requires a *constant* amount of execution time (i.e. a short
+execution time), regardless of how large *N* is.
+
+```js
+class ListWithTail {
+    constructor(){
+        this.head = undefined;
+        this.tail = undefined;
+    }
+
+    append(value) {
+        if (this.head == undefined) {
+            this.head = new Node(value);
+            this.tail = this.head;
+        } else {
+            this.tail.next = new Node(value);
+            this.tail = this.tail.next;
+        }
+    }
+}
+
+var list = new ListWithTail();
+list.append("A");
+list.append("B");
+list.append("C");
+
+assert(list.head.value == "A");
+assert(list.head.next.value == "B");
+assert(list.head.next.next.value == "C");
+assert(list.head.next.next.next == undefined);
+assert(list.tail.value == "C");
+```
+
+We say that `ListWithTail` is a "wrapper" around `Node`.
+
+To introduce yet another term, we say that `ListWithTail` encapsulates `Node`.
+
+Here's how `ListWithTail` works: it keeps track of which node is the first in the list (`this.head`)
+as well as which node is the last in the list (`this.tail`).
+
+Whenever a new value is appended, it simply creates a new Node and appends it to `this.tail`.
+
+Then, it updates the `this.tail` variable to point to the new Node.
+
+Simple, right?
