@@ -40,9 +40,8 @@ class Node {
         }
     }
 
-    // returns [v, length] where v is the value that was removed, and
-    // length is the number of nodes in the list (which is one less than
-    // the length before the removal)
+    // returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined)
     removeLast(prev = undefined) {
         if (this.next == undefined) {
 
@@ -58,30 +57,32 @@ class Node {
         }
     }
 
-    /*
+    
 
     // returns the head of the new list, possibly undefined
-    removeValue(value, head = this) {
+    removeValue(value, prev = undefined) {
+
         if (this.value == value) {
+            
+            if (prev != undefined) {
+                prev.next = this.next;
+            }
 
-            if (this.prev == undefined) {
-                head = this.next;
+            if (this.next == undefined) {
+                return prev;
             } else {
-                this.prev.next = this.next;
+                return this.next;
             }
-
-            if (this.next != undefined) {
-                this.next.prev = this.prev;
-            }
-
-            return head;
 
         } else if (this.next == undefined) {
-            console.error("Did not find the value");
+            console.error("The list did not contain the value we're looking for");
         } else {
-            return this.next.removeValue(value, head);
+            this.next.removeValue(value, this);
+            return this
         }
     }
+
+    /*
 
     // returns the smallest value in the list;
     findSmallest() {
@@ -184,32 +185,29 @@ assert(cHead.value == "A");
 assert(bHead.value == "A");
 assert(aHead == undefined);
 
-/*
+
 // Test for removeValue(...)
-var head = new DoubleLinkedNode("A");
+var head = new Node("A");
 head.append("B");
 head.append("C");
 
 bNode = head.removeValue("A");
 cNode = bNode.next;
-assert(bNode.prev == undefined);
 assert(bNode.value == "B");
-assert(cNode.prev == bNode);
 assert(cNode.next == undefined);
 assert(cNode.value == "C");
 
-var head = new DoubleLinkedNode("A");
+var head = new Node("A");
 head.append("B");
 head.append("C");
 
 aNode = head.removeValue("B");
 cNode = aNode.next;
-assert(aNode.prev == undefined);
 assert(aNode.value == "A");
-assert(cNode.prev == aNode);
 assert(cNode.next == undefined);
 assert(cNode.value == "C");
 
+/*
 // Test findSmallest(...)
 var head = new DoubleLinkedNode("1");
 head.append("2");
