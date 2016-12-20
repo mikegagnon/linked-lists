@@ -219,3 +219,7 @@ A `Node` object is an object that stores a value and may (or may not) link to an
 Therefore, you can create a chain of nodes.
 
 A chain of nodes is called a linked list!
+
+To help students understand linked lists, we visualize them like so:
+
+
