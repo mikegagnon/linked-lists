@@ -213,3 +213,8 @@ console.log(list.next.next.value);
 Study the `Node` class and the above usage example until it starts to makes sense.
 Also, add the `Node` class and usage example into `linked-lists.js`.
 
+A `Node` object is an object that stores a value and may (or may not) link to another `Node` object.
+
+Therefore, you can create a chain of nodes.
+
+A chain of nodes is called a linked list!
