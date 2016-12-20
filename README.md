@@ -16,7 +16,9 @@ Familiarity with JS, particularily object-oriented programming in JS.
 
 ## Contents
 
-## Lecture 1. Recursion
+- [Lecture 1. Recursion](#lec1)
+
+## <a name="lec1">Lecture 1. Recursion</a>
 
 > "In order to understand recursion, one must first understand recursion."
 
@@ -171,7 +173,3 @@ Case analysis:
 Therefore, `fibonacci(n + 1)` clearly terminates in all cases.
 
 QED.
-
-### Challenges
-
-1. Write 
