@@ -95,6 +95,24 @@ class DoubleLinkedNode {
             }
         }
     }
+
+    // Returns a new linked list, containg all the elements in this linked list,
+    // but in sorted order
+    sort() {
+        if (this.next == undefined) {
+            this.prev = undefined;
+            return this;
+        } else {
+
+            var smallest = this.findSmallest();
+            var sublist = this.removeValue(smallest);
+
+            assert(sublist != undefined);
+
+            var sortedSublist = sublist.sort();
+            return sortedSublist.prepend(smallest);
+        }
+    }
 }
 
 
@@ -201,3 +219,56 @@ var head = new DoubleLinkedNode("2");
 head.append("3");
 head.append("1");
 assert(head.findSmallest() == 1);
+
+// Test sort()
+var head = new DoubleLinkedNode(1);
+head.append(2);
+head.append(3);
+var sorted = head.sort();
+
+aNode = sorted;
+bNode = aNode.next;
+cNode = bNode.next;
+
+assert(aNode.value == 1);
+assert(aNode.prev == undefined);
+assert(bNode.value == 2);
+assert(bNode.prev == aNode);
+assert(cNode.value == 3);
+assert(cNode.prev == bNode);
+assert(cNode.next == undefined);
+
+
+var head = new DoubleLinkedNode(2);
+head.append(1);
+head.append(3);
+var sorted = head.sort();
+
+aNode = sorted;
+bNode = aNode.next;
+cNode = bNode.next;
+
+assert(aNode.value == 1);
+assert(aNode.prev == undefined);
+assert(bNode.value == 2);
+assert(bNode.prev == aNode);
+assert(cNode.value == 3);
+assert(cNode.prev == bNode);
+assert(cNode.next == undefined);
+
+
+var head = new DoubleLinkedNode(2);
+head.append(3);
+head.append(1);
+var sorted = head.sort();
+
+aNode = sorted;
+bNode = aNode.next;
+cNode = bNode.next;
+
+assert(aNode.value == 1);
+assert(aNode.prev == undefined);
+assert(bNode.value == 2);
+assert(bNode.prev == aNode);
+assert(cNode.value == 3);
+assert(cNode.prev == bNode);
