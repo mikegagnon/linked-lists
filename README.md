@@ -17,7 +17,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
 ## Contents
 
 - [Lecture 1. Recursion](#lec1)
-- [Lecture 2. Node](#lec2)
+- [Lecture 2. Node append](#lec2)
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -175,7 +175,7 @@ Therefore, `fibonacci(n + 1)` clearly terminates in all cases.
 
 QED.
 
-## <a name="lec2">Lecture 2. Node</a>
+## <a name="lec2">Lecture 2. Node append</a>
 
 Now that you know recursive algorithms, it's time to learn recursive data structures.
 
