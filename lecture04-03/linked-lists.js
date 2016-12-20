@@ -82,9 +82,8 @@ class Node {
         }
     }
 
-    /*
-
-    // returns the smallest value in the list;
+    
+    // returns the smallest value in the list
     findSmallest() {
         if (this.next == undefined) {
             return this.value;
@@ -98,6 +97,8 @@ class Node {
             }
         }
     }
+
+    /*
 
     // Returns a new linked list, containg all the elements in this linked list,
     // but in sorted order
@@ -207,23 +208,24 @@ assert(aNode.value == "A");
 assert(cNode.next == undefined);
 assert(cNode.value == "C");
 
-/*
+
 // Test findSmallest(...)
-var head = new DoubleLinkedNode("1");
+var head = new Node("1");
 head.append("2");
 head.append("3");
 assert(head.findSmallest() == 1);
 
-var head = new DoubleLinkedNode("2");
+var head = new Node("2");
 head.append("1");
 head.append("3");
 assert(head.findSmallest() == 1);
 
-var head = new DoubleLinkedNode("2");
+var head = new Node("2");
 head.append("3");
 head.append("1");
 assert(head.findSmallest() == 1);
 
+/*
 // Test sort()
 var head = new DoubleLinkedNode(1);
 head.append(2);
