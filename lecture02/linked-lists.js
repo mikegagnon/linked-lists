@@ -37,14 +37,14 @@ class Node {
     }
 }
 
-var node = new Node("A");
-node.append("B");
-node.append("C");
+var head = new Node("A");
+head.append("B");
+head.append("C");
 
-assert(node.value == "A");
-assert(node.next.value == "B");
-assert(node.next.next.value == "C");
-assert(node.next.next.next == undefined);
+assert(head.value == "A");
+assert(head.next.value == "B");
+assert(head.next.next.value == "C");
+assert(head.next.next.next == undefined);
 
 
 
