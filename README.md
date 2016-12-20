@@ -18,6 +18,8 @@ Familiarity with JS, particularily object-oriented programming in JS.
 
 ## Lecture 1. Recursion
 
+> "In order to understand recursion, one must first understand recursion."
+
 A linked list is a "recursive" data structure, and uses "recursive" algorithms.
 
 Recursion essentially means self referential.
@@ -169,3 +171,7 @@ Case analysis:
 Therefore, `fibonacci(n + 1)` clearly terminates in all cases.
 
 QED.
+
+### Challenges
+
+1. Write 
