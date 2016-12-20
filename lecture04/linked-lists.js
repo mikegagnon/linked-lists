@@ -81,6 +81,36 @@ class DoubleLinkedList {
         }
     }
 
+    removeValue(value) {
+        if (this.head == undefined) {
+            console.error("Cannot execute removeFirst because the list is empty")
+        } else {
+
+            var current = this.head;
+
+            while (current.next != undefined && current.value != value) {
+                current = current.next;
+            }
+
+            if (current.value != value) {
+                console.error("Could not find value in the list");
+            } else {
+
+                if (this.head == current) {
+                    this.removeFirst();
+                } else if (this.tail == current) {
+                    this.removeLast();
+                } else {
+                    var prev = current.prev;
+                    var next = current.next;
+
+                    prev.next = next;
+                    next.prev = prev;
+                }
+            }
+        }
+    }
+
 }
 
 var list = new DoubleLinkedList();
@@ -172,5 +202,66 @@ assert(list.tail.next == undefined);
 assert(list.removeFirst() == "A");
 assert(list.head == undefined);
 assert(list.tail == undefined);
+
+
+
+
+
+
+
+var list = new DoubleLinkedList();
+list.append("A");
+list.append("B");
+list.append("C");
+
+var aNode = list.head;
+var bNode = aNode.next;
+var cNode = bNode.next;
+
+list.removeValue("A"); 
+
+assert(list.head == bNode);
+assert(list.tail == cNode);
+assert(list.head.prev == undefined);
+assert(list.head.next == cNode);
+
+
+var list = new DoubleLinkedList();
+list.append("A");
+list.append("B");
+list.append("C");
+
+var aNode = list.head;
+var bNode = aNode.next;
+var cNode = bNode.next;
+
+list.removeValue("B"); 
+
+assert(list.head == aNode);
+assert(list.tail == cNode);
+assert(list.head.prev == undefined);
+assert(list.head.next == cNode);
+
+
+
+var list = new DoubleLinkedList();
+list.append("A");
+list.append("B");
+list.append("C");
+
+var aNode = list.head;
+var bNode = aNode.next;
+var cNode = bNode.next;
+
+list.removeValue("C"); 
+
+assert(list.head == aNode);
+assert(list.tail == bNode);
+assert(list.head.prev == undefined);
+assert(list.head.next == bNode);
+assert(list.tail == bNode);
+assert(list.tail.next == undefined);
+assert(list.tail.prev == aNode);
+
 
 
