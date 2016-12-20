@@ -17,7 +17,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
 ## Contents
 
 - [Lecture 1. Recursion](#lec1)
-- [Lecture 2. Node](#lec2)
+- [Lecture 2. Node append](#lec2)
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -175,7 +175,7 @@ Therefore, `fibonacci(n + 1)` clearly terminates in all cases.
 
 QED.
 
-## <a name="lec2">Lecture 2. Node</a>
+## <a name="lec2">Lecture 2. Node append</a>
 
 Now that you know recursive algorithms, it's time to learn recursive data structures.
 
@@ -225,3 +225,19 @@ A chain of nodes is a linked list!
 To help students understand linked lists, we typically visualize them like so:
 
 <img src="linked-list-01.png">
+
+### <a name="lec2c1">Lecture 2, Challenge 1</a>
+
+Write a new method for `Node` called `append2(...)` which does the exact same
+thing as `append(...)`, except `append2(...)` is not recursive.
+
+- [Hint 1](#lec2c1hint1)
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+### <a name="lec2c1hint1">Lecture 2, Challenge 1, Hint 1</a>
+
+Use a `while` loop
+
+Back to [Challenge 1](#lec2c1).
+
