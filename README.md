@@ -52,6 +52,20 @@ Fibonacci numbers are recurisve because the *n*th Fibonacci number is defined in
 
 Let's write a JS function that computes the *nth* Fibonacci number.
 
+#### `index.html`
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linked Lists</title>
+    <script src="recursion.js"></script>
+  </head>
+</html>
+```
+
+#### `recursion.js`
+
 ```js
 function fibonacci(n) {
   if (n <= 0) {
