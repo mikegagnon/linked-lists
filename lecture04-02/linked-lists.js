@@ -36,14 +36,26 @@ class DoubleLinkedNode {
     // returns [v, head] where v is the value that was removed, and head
     // is the new head pointer (possibly undefined).
     removeFirst() {
-
         if (this.next == undefined) {
             return [this.value, undefined];
         } else {
             this.next.prev = undefined;
             return [this.value, this.next];
         }
+    }
 
+
+    // returns [v, noMoreNodes] where v is the value that was removed, and
+    // noMoreNodes is true iff the there are no more nodes in the list
+    removeLast() {
+        if (this.next == undefined && this.prev == undefined) {
+            return [this.value, true];
+        } else if (this.next == undefined) {
+            this.prev.next = undefined;
+            return [this.value, false];
+        } else {
+            return this.next.removeLast();
+        }
     }
 }
 
@@ -76,8 +88,6 @@ assert(bNode.value == "B");
 assert(cNode.value == "C");
 assert(aNode.next == undefined);
 
-
-
 // Test removeFirst(...)
 var head = new DoubleLinkedNode("A");
 head.append("B");
@@ -94,5 +104,24 @@ assert(cValue == "C");
 assert(bNode.value == "B");
 assert(cNode.value == "C");
 assert(undef == undefined);
+
+
+// Test removeLast(...)
+var head = new DoubleLinkedNode("A");
+head.append("B");
+head.append("C");
+
+var [cValue, cNoMoreNodes] = head.removeLast();
+var [bValue, bNoMoreNodes] = head.removeLast();
+var [aValue, aNoMoreNodes] = head.removeLast();
+
+assert(aValue == "A");
+assert(bValue == "B");
+assert(cValue == "C");
+
+assert(!cNoMoreNodes);
+assert(!bNoMoreNodes);
+assert(aNoMoreNodes);
+
 
 
