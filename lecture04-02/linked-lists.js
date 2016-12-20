@@ -31,6 +31,20 @@ class DoubleLinkedNode {
 
         return newNode;
     }
+
+
+    // returns [v, head] where v is the value that was removed, and head
+    // is the new head pointer (possibly undefined).
+    removeFirst() {
+
+        if (this.next == undefined) {
+            return [this.value, undefined];
+        } else {
+            this.next.prev = undefined;
+            return [this.value, this.next];
+        }
+
+    }
 }
 
 
@@ -61,5 +75,24 @@ assert(aNode.value == "A");
 assert(bNode.value == "B");
 assert(cNode.value == "C");
 assert(aNode.next == undefined);
+
+
+
+// Test removeFirst(...)
+var head = new DoubleLinkedNode("A");
+head.append("B");
+head.append("C");
+
+var [aValue, bNode] = head.removeFirst();
+var [bValue, cNode] = bNode.removeFirst();
+var [cValue, undef] = cNode.removeFirst();
+
+assert(aValue == "A");
+assert(bValue == "B");
+assert(cValue == "C");
+
+assert(bNode.value == "B");
+assert(cNode.value == "C");
+assert(undef == undefined);
 
 
