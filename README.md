@@ -133,3 +133,39 @@ Ok.  Now let's trace a call to `fibonacci(4)`
 
 Get it?
 
+### Proof that `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
+
+This section is optional and silly. I present it just in case you enjoy elementary proofs using mathematical induction.
+
+Recall, a proof via [strong induction](https://en.wikipedia.org/wiki/Mathematical_induction)
+works as follows:
+
+- Base case: Prove that the theorem holds when *n* == 1
+- Inductive step: Prove that if the theorem holds for all *n* < *n + 1*, then the theorem also holds for *n + 1*
+
+#### Theorem
+
+`fibonacci(n)` terminates for all values of *n*, where *n* >= 1
+ 
+#### Proof
+
+##### Base case
+
+Clearly, the `fibonacci(n)` function terminates when *n* == 1.
+
+##### Inductive step
+
+Assumption 1: Assume `fibonacci(n)` terminates for all 2 <= *n* < *n* + 1.
+
+`fibonacci(n + 1)` invokes `fibonacci(n)` and `fibonacci(n - 1)`.
+
+Therefore if `fibonacci(n)` and `fibonacci(n - 1)` terminate, then `fibonacci(n + 1)` terminates.
+
+Case analysis:
+
+- Case A: If *n == 2*, then `fibonacci(n + 1)` invokes `fibonacci(2)` and `fibonacci(1)`, which both clearly terminate
+- Case B: If *n >= 3*, then `fibonacci(n + 1)` invokes `fibonacci(n)` and `fibonacci(n - 1)`. By Assumption 1, both of those invocations terminate.
+
+Therefore, `fibonacci(n + 1)` clearly terminates in all cases.
+
+QED.
