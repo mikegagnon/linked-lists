@@ -308,3 +308,16 @@ assert(list.head.next.next.value == "C");
 assert(list.head.next.next.next == undefined);
 assert(list.tail.value == "C");
 ```
+
+We say that `ListWithTail` is a "wrapper" around `Node`.
+
+To introduce yet another term, we say that `ListWithTail` encapsulates `Node`.
+
+Here's how `ListWithTail` works: it keeps track of which node is the first in the list (`this.head`)
+as well as which node is the last in the list (`this.tail`).
+
+Whenever a new value is appended, it simply creates a new Node and appends it to `this.tail`.
+
+Then, it updates the `this.tail` variable to point to the new Node.
+
+Simple, right?
