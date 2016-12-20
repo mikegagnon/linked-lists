@@ -18,6 +18,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
 
 - [Lecture 1. Recursion](#lec1)
 - [Lecture 2. Node append](#lec2)
+- [Lecture 3. ListWithTail](#lec3)
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -260,3 +261,5 @@ with `current.next == undefined`, which is the last node.
 
 Having found the last node, it sets last-node.next to a `new Node(value)`, thereby
 appending the `value` to the end of the list.
+
+## <a name="lec3">Lecture 3. ListWithTail</a>
