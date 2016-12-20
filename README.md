@@ -222,4 +222,4 @@ A chain of nodes is a linked list!
 
 To help students understand linked lists, we visualize them like so:
 
-
+<img src="linked-list-01.png">
