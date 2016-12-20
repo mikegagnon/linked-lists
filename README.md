@@ -201,14 +201,14 @@ class Node {
 You use it like this:
 
 ```js
-var node = new Node("A");
-node.append("B");
-node.append("C");
+var head = new Node("A");
+head.append("B");
+head.append("C");
 
-assert(node.value == "A");
-assert(node.next.value == "B");
-assert(node.next.next.value == "C");
-assert(node.next.next.next == undefined);
+assert(head.value == "A");
+assert(head.next.value == "B");
+assert(head.next.next.value == "C");
+assert(head.next.next.next == undefined);
 ```
 
 Study the `Node` class and the above usage example until it starts to makes sense.
@@ -220,6 +220,8 @@ Therefore, you can create a chain of nodes.
 
 A chain of nodes is a linked list!
 
-To help students understand linked lists, we visualize them like so:
+### Visualization
 
+To help students understand linked lists, we typically visualize them like so:
 
+<img src="linked-list-01.png">
