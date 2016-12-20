@@ -57,6 +57,29 @@ class DoubleLinkedNode {
             return this.next.removeLast();
         }
     }
+
+    // returns the head of the new list, possibly undefined
+    removeValue(value, head = this) {
+        if (this.value == value) {
+
+            if (this.prev == undefined) {
+                head = this.next;
+            } else {
+                this.prev.next = this.next;
+            }
+
+            if (this.next != undefined) {
+                this.next.prev = this.prev;
+            }
+
+            return head;
+
+        } else if (this.next == undefined) {
+            console.error("Did not find the value");
+        } else {
+            return this.next.removeValue(value, head);
+        }
+    }
 }
 
 
@@ -122,6 +145,31 @@ assert(cValue == "C");
 assert(!cNoMoreNodes);
 assert(!bNoMoreNodes);
 assert(aNoMoreNodes);
+
+// Test for removeValue(...)
+var head = new DoubleLinkedNode("A");
+head.append("B");
+head.append("C");
+
+bNode = head.removeValue("A");
+cNode = bNode.next;
+assert(bNode.prev == undefined);
+assert(bNode.value == "B");
+assert(cNode.prev == bNode);
+assert(cNode.next == undefined);
+assert(cNode.value == "C");
+
+var head = new DoubleLinkedNode("A");
+head.append("B");
+head.append("C");
+
+aNode = head.removeValue("B");
+cNode = aNode.next;
+assert(aNode.prev == undefined);
+assert(aNode.value == "A");
+assert(cNode.prev == aNode);
+assert(cNode.next == undefined);
+assert(cNode.value == "C");
 
 
 
