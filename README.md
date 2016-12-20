@@ -90,7 +90,7 @@ View your JS console to verify that `fibonacci(...)` computes the first 6 Fibona
 Actually, it would be better to *unit test* the `fibonacci(...)` function, rather than viewing results
 on the console.
 
-### Unit Testing
+#### Unit Testing
 
 A *unit test* is a piece of code that tests a single unit of code.
 
