@@ -201,13 +201,14 @@ class Node {
 You use it like this:
 
 ```js
-var list = new Node(1);
-list.append(2);
-list.append(3);
+var node = new Node(1);
+node.append(2);
+node.append(3);
 
-console.log(list.value);
-console.log(list.next.value);
-console.log(list.next.next.value);
+assert(node.value == 1);
+assert(node.next.value == 2);
+assert(node.next.next.value == 3);
+assert(node.next.next.next == undefined);
 ```
 
 Study the `Node` class and the above usage example until it starts to makes sense.
