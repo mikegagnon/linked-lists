@@ -47,6 +47,17 @@ class ListWithTail {
             this.tail = this.tail.next;
         }
     }
+
+    prepend(value) {
+        if (this.head == undefined) {
+            this.head = new Node(value);
+            this.tail = this.head;
+        } else {
+            var newNode = new Node(value);
+            newNode.next = this.head;
+            this.head = newNode;
+        }
+    }
 }
 
 var list = new ListWithTail();
@@ -60,6 +71,15 @@ assert(list.head.next.next.value == "C");
 assert(list.head.next.next.next == undefined);
 assert(list.tail.value == "C");
 
+var list = new ListWithTail();
+list.prepend("A");
+list.prepend("B");
+list.prepend("C");
 
+assert(list.head.value == "C");
+assert(list.head.next.value == "B");
+assert(list.head.next.next.value == "A");
+assert(list.head.next.next.next == undefined);
+assert(list.tail.value == "A");
 
 
