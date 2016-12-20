@@ -189,6 +189,8 @@ class Node {
         this.next = undefined;
     }
 
+    // Appends value to the end of the list.
+    // Does not return anything.
     append(value) {
         if (this.next == undefined) {
             this.next = new Node(value);
@@ -227,97 +229,108 @@ To help students understand linked lists, we typically visualize them like so:
 
 <img src="linked-list-01.png">
 
-### Non-recursive `append(...)`
+### Tips for developing recursive functions
 
-Here's a new method on `Node` that does the exact same thing as `append(...)`, except
-this new method is non-recursive.
+#### Tip 1. Base case and recursive case
+
+Every recursive function has at least one "base case" and at least one
+"recursive case."
+
+The *base case* is the situation when the recursive function is at it's last straw
+and can no longer be recursed. Without a base case, a recursive function
+would become stuck in an infinite loop.
+
+The *recursive case* occurs when it is possible for the function to make
+progress on the problem by recursively calling the function with a subproblem.
+
+This may sound like gibberish now, and that's fine, because we will clarify
+with examples.
 
 ```js
-class Node {
+append(value) {
 
-  ...
+    // base case
+    if (this.next == undefined) {
+        this.next = new Node(value);
+    }
 
-  append2(value) {
-
-      var current = this;
-
-      while (current.next != undefined) {
-          current = current.next;
-      }
-
-      current.next = new Node(value);
-  }
+    // recursive case
+    else {
+        this.next.append(value);
+    }
 }
 ```
 
-Do you see how it works?
+In the `append(...)` function, the base case occurs when we're at the end
+of the list. In this situation, we add a new node to the end of the list.
 
-Here's a graphical representation of what happens:
+The recursive case occurs whenever the problem can be reduced to a subproblem,
+by recursively invoking the function. In the `append(...)` function,
+we simply call `append` on the next node.
 
-<img src="append2.png">
+#### Tip 2. Assume correctness
 
-Essentially, the `current` variable iterates over each node, until it finds a node 
-with `current.next == undefined`, which is the last node.
+Before you begin coding a recursive function, you should document the function.
+Specifically, you should precisely document the input to the function and the
+return-value for the function.
 
-Having found the last node, it sets last-node.next to a `new Node(value)`, thereby
-appending the `value` to the end of the list.
+Then, as you code your function **you must assume your function is correct**
+(according to the documentation)!
+It's kind of like the inductive step in an inductive proof.
 
-## <a name="lec3">Lecture 3. ListWithTail</a>
-
-Notice, each call to `append(...)` and `append2(...)` requires
-execution time that is proportional to the number of nodes in the list.
-
-I.e.: if there are *N* nodes in the list, then `append(...)` and `append2(...)`
-each require execution time that is proportional to *N*.
-
-If *N* is large, say *N* is one billion, then the append functions will
-take a long time.
-
-This slow performance is undesirable.
-
-Here we define a new data structure (and a new append algorithm)
-that requires a *constant* amount of execution time (i.e. a short
-execution time), regardless of how large *N* is.
+Let's look at the `append(...)` function with this in mind:
 
 ```js
-class ListWithTail {
-    constructor(){
-        this.head = undefined;
-        this.tail = undefined;
-    }
-
-    append(value) {
-        if (this.head == undefined) {
-            this.head = new Node(value);
-            this.tail = this.head;
-        } else {
-            this.tail.next = new Node(value);
-            this.tail = this.tail.next;
-        }
-    }
+// Appends value to the end of the list.
+// Does not return anything.
+append(value) {
+  // ?
 }
-
-var list = new ListWithTail();
-list.append("A");
-list.append("B");
-list.append("C");
-
-assert(list.head.value == "A");
-assert(list.head.next.value == "B");
-assert(list.head.next.next.value == "C");
-assert(list.head.next.next.next == undefined);
-assert(list.tail.value == "C");
 ```
 
-We say that `ListWithTail` is a "wrapper" around `Node`.
+So, you must assume that whenever you call `append(value)` the function
+invocation correctly appends the value to the end of the list.
 
-To introduce yet another term, we say that `ListWithTail` encapsulates `Node`.
+```js
 
-Here's how `ListWithTail` works: it keeps track of which node is the first in the list (`this.head`)
-as well as which node is the last in the list (`this.tail`).
+// Appends value to the end of the list.
+// Does not return anything.
+append(value) {
 
-Whenever a new value is appended, it simply creates a new Node and appends it to `this.tail`.
+    // base case
+    if (this.next == undefined) {
+        this.next = new Node(value);
+    }
 
-Then, it updates the `this.tail` variable to point to the new Node.
+    // recursive case
+    else {
+        this.next.append(value);
+    }
+}
+```
 
-Simple, right?
+Since we assume the `append(...)` function works as advertised,
+we can invoke `this.next.append(value)` and be confident that
+our invocation will succeed.
+
+Of course, we may have all sorts of bugs in our function, so our assumption
+may not hold to reality.
+
+Nevertheless, your only hope for implementing the recursive case
+correctly is by assuming the function is correct.
+
+When your function is buggy, fix the bugs so that your assumption becomes
+correct.
+
+
+#### Tip 3. Solve the problem by solving sub problems
+
+A very useful technique for developing recursive functions, is to write
+the function such that it solves the problem by solving sub problems.
+
+For example, say you have a linked list named `head` with 10 nodes.
+
+You call `head.append("A")`.
+
+
+
