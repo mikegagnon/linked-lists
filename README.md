@@ -201,13 +201,13 @@ class Node {
 You use it like this:
 
 ```js
-var node = new Node(1);
-node.append(2);
-node.append(3);
+var node = new Node("A");
+node.append("B");
+node.append("C");
 
-assert(node.value == 1);
-assert(node.next.value == 2);
-assert(node.next.next.value == 3);
+assert(node.value == "A");
+assert(node.next.value == "B");
+assert(node.next.next.value == "C");
 assert(node.next.next.next == undefined);
 ```
 
@@ -218,7 +218,7 @@ A `Node` object is an object that stores a value and may (or may not) link to an
 
 Therefore, you can create a chain of nodes.
 
-A chain of nodes is called a linked list!
+A chain of nodes is a linked list!
 
 To help students understand linked lists, we visualize them like so:
 
