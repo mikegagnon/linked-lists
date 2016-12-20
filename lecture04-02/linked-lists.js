@@ -80,6 +80,21 @@ class DoubleLinkedNode {
             return this.next.removeValue(value, head);
         }
     }
+
+    // returns the smallest value in the list;
+    findSmallest() {
+        if (this.next == undefined) {
+            return this.value;
+        } else {
+            var smallest = this.next.findSmallest();
+
+            if (this.value < smallest) {
+                return this.value;
+            } else {
+                return smallest;
+            }
+        }
+    }
 }
 
 
@@ -171,5 +186,18 @@ assert(cNode.prev == aNode);
 assert(cNode.next == undefined);
 assert(cNode.value == "C");
 
+// Test findSmallest(...)
+var head = new DoubleLinkedNode("1");
+head.append("2");
+head.append("3");
+assert(head.findSmallest() == 1);
 
+var head = new DoubleLinkedNode("2");
+head.append("1");
+head.append("3");
+assert(head.findSmallest() == 1);
 
+var head = new DoubleLinkedNode("2");
+head.append("3");
+head.append("1");
+assert(head.findSmallest() == 1);
