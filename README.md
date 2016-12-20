@@ -17,6 +17,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
 ## Contents
 
 - [Lecture 1. Recursion](#lec1)
+- [Lecture 2. Node](#lec2)
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -32,7 +33,7 @@ The above gibberish will make sense once we start programming recursive data str
 
 ### Fibonacci numbers
 
-The classic introduction to recursion is via "Fibonacci numbers."
+The classic introduction to recursive algorithms is via "Fibonacci numbers."
 
 A Fibonacci number is defined as follows:
 
@@ -173,3 +174,40 @@ Case analysis:
 Therefore, `fibonacci(n + 1)` clearly terminates in all cases.
 
 QED.
+
+## <a name="lec2">Lecture 2. Node</a>
+
+Now that you know recursive algorithms, it's time to learn recursive data structures.
+
+Checkout this data structure:
+
+```js
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = undefined;
+    }
+
+    append(value) {
+        if (this.next == undefined) {
+            this.next = new Node(value);
+        } else {
+            this.next.append(value);
+        }
+    }
+}
+```
+
+You use it like this:
+
+```js
+var list = new Node(1);
+list.append(2);
+list.append(3);
+
+console.log(list.value);
+console.log(list.next.value);
+console.log(list.next.next.value);
+```
+
+Study the `Node` class and the above usage example until it all makes sense.
