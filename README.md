@@ -52,7 +52,7 @@ Fibonacci numbers are recurisve because the *n*th Fibonacci number is defined in
 
 Let's write a JS function that computes the *nth* Fibonacci number.
 
-#### `index.html`
+### `index.html`
 
 ```html
 <!DOCTYPE html>
@@ -64,7 +64,7 @@ Let's write a JS function that computes the *nth* Fibonacci number.
 </html>
 ```
 
-#### `recursion.js`
+### `recursion.js`
 
 ```js
 function fibonacci(n) {
@@ -90,7 +90,7 @@ View your JS console to verify that `fibonacci(...)` computes the first 6 Fibona
 Actually, it would be better to *unit test* the `fibonacci(...)` function, rather than viewing results
 on the console.
 
-#### Unit Testing
+### Unit Testing
 
 A *unit test* is a piece of code that tests a single unit of code.
 
@@ -112,3 +112,5 @@ assert(fibonacci(4) == 3);
 assert(fibonacci(5) == 5);
 assert(fibonacci(6) == 8);
 ```
+
+### Unwinding `fibonacci(...)`
