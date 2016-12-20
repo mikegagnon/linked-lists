@@ -111,6 +111,25 @@ class DoubleLinkedList {
         }
     }
 
+    findSmallest() {
+        if (this.head == undefined) {
+            console.error("Cannot execute removeFirst because the list is empty")
+        } else {
+            
+            var smallest = this.head.value;
+            var current = this.head;
+
+            while (current.next != undefined) {
+                current = current.next;
+                if (current.value < smallest) {
+                    smallest = current.value;
+                }
+            }
+
+            return smallest;
+        }
+    }
+
 }
 
 var list = new DoubleLinkedList();
@@ -264,4 +283,28 @@ assert(list.tail.next == undefined);
 assert(list.tail.prev == aNode);
 
 
+
+
+
+
+
+
+
+var list = new DoubleLinkedList();
+list.append(1);
+list.append(2);
+list.append(3);
+assert(list.findSmallest() == 1);
+
+var list = new DoubleLinkedList();
+list.append(2);
+list.append(1);
+list.append(3);
+assert(list.findSmallest() == 1);
+
+var list = new DoubleLinkedList();
+list.append(2);
+list.append(3);
+list.append(1);
+assert(list.findSmallest() == 1);
 
