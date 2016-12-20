@@ -41,7 +41,25 @@ class DoubleLinkedList {
 
             this.head.prev = newNode;
             this.head = newNode;
-        }    
+        }
+    }
+
+    removeFirst() {
+        if (this.head == undefined) {
+            console.error("Cannot execute removeFirst because the list is empty")
+        } else {
+            var value = this.head.value;
+
+            this.head = this.head.next;
+
+            if (this.head == undefined) {
+                this.tail = undefined;
+            } else {
+                this.head.prev = undefined;
+            }
+
+            return value; 
+        }
     }
 
 }
@@ -83,6 +101,34 @@ assert(bNode.prev == cNode);
 assert(aNode.value == "A");
 assert(aNode.prev == bNode);
 assert(aNode == list.tail);
+
+
+
+
+
+
+var list = new DoubleLinkedList();
+list.append("A");
+list.append("B");
+list.append("C");
+
+var aNode = list.head;
+var bNode = aNode.next;
+var cNode = bNode.next;
+
+assert(list.removeFirst() == "A");
+assert(list.head.value == "B");
+assert(list.head.prev == undefined);
+
+assert(list.removeFirst() == "B");
+assert(list.head.value == "C");
+assert(list.head.prev == undefined);
+
+assert(list.removeFirst() == "C");
+assert(list.head == undefined);
+assert(list.tail == undefined);
+
+
 
 
 
