@@ -210,4 +210,4 @@ console.log(list.next.value);
 console.log(list.next.next.value);
 ```
 
-Study the `Node` class and the above usage example until it all makes sense.
+Study the `Node` class and the above usage example until it starts to makes sense.
