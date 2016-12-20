@@ -220,6 +220,8 @@ Therefore, you can create a chain of nodes.
 
 A chain of nodes is a linked list!
 
-To help students understand linked lists, we visualize them like so:
+### Visualization
+
+To help students understand linked lists, we typically visualize them like so:
 
 <img src="linked-list-01.png">
