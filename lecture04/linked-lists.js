@@ -130,6 +130,28 @@ class DoubleLinkedList {
         }
     }
 
+    sort() {
+
+        if (this.head == undefined) {
+            return;
+        } else {
+
+            var newList = new DoubleLinkedList();
+
+            while(this.head != undefined) {
+
+                var smallest = this.findSmallest();
+                newList.append(smallest);
+                this.removeValue(smallest);
+
+            }
+
+            this.head = newList.head;
+            this.tail = newList.tail;
+        }
+
+    }
+
 }
 
 var list = new DoubleLinkedList();
@@ -308,3 +330,51 @@ list.append(3);
 list.append(1);
 assert(list.findSmallest() == 1);
 
+
+
+
+
+
+var list = new DoubleLinkedList();
+list.append(1);
+list.append(2);
+list.append(3);
+list.sort();
+
+var aNode = list.head;
+var bNode = aNode.next;
+var cNode = bNode.next;
+
+assert(aNode.value == 1);
+assert(bNode.value == 2);
+assert(cNode.value == 3);
+
+
+var list = new DoubleLinkedList();
+list.append(3);
+list.append(2);
+list.append(1);
+list.sort();
+
+var aNode = list.head;
+var bNode = aNode.next;
+var cNode = bNode.next;
+
+assert(aNode.value == 1);
+assert(bNode.value == 2);
+assert(cNode.value == 3);
+
+
+var list = new DoubleLinkedList();
+list.append(2);
+list.append(1);
+list.append(3);
+list.sort();
+
+var aNode = list.head;
+var bNode = aNode.next;
+var cNode = bNode.next;
+
+assert(aNode.value == 1);
+assert(bNode.value == 2);
+assert(cNode.value == 3);
