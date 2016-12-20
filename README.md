@@ -257,3 +257,6 @@ Here's a graphical representation of what happens:
 
 Essentially, the `current` variable iterates over each node, until it finds a node 
 with `current.next == undefined`, which is the last node.
+
+Having found the last node, it sets last-node.next to a `new Node(value)`, thereby
+appending the `value` to the end of the list.
