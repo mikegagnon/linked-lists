@@ -179,7 +179,7 @@ QED.
 
 Now that you know recursive algorithms, it's time to learn recursive data structures.
 
-Checkout this data structure:
+Study the data structure:
 
 ```js
 class Node {
@@ -211,3 +211,5 @@ console.log(list.next.next.value);
 ```
 
 Study the `Node` class and the above usage example until it starts to makes sense.
+Also, add the `Node` class and usage example into `linked-lists.js`.
+
