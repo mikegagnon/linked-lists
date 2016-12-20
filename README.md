@@ -72,3 +72,29 @@ console.log(fibonacci(6));
 ```
 
 View your JS console to verify that `fibonacci(...)` computes the first 6 Fibonacci numbers correctly.
+
+Actually, it would be better to *unit test* the `fibonacci(...)` function, rather than viewing results
+on the console.
+
+### Unit Testing
+
+A *unit test* is a piece of code that tests a single unit of code.
+
+Unit testing is awesome and essential.
+
+Here's a unit test for `fibonacci(...)`:
+
+```js
+function assert(condition) {
+    if (!condition) {
+        console.error("Test failed");
+    }
+}
+
+assert(fibonacci(1) == 1);
+assert(fibonacci(2) == 1);
+assert(fibonacci(3) == 2);
+assert(fibonacci(4) == 3);
+assert(fibonacci(5) == 5);
+assert(fibonacci(6) == 8);
+```
