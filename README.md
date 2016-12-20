@@ -114,3 +114,22 @@ assert(fibonacci(6) == 8);
 ```
 
 ### Unwinding `fibonacci(...)`
+
+Let's trace the code and see what happens when we call `fibonacci(3)`.
+
+- `fibonacci(3)` calls `fibonacci(2)` (*n* - 1)
+  - `fibonacci(2)` returns `1`
+- `fibonacci(3)` calls `fibonacci(1)` (*n* - 2)
+  - `fibonacci(1)` returns `1`
+- `fibonacci(3)` sums the result of `fibonacci(2)` and `fibonacci(2)`, and returns 2 (which is 1 + 1)
+
+Ok.  Now let's trace a call to `fibonacci(4)`
+
+- `fibonacci(4)` calls `fibonacci(3)` (*n* - 1)
+  - The entire call sequence for `fibonacci(3)` executes (see above) and yields 2
+- `fibonacci(4)` calls `fibonacci(2)` (*n* - 2)
+  - `fibonacci(2)` returns `1`
+- `fibonacci(3)` sums the result of `fibonacci(2)` and `fibonacci(2)`, and returns 2 (which is 1 + 1)
+
+Get it?
+
