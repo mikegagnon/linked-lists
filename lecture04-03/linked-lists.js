@@ -98,13 +98,10 @@ class Node {
         }
     }
 
-    /*
-
     // Returns a new linked list, containg all the elements in this linked list,
     // but in sorted order
     sort() {
         if (this.next == undefined) {
-            this.prev = undefined;
             return this;
         } else {
 
@@ -116,7 +113,7 @@ class Node {
             var sortedSublist = sublist.sort();
             return sortedSublist.prepend(smallest);
         }
-    }*/
+    }
 }
 
 
@@ -225,9 +222,9 @@ head.append("3");
 head.append("1");
 assert(head.findSmallest() == 1);
 
-/*
+
 // Test sort()
-var head = new DoubleLinkedNode(1);
+var head = new Node(1);
 head.append(2);
 head.append(3);
 var sorted = head.sort();
@@ -237,15 +234,12 @@ bNode = aNode.next;
 cNode = bNode.next;
 
 assert(aNode.value == 1);
-assert(aNode.prev == undefined);
 assert(bNode.value == 2);
-assert(bNode.prev == aNode);
 assert(cNode.value == 3);
-assert(cNode.prev == bNode);
 assert(cNode.next == undefined);
 
 
-var head = new DoubleLinkedNode(2);
+var head = new Node(2);
 head.append(1);
 head.append(3);
 var sorted = head.sort();
@@ -255,15 +249,12 @@ bNode = aNode.next;
 cNode = bNode.next;
 
 assert(aNode.value == 1);
-assert(aNode.prev == undefined);
 assert(bNode.value == 2);
-assert(bNode.prev == aNode);
 assert(cNode.value == 3);
-assert(cNode.prev == bNode);
 assert(cNode.next == undefined);
 
 
-var head = new DoubleLinkedNode(2);
+var head = new Node(2);
 head.append(3);
 head.append(1);
 var sorted = head.sort();
@@ -273,10 +264,6 @@ bNode = aNode.next;
 cNode = bNode.next;
 
 assert(aNode.value == 1);
-assert(aNode.prev == undefined);
 assert(bNode.value == 2);
-assert(bNode.prev == aNode);
 assert(cNode.value == 3);
-assert(cNode.prev == bNode);
 
-*/
