@@ -225,3 +225,19 @@ A chain of nodes is a linked list!
 To help students understand linked lists, we typically visualize them like so:
 
 <img src="linked-list-01.png">
+
+### <a name="lec2c1">Lecture 2, Challenge 1</a>
+
+Write a new method for `Node` called `append2(...)` which does the exact same
+thing as `append(...)`, except `append2(...)` is not recursive.
+
+- [Hint 1](#lec2c1hint1)
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+### <a name="lec2c1hint1">Lecture 2, Challenge 1, Hint 1</a>
+
+Use a `while` loop
+
+Back to [Challenge 1](#lec2c1).
+
