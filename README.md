@@ -168,7 +168,7 @@ QED.
 
 ## <a name="lec2">Lecture 2. Node append</a>
 
-Study the `Node` class:
+Study the `Node` class, and type it in to `linked-list.js`:
 
 ```js
 class Node {
