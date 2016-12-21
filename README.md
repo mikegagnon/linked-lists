@@ -365,5 +365,10 @@ amount of time to execute.
 
 Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a constant).
 
+### Summary
+
+- `append(...)` is *O(N)* -- slow
+- `prepend(...)` is *O(1)* -- fast
+
 
 
