@@ -207,12 +207,12 @@ To help make sense of linked lists, we visualize them like so:
 
 <img src="linked-list-01.png">
 
-## <a name="lec3">Tips for developing recursive functions</a>
+## <a name="lec3">Lecture 3. Tips for developing recursive functions</a>
 
 This lecture may sound like gibberish now.
 
 That's fine because we will concretely explore
-how these tips apply to many examples throughout this mini course.
+how these tips apply to many recursive functions throughout this mini course.
 
 ### Tip 1. Base case and recursive case
 
