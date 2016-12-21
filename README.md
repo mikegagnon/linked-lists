@@ -38,10 +38,8 @@ A Fibonacci number is defined as follows:
 - The *n*th Fibonacci number is the sum of
   - the (*n*th - 1) Fibonacci number and
   - the (*n*th - 2) Fibonacci number
-  
-Therefore the third Fibonacci number (where *n* == 3) equals the second Fibonacci number (*n* == 2) plus the first Fibonacci number (*n* == 1), which equals 1 + 1 = 2.
  
-To clarify futher, here is the series of Fibonacci numbers:
+Here is the series of the first few Fibonacci numbers:
  
  1, 1, 2, 3, 5, 8, 13, 21, 34, ...
  
