@@ -13,7 +13,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
 
 - [Lecture 1. Recursion](#lec1)
 - [Lecture 2. Node append](#lec2)
-- [Lecture 3. ListWithTail](#lec3)
+- [Lecture 3. Tips for developing recursive functions](#lec3)
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -209,22 +209,17 @@ To help make sense of linked lists, we visualize them like so:
 
 <img src="linked-list-01.png">
 
-### Tips for developing recursive functions
+## <a name="lec3">Tips for developing recursive functions</a>
 
-#### Tip 1. Base case and recursive case
+This lecture may sound like gibberish now.
+
+That's fine because we will concretely explore
+how these tips apply to many examples throughout this mini course.
+
+### Tip 1. Base case and recursive case
 
 Every recursive function has at least one "base case" and at least one
 "recursive case."
-
-The *base case* is the situation when the recursive function is at it's last straw
-and can no longer be recursed. Without a base case, a recursive function
-would become stuck in an infinite loop.
-
-The *recursive case* occurs when it is possible for the function to make
-progress on the problem by recursively calling the function with a subproblem.
-
-This may sound like gibberish now, and that's fine, because we will clarify
-with examples.
 
 ```js
 append(value) {
@@ -241,14 +236,18 @@ append(value) {
 }
 ```
 
-In the `append(...)` function, the base case occurs when we're at the end
-of the list. In this situation, we add a new node to the end of the list.
+#### Base case
 
-The recursive case occurs whenever the problem can be reduced to a subproblem,
-by recursively invoking the function. In the `append(...)` function,
-we simply call `append` on the next node.
+The *base case* is the situation when the recursive function is at it's last straw
+and can no longer be recursed. Without a base case, a recursive function
+would become stuck in an infinite loop.
 
-#### Tip 2. Assume correctness
+#### Recursive case
+
+The *recursive case* occurs when it is possible for the function to make
+progress on the problem by recursively calling the function with a subproblem.
+
+### Tip 2. Assume correctness
 
 Before you begin coding a recursive function, you should document the function.
 Specifically, you should precisely document the input to the function and the
@@ -257,6 +256,26 @@ return-value for the function.
 Then, as you code your function **you must assume your function is correct**
 (according to the documentation)!
 It's kind of like the inductive step in an inductive proof.
+
+### Tip 3. Solve the problem by solving sub problems
+
+A very useful technique for developing recursive functions, is to write
+the function such that it solves the problem by solving sub problems.
+
+For example, say you have a linked list named `head` with 10 nodes.
+
+You call `head.append("A")`.
+
+
+
+### Applying these tips for the `append(...)` function
+
+In the `append(...)` function, the base case occurs when we're at the end
+of the list. In this situation, we add a new node to the end of the list.
+
+The recursive case occurs whenever the problem can be reduced to a subproblem,
+by recursively invoking the function. In the `append(...)` function,
+we simply call `append` on the next node.
 
 Let's look at the `append(...)` function with this in mind:
 
@@ -301,16 +320,3 @@ correctly is by assuming the function is correct.
 
 When your function is buggy, fix the bugs so that your assumption becomes
 correct.
-
-
-#### Tip 3. Solve the problem by solving sub problems
-
-A very useful technique for developing recursive functions, is to write
-the function such that it solves the problem by solving sub problems.
-
-For example, say you have a linked list named `head` with 10 nodes.
-
-You call `head.append("A")`.
-
-
-
