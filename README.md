@@ -46,12 +46,12 @@ Let's write a JS function that computes the *nth* Fibonacci number.
 <html>
   <head>
     <title>Linked Lists</title>
-    <script src="recursion.js"></script>
+    <script src="linked-lists.js"></script>
   </head>
 </html>
 ```
 
-### `recursion.js`
+### `linked-lists.js`
 
 ```js
 function fibonacci(n) {
@@ -159,9 +159,7 @@ QED.
 
 ## <a name="lec2">Lecture 2. Node append</a>
 
-Now that you know recursive algorithms, it's time to learn recursive data structures.
-
-Study the data structure:
+Study the `Node` class:
 
 ```js
 class Node {
@@ -195,8 +193,9 @@ assert(head.next.next.value == "C");
 assert(head.next.next.next == undefined);
 ```
 
-Study the `Node` class and the above usage example until it starts to makes sense.
-Also, add the `Node` class and usage example into `linked-lists.js`.
+Add the `Node` class and usage example into `linked-lists.js`.
+
+### How the `Node` class operates
 
 A `Node` object is an object that stores a value and may (or may not) link to another `Node` object.
 
@@ -206,7 +205,7 @@ A chain of nodes is a linked list!
 
 ### Visualization
 
-To help students understand linked lists, we typically visualize them like so:
+To help make sense of linked lists, we visualize them like so:
 
 <img src="linked-list-01.png">
 
