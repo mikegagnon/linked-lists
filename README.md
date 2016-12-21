@@ -12,8 +12,17 @@ Familiarity with JS, particularily object-oriented programming in JS.
 ## Contents
 
 - [Lecture 1. Recursion](#lec1)
+ - Fibonacci numbers
+ - Unit Testing
+ - Unwinding `fibonacci(...)`
+ - Proof that `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
 - [Lecture 2. Node append](#lec2)
+ - Linked Lists
+ - Visualization
 - [Lecture 3. Tips for developing recursive functions](#lec3)
+ - Tip 1. Base case and recursive case
+ - Tip 2. Assume correctness
+ - Tip 3. Make progress every step of the way
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -122,7 +131,7 @@ Get it?
 
 ### Proof that `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
 
-This section is optional and silly. I present it just in case you enjoy elementary proofs using mathematical induction.
+This section is optional. I present it just in case you enjoy proofs using mathematical induction.
 
 Recall, a proof via [strong induction](https://en.wikipedia.org/wiki/Mathematical_induction)
 works as follows:
