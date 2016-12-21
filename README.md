@@ -253,8 +253,16 @@ Before you begin coding a recursive function, you should document the function.
 Specifically, you should precisely document the input to the function and the
 return-value for the function.
 
-Then, as you code your function **you must assume your function is correct**
-(according to the documentation)!
+```js
+// Appends value to the end of the list.
+// Does not return anything.
+append(value) {
+  // ?
+}
+```
+
+Then, as you code your function **you must assume your function invocation always works exactly as advertised**
+(according to the documentation).
 It's kind of like the inductive step in an inductive proof.
 
 ### Tip 3. Solve the problem by solving sub problems
