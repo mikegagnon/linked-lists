@@ -35,17 +35,6 @@ class Node {
             this.next.append(value);
         }
     }
-
-    append2(value) {
-
-        var current = this;
-
-        while (current.next != undefined) {
-            current = current.next;
-        }
-
-        current.next = new Node(value);
-    }
 }
 
 // Test append(...)
@@ -57,16 +46,3 @@ assert(head.value == "A");
 assert(head.next.value == "B");
 assert(head.next.next.value == "C");
 assert(head.next.next.next == undefined);
-
-// Test append2(...)
-var head = new Node("A");
-head.append2("B");
-head.append2("C");
-
-assert(head.value == "A");
-assert(head.next.value == "B");
-assert(head.next.next.value == "C");
-assert(head.next.next.next == undefined);
-
-
-
