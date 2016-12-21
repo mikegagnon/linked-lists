@@ -23,6 +23,10 @@ Familiarity with JS, particularily object-oriented programming in JS.
  - Tip 1. Base case and recursive case
  - Tip 2. Assume correctness
  - Tip 3. Make progress every step of the way
+- [Lecture 4. Prepend](#lec4)
+ - Analyzing the performance of `append(...)`
+ - Analyzing the performance of `prepend(...)`
+ - Summary
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -248,7 +252,7 @@ append(value) {
 The *base case* is the case that does not invoke recursion.
 Write the base case before you write the recursive case.
 
-#### Recursive case
+r#### Recursive case
 
 For a function `f(...)`, the recursive case is the case that invokes `f(...)` recursively.
 
@@ -303,4 +307,71 @@ append(value) {
     }
 }
 ```
+
+## <a name="lec4">Lecture 4. Prepend</a>
+
+Study the `prepend` method and its tests. Type in `prepend` intp `linked-lists.js`.
+
+```js
+class Node {
+
+   ...
+
+   prepend(value) {
+     var newNode = new Node(value);
+
+     newNode.next = this;
+
+     return newNode;
+   }
+}
+
+// Test prepend(...)
+var head = new Node("A");
+head = head.prepend("B");
+head = head.prepend("C");
+
+var cNode = head;
+var bNode = cNode.next;
+var aNode = bNode.next;
+
+assert(aNode.value == "A");
+assert(bNode.value == "B");
+assert(cNode.value == "C");
+assert(aNode.next == undefined);
+```
+
+Which is more efficient: `append(...)` or `prepend(...)`?
+
+### Analyzing the performance of `append(...)`
+
+It should be clear that the amount of time it takes 
+to execute `append(...)` is proportional to the size of the linked list.
+
+For example, if a linked list has 1 billion nodes, then it will
+take a long time to execute `append(...)`.
+
+In computer science terminology and notation, we
+say the time performance of `append(...)` is *O(N)*, where *N* is the size of the list.
+
+This is called "Big Oh" notation. In a college-level algorithms course, you would
+learn the formal mathematical definition of Big O and Big O analysis. In this
+mini course, however, we satisfy ourselves with an informal, rough understanding of Big O.
+
+### Analyzing the performance of `prepend(...)`
+
+If should be clear that the amount of time it takes to 
+execute `prepend(...)` is independent of the size of the linked list.
+
+To be more precise, `prepend(...)` takes a constant (i.e. non variable)
+amount of time to execute.
+
+Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a constant).
+
+### Summary
+
+- `append(...)` is *O(N)* -- slow
+- `prepend(...)` is *O(1)* -- fast
+
+
 
