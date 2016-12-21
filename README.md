@@ -21,33 +21,23 @@ Familiarity with JS, particularily object-oriented programming in JS.
 
 A linked list is a "recursive" data structure, and uses "recursive" algorithms.
 
-Recursion essentially means self referential.
+Recursive simply means self referential.
 
-So, a recursive data structure refers to itself, and a recursive algorithm refers to itself.
-
-The above gibberish will make sense once we start programming recursive data structures and algorithms.
+Rather than elucidating further in English, we'll just dive into the classic example.
 
 ### Fibonacci numbers
 
-The classic introduction to recursive algorithms is via "Fibonacci numbers."
+The classic introduction to recursion is via "Fibonacci numbers."
 
-A Fibonacci number is defined as follows:
+Here are the first 9 Fibonacci numbers:
+ 
+1, 1, 2, 3, 5, 8, 13, 21, 34, ...
+ 
+Do you see the pattern?
+ 
+The pattern is this: every Fibonacci number equals the sum of the previous two Fibonacci numbers.
 
-- The first Fibonacci number is 1
-- The second Fibonacci number is 1
-- The *n*th Fibonacci number is the sum of
-  - the (*n*th - 1) Fibonacci number and
-  - the (*n*th - 2) Fibonacci number
- 
-Here is the series of the first few Fibonacci numbers:
- 
- 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
- 
-See the pattern? Get it?
- 
-I assume you get it.
-
-Fibonacci numbers are recurisve because the *n*th Fibonacci number is defined in terms of other Fibonacci numbers.
+Except for the first two Fibonacci numbers -- the "base cases." By fiat, they are defined to be equal to 1.
 
 Let's write a JS function that computes the *nth* Fibonacci number.
 
