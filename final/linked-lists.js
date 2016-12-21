@@ -33,11 +33,7 @@ class Node {
     // returns [v, head] where v is the value that was removed, and head
     // is the new head pointer (possibly undefined).
     removeFirst() {
-        if (this.next == undefined) {
-            return [this.value, undefined];
-        } else {
-            return [this.value, this.next];
-        }
+        return [this.value, this.next];
     }
 
     // returns [v, newHead] where v is the value that was removed, and
