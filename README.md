@@ -414,6 +414,82 @@ assert(undef == undefined);
 
 ## <a name="lec6">Lecture 6. `removeLast(...)`</a>
 
+Let's walk through the steps of defining a `removeLast(...)` method.
+
+### First, define the method's semantics in a comment
+
+```js
+class Node {
+ 
+    ...
+
+    // returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined)
+    removeLast() {
+        // ?
+    }
+}
+```
+
+### Second, define the base case
+
+The base case is when `this` is a reference to the last object.
+
+```js
+class Node {
+ 
+    ...
+
+    // returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined)
+    removeLast() {
+    
+        // base case
+        if (this.next == undefined) {
+            // say "prev" is the node previous to this node
+            // prev.next = undefined
+            // return [this.value, prev]
+        }
+        
+        // recursive case
+        else {
+            // ?
+        }
+    }
+}
+```
+
+Unfortunately, it isn't possible to implement the base case (as is) because
+we do not have access to "prev" --- the node previous to `this` node.
+
+So, we modify the base case to be the second-to-last node:
+
+```js
+class Node {
+ 
+    ...
+
+    // returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined)
+    removeLast() {
+    
+        // base case: when this is the second-to-last node
+        if (this.next.next == undefined) {
+            var value = this.next.value;
+            this.next = undefined;
+            return [value, this];
+        }
+        
+        // recursive case
+        else {
+            // ?
+        }
+    }
+}
+```
+
+
+
 Study the `removeLast` method and its tests. Type in `removeLast` and its tests into `linked-lists.js`.
 
 ```js
