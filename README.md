@@ -5,11 +5,6 @@ A "linked list" is a data structure that stores a list of values.
 
 It's kind of like an array, except list operations have different performance characteristics compared to arrays.
 
-For example:
-
-- In an array, it is quick to retrieve the *n*th element
-- In a linked list, it is relatively slow to retrive the *n*th element 
-
 ## Prerequisites
 
 Familiarity with JS, particularily object-oriented programming in JS. 
