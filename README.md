@@ -24,6 +24,9 @@ Familiarity with JS, particularily object-oriented programming in JS.
  - Tip 2. Assume correctness
  - Tip 3. Make progress every step of the way
 - [Lecture 4. Prepend](#lec4)
+ - Analyzing the performance of `append(...)`
+ - Analyzing the performance of `prepend(...)`
+ - Summary
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -338,7 +341,7 @@ assert(cNode.value == "C");
 assert(aNode.next == undefined);
 ```
 
-Which is more effecient: `append(...)` or `prepend(...)`?
+Which is more efficient: `append(...)` or `prepend(...)`?
 
 ### Analyzing the performance of `append(...)`
 
