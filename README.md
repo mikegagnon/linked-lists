@@ -311,7 +311,7 @@ append(value) {
 
 ## <a name="lec4">Lecture 4. `prepend(...)`</a>
 
-Study the `prepend` method and its tests. Type in `prepend` intp `linked-lists.js`.
+Study the `prepend` method and its tests. Type in `prepend` and its tests into `linked-lists.js`.
 
 ```js
 class Node {
@@ -375,3 +375,42 @@ Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a
 - `prepend(...)` is *O(1)* -- fast
 
 ## <a name="lec5">Lecture 5. `removeFirst(...)`</a>
+
+Study the `removeFirst` method and its tests. Type in `removeFirst` and its tests into `linked-lists.js`.
+
+```js
+class Node {
+ 
+    ...
+
+    // returns [v, head] where v is the value that was removed, and head
+    // is the new head pointer (possibly undefined).
+    removeFirst() {
+        if (this.next == undefined) {
+            return [this.value, undefined];
+        } else {
+            return [this.value, this.next];
+        }
+    }
+}
+
+// Test removeFirst(...)
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+var [aValue, bNode] = head.removeFirst();
+var [bValue, cNode] = bNode.removeFirst();
+var [cValue, undef] = cNode.removeFirst();
+
+assert(aValue == "A");
+assert(bValue == "B");
+assert(cValue == "C");
+
+assert(bNode.value == "B");
+assert(cNode.value == "C");
+assert(undef == undefined);
+
+```
+
+`removeFirst(...)` is *O(1)*
