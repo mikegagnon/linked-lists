@@ -16,17 +16,18 @@ Familiarity with JS, particularily object-oriented programming in JS.
  - Unit Testing
  - Unwinding `fibonacci(...)`
  - Proof that `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
-- [Lecture 2. Node append](#lec2)
+- [Lecture 2. Node `append(...)`](#lec2)
  - Linked Lists
  - Visualization
 - [Lecture 3. Tips for developing recursive functions](#lec3)
  - Tip 1. Base case and recursive case
  - Tip 2. Assume correctness
  - Tip 3. Make progress every step of the way
-- [Lecture 4. Prepend](#lec4)
+- [Lecture 4. `prepend(...)`](#lec4)
  - Analyzing the performance of `append(...)`
  - Analyzing the performance of `prepend(...)`
  - Summary
+- [Lecture 5. `removeFirst(...)`] (#lec5)
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -170,7 +171,7 @@ Therefore, `fibonacci(n + 1)` clearly terminates in all cases.
 
 QED.
 
-## <a name="lec2">Lecture 2. Node append</a>
+## <a name="lec2">Lecture 2. Node `append(...)`</a>
 
 Study the `Node` class, and type it in to `linked-lists.js`:
 
@@ -308,7 +309,7 @@ append(value) {
 }
 ```
 
-## <a name="lec4">Lecture 4. Prepend</a>
+## <a name="lec4">Lecture 4. `prepend(...)`</a>
 
 Study the `prepend` method and its tests. Type in `prepend` intp `linked-lists.js`.
 
@@ -373,5 +374,4 @@ Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a
 - `append(...)` is *O(N)* -- slow
 - `prepend(...)` is *O(1)* -- fast
 
-
-
+## <a name="lec5">Lecture 5. `removeFirst(...)`</a>
