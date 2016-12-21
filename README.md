@@ -236,14 +236,12 @@ append(value) {
 
 #### Base case
 
-The *base case* is the situation when the recursive function is at it's last straw
-and can no longer be recursed. Without a base case, a recursive function
-would become stuck in an infinite loop.
+The *base case* is the case that does not invoke recursion.
+Write the base case before you write the recursive case.
 
 #### Recursive case
 
-The *recursive case* occurs when it is possible for the function to make
-progress on the problem by recursively calling the function with a subproblem.
+For a function `f(...)`, the recursive case is the case that invokes `f(...)` recursively.
 
 ### Tip 2. Assume correctness
 
@@ -263,16 +261,18 @@ Then, as you code your function **you must assume your function invocation alway
 (according to the documentation).
 It's kind of like the inductive step in an inductive proof.
 
-### Tip 3. Solve the problem by solving sub problems
+### Tip 3. Make progress every step of the way
 
-A very useful technique for developing recursive functions, is to write
-the function such that it solves the problem by solving sub problems.
+For a recursive function `f(X)`, the recursive case must call `f(...)`.
 
-For example, say you have a linked list named `head` with 10 nodes.
+However, it must not call `f(X)`, because that would lead to an infinite loop.
 
-You call `head.append("A")`.
+Rather, each recursive case must make some progress.
 
+For example:
 
+- For `f(n)`, then the recursive case might call `f(n - 1)`
+- For `f(node)`, then the recursive case might call `f(node.next)`
 
 ### Applying these tips for the `append(...)` function
 
