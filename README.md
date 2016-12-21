@@ -263,16 +263,37 @@ It's kind of like the inductive step in an inductive proof.
 
 ### Tip 3. Make progress every step of the way
 
-For a recursive function `f(X)`, the recursive case must call `f(...)`.
+For a recursive function `f(X)`, the recursive case must invoke `f(...)`.
 
-However, it must not call `f(X)`, because that would lead to an infinite loop.
+However, it must not invoke `f(X)`, because that would lead to an infinite loop.
 
 Rather, each recursive case must make some progress.
 
-For example:
+For instance:
 
-- For `f(n)`, then the recursive case might call `f(n - 1)`
-- For `f(node)`, then the recursive case might call `f(node.next)`
+- For `f(n)`, the recursive case might call `f(n - 1)`
+- For `f(node)`, the recursive case might call `f(node.next)`
+
+In the `append(...)` example below, the recurisve case makes
+progress by invoking `append` on `this.next`. 
+
+```js
+
+// Appends value to the end of the list.
+// Does not return anything.
+append(value) {
+
+    // base case
+    if (this.next == undefined) {
+        this.next = new Node(value);
+    }
+
+    // recursive case
+    else {
+        this.next.append(value);
+    }
+}
+```
 
 ### Applying these tips for the `append(...)` function
 
