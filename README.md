@@ -28,6 +28,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
  - Analyzing the performance of `prepend(...)`
  - Summary
 - [Lecture 5. `removeFirst(...)`] (#lec5)
+- [Lecture 6. `removeLast(...)`] (#lec6)
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -414,3 +415,50 @@ assert(undef == undefined);
 ```
 
 `removeFirst(...)` is *O(1)*
+
+## <a name="lec6">Lecture 6. `removeLast(...)`</a>
+
+Study the `removeLast` method and its tests. Type in `removeLast` and its tests into `linked-lists.js`.
+
+```js
+class Node {
+ 
+    ...
+
+    // returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined)
+    removeLast(prev = undefined) {
+        if (this.next == undefined) {
+
+            if (prev != undefined) {
+                prev.next = undefined;
+            }
+
+            return [this.value, undefined];
+
+        } else {
+            var [last, newHead] = this.next.removeLast(this);
+            return [last, this];
+        }
+    }
+}
+
+// Test removeLast(...)
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+var [cValue, cHead] = head.removeLast();
+var [bValue, bHead] = cHead.removeLast();
+var [aValue, aHead] = bHead.removeLast();
+
+assert(aValue == "A");
+assert(bValue == "B");
+assert(cValue == "C");
+
+assert(cHead.value == "A");
+assert(bHead.value == "A");
+assert(aHead == undefined);
+```
+
+`removeLast(...)` is *O(N)*
