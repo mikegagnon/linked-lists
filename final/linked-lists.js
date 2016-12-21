@@ -38,18 +38,16 @@ class Node {
 
     // returns [v, newHead] where v is the value that was removed, and
     // newHead is the new head of the list (possibly undefined)
-    removeLast(prev = undefined) {
+    removeLast() {
         if (this.next == undefined) {
-
-            if (prev != undefined) {
-                prev.next = undefined;
-            }
-
             return [this.value, undefined];
-
+        } else if (this.next.next == undefined) {
+            var value = this.next.value;
+            this.next = undefined;
+            return [value, this];
         } else {
-            var [last, newHead] = this.next.removeLast(this);
-            return [last, this];
+            var [value, _] = this.next.removeLast(this);
+            return [value, this];
         }
     }
 
