@@ -195,13 +195,11 @@ assert(head.next.next.next == undefined);
 
 Add the `Node` class and usage example into `linked-lists.js`.
 
-### How the `Node` class operates
+### Linked Lists
 
-A `Node` object is an object that stores a value and may (or may not) link to another `Node` object.
+Node objects link together via the *next* field.
 
-Therefore, you can create a chain of nodes.
-
-A chain of nodes is a linked list!
+A chain of nodes is called a linked list.
 
 ### Visualization
 
