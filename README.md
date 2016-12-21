@@ -3,7 +3,7 @@ This document provides a mini course in linked lists in JavaScript.
 
 A "linked list" is a data structure that stores a list of values.
 
-It's kind of like an array, except list operations have different performance characteristics compared to arrays.
+Linked lists are like arrays, except they have different performance characteristics.
 
 ## Prerequisites
 
