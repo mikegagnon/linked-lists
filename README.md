@@ -307,7 +307,7 @@ append(value) {
 
 ## <a name="lec4">Lecture 4. Prepend</a>
 
-Study the `prepend` method and its tests. Observe, its not recursive. Type in `prepend` intp `linked-lists.js`.
+Study the `prepend` method and its tests. Type in `prepend` intp `linked-lists.js`.
 
 ```js
 class Node {
@@ -337,5 +337,33 @@ assert(bNode.value == "B");
 assert(cNode.value == "C");
 assert(aNode.next == undefined);
 ```
+
+Which is more effecient: `append(...)` or `prepend(...)`?
+
+### Analyzing the performance of `append(...)`
+
+It should be clear that the amount of time it takes 
+to execute `append(...)` is proportional to the size of the linked list.
+
+For example, if a linked list has 1 billion nodes, then it will
+take a long time to execute `append(...)`.
+
+In computer science terminology and notation, we
+say the time performance of `append(...)` is *O(N)*, where *N* is the size of the list.
+
+This is called "Big Oh" notation. In a college-level algorithms course, you would
+learn the formal mathematical definition of Big O and Big O analysis. In this
+mini course, however, we satisfy ourselves with an informal, rough understanding of Big O.
+
+### Analyzing the performance of `prepend(...)`
+
+If should be clear that the amount of time it takes to 
+execute `prepend(...)` is independent of the size of the linked list.
+
+To be more precise, `prepend(...)` takes a constant (i.e. non variable)
+amount of time to execute.
+
+Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a constant).
+
 
 
