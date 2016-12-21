@@ -23,11 +23,9 @@ A linked list is a "recursive" data structure, and uses "recursive" algorithms.
 
 Recursive simply means self referential.
 
-Rather than elucidating further in English, we'll just dive into the classic example.
+Rather than elucidating further in English, we'll just dive into the classic example: Fibonacci numbers.
 
 ### Fibonacci numbers
-
-The classic introduction to recursion is via "Fibonacci numbers."
 
 Here are the first 9 Fibonacci numbers:
  
