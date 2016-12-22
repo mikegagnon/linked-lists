@@ -444,7 +444,7 @@ class Node {
     // newHead is the new head of the list (possibly undefined)
     removeLast() {
     
-        // base case
+        // base case: if this is the last node
         if (this.next == undefined) {
             // say "prev" is the node previous to this node
             // prev.next = undefined
@@ -488,7 +488,39 @@ class Node {
 }
 ```
 
+But now we have a problem: what happens if we call removeLast() on a node that has exactly one node?
+`this.next == undefined` so therefore `this.next.next` will crash the function.
 
+We handle this situation by adding another base case: the case wherre there is exactly one node in the list:
+
+```js
+class Node {
+ 
+    ...
+
+    // returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined)
+    removeLast() {
+    
+        // base case: when this is the last node
+        if (this.next == undefined) {
+            return [this.value, undefined];
+        }
+        
+        // base case: when this is the second-to-last node
+        if (this.next.next == undefined) {
+            var value = this.next.value;
+            this.next = undefined;
+            return [value, this];
+        }
+        
+        // recursive case
+        else {
+            // ?
+        }
+    }
+}
+```
 
 Study the `removeLast` method and its tests. Type in `removeLast` and its tests into `linked-lists.js`.
 
