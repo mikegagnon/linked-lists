@@ -23,6 +23,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
  - Tip 1. Base case and recursive case
  - Tip 2. Assume correctness
  - Tip 3. Make progress every step of the way
+ - Tip 4: Carefully analyze corner cases
 - [Lecture 4. `prepend(...)`](#lec4)
  - Analyzing the performance of `append(...)`
  - Analyzing the performance of `prepend(...)`
@@ -309,6 +310,72 @@ append(value) {
     }
 }
 ```
+
+### Tip 4: Carefully analyze corner cases
+
+In a linked list the corner cases that tend to arise are:
+
+1. `this` == first node
+2. `this` == last node
+3. `this` == first node and `this` == last node
+4. `this` != first node and `this` != last node
+
+Make sure your recursive function works for all corner cases.
+
+#### Example
+
+Let's revist the `append(...)` function:
+
+```js
+
+// Appends value to the end of the list.
+// Does not return anything.
+append(value) {
+
+    // base case
+    if (this.next == undefined) {
+        this.next = new Node(value);
+    }
+
+    // recursive case
+    else {
+        this.next.append(value);
+    }
+}
+```
+
+Analyzing the corner cases for `append(...)`:
+
+##### 1. What if `this` == the first node?
+
+In this case, it could either be the base case or the recursive case,
+so we need to make sure `append(...)` works for both of these
+cases when `this` == the first node.
+
+Analyze the code:
+
+If `this` == the first node, the base case will work just fine.
+
+If `this` == the first node, the recursive case will work just fine.
+
+##### 2. What if `this` == the last node?
+
+If `this` == the last node, then `this.next` == undefined
+(because that's how linked lists signify the end of the list).
+
+Therefore, the base case will execute.
+
+And the base case executes the desired behavior for the `append(...)` function.
+
+##### 3. `this` == first node and `this` == last node
+
+Just like Case 2 (immediately above), the base case executes the desired behavior for the `append(...)` function.
+
+##### 4. `this` != first node and `this` != last node
+
+Since this is not the last node, then `this.next` will be defined, so we only
+need to look at the recursive case. The recursive case looks correct in this case.
+
 
 ## <a name="lec4">Lecture 4. `prepend(...)`</a>
 
