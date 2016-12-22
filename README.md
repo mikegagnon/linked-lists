@@ -488,10 +488,10 @@ class Node {
 }
 ```
 
-But now we have a problem: what happens if we call removeLast() on a node that has exactly one node?
+But now we have a problem: what happens if we call `removeLast()` on a list that has exactly one node?
 `this.next == undefined` so therefore `this.next.next` will crash the function.
 
-We handle this situation by adding another base case: the case wherre there is exactly one node in the list:
+We handle this situation by adding another base case: the case where there is exactly one node in the list:
 
 ```js
 class Node {
