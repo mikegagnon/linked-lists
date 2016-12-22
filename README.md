@@ -811,7 +811,7 @@ class Node {
     // removes the node from the list that contains value
     // returns the head of the new list, possibly undefined
     // it is an error if the list does not contain the value
-    removeValue(value, prev = undefined, head = this) {
+    removeValue(value, prev, head) {
 
         // Base case 1: found value
         if (this.value == value) {
@@ -912,7 +912,7 @@ class Node {
     // removes the node from the list that contains value
     // returns the head of the new list, possibly undefined
     // it is an error if the list does not contain the value
-    removeValue(value, prev = undefined, head = this) {
+    removeValue(value, prev, head) {
 
         // Base case 1: found value
         if (this.value == value) {
@@ -984,3 +984,73 @@ assert(head.value == 2);
 assert(head.next.value == 3);
 assert(head.next.next == undefined);
 ```
+
+### Improvement #1
+
+We make two improvements to our `removeValue(...)` function. First, we simplify the code based upon several observations:
+
+Take a look at Case (A) and Case (B):
+
+```js
+// Case (A) `this` == first node AND `this` == last node
+if (this == head && this.next == undefined) {
+    return undefined;
+}
+
+// Case (B) `this` == first node AND `this` != last node
+else if (this == head && this.next != undefined) {
+    return this.next;
+}
+```
+
+Notice that both of those cases return the same value!
+
+In Case (A), we know that `this.next == undefined` and it returns `undefined`.
+In other words, Case (A) simply returns `this.next`.
+
+Case (B), returns `this.next`.
+
+Therefore, we know we can merge Case (A) with Case (B) since they both
+return `this.next`.
+
+By analyzing the conditionals for Case (A) and Case (B), we see that we
+can merge thoses two cases into a single case as so:
+
+```js
+if (head == this) {
+    return this.next;
+}
+```
+            
+### Improvement #2
+
+In JavaScript you can include default values for functions:
+
+```js
+function foo(x, y = 2, z = 3) {
+   return x + y + z;
+}
+
+assert(foo(1) == 6);
+assert(foo(1, 0) == 4);
+assert(foo(100, 0, 1) == 101);
+```
+
+Get it?
+
+Therefore, we can improve `removeValue(...)` by providing default
+values for the `prev` and `head` parameters.
+
+This way, you can invoke `removeValue(...)` as:
+
+```js
+head.removeValue(5);
+```
+
+Instead of the more cumbersome:
+
+```js
+head.removeValue(5, undefined, head);
+```
+
+Our final imp
