@@ -58,14 +58,11 @@ class Node {
 
         if (this.value == value) {
             
-            if (prev != undefined) {
-                prev.next = this.next;
-            }
-
-            if (this.next == undefined) {
-                return prev;
-            } else {
+            if (prev == undefined) {
                 return this.next;
+            } else {
+                prev.next = this.next;
+                return prev;
             }
 
         } else if (this.next == undefined) {
