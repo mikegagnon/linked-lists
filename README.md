@@ -711,3 +711,9 @@ class Node {
     }
 }
 ```
+
+Base case 2 is trivial.
+
+Base case 1 is more challenging.
+
+Let's analyze the corner cases ([Lecture 3, Tip 4](#lec3))for Base case 1.
