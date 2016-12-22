@@ -69,7 +69,7 @@ class Node {
             console.error("The list did not contain the value we're looking for");
         } else {
             this.next.removeValue(value, this);
-            return this
+            return this;
         }
     }
 
@@ -196,6 +196,15 @@ assert(aNode.value == "A");
 assert(cNode.next == undefined);
 assert(cNode.value == "C");
 
+var head = new Node(2);
+head.append(3);
+head.append(1);
+
+var newHead = head.removeValue(1);
+assert(newHead == head);
+assert(head.value == 2);
+assert(head.next.value == 3);
+assert(head.next.next == undefined);
 
 // Test findSmallest(...)
 var head = new Node("1");
