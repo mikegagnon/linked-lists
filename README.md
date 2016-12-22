@@ -16,17 +16,19 @@ Familiarity with JS, particularily object-oriented programming in JS.
  - Unit Testing
  - Unwinding `fibonacci(...)`
  - Proof that `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
-- [Lecture 2. Node append](#lec2)
+- [Lecture 2. Node `append(...)`](#lec2)
  - Linked Lists
  - Visualization
 - [Lecture 3. Tips for developing recursive functions](#lec3)
  - Tip 1. Base case and recursive case
  - Tip 2. Assume correctness
  - Tip 3. Make progress every step of the way
-- [Lecture 4. Prepend](#lec4)
+- [Lecture 4. `prepend(...)`](#lec4)
  - Analyzing the performance of `append(...)`
  - Analyzing the performance of `prepend(...)`
  - Summary
+- [Lecture 5. `removeFirst(...)`] (#lec5)
+- [Lecture 6. `removeLast(...)`] (#lec6)
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -170,7 +172,7 @@ Therefore, `fibonacci(n + 1)` clearly terminates in all cases.
 
 QED.
 
-## <a name="lec2">Lecture 2. Node append</a>
+## <a name="lec2">Lecture 2. Node `append(...)`</a>
 
 Study the `Node` class, and type it in to `linked-lists.js`:
 
@@ -308,9 +310,9 @@ append(value) {
 }
 ```
 
-## <a name="lec4">Lecture 4. Prepend</a>
+## <a name="lec4">Lecture 4. `prepend(...)`</a>
 
-Study the `prepend` method and its tests. Type in `prepend` intp `linked-lists.js`.
+Study the `prepend` method and its tests. Type in `prepend` and its tests into `linked-lists.js`.
 
 ```js
 class Node {
@@ -373,5 +375,216 @@ Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a
 - `append(...)` is *O(N)* -- slow
 - `prepend(...)` is *O(1)* -- fast
 
+## <a name="lec5">Lecture 5. `removeFirst(...)`</a>
 
+Study the `removeFirst` method and its tests. Type in `removeFirst` and its tests into `linked-lists.js`.
 
+```js
+class Node {
+ 
+    ...
+
+    // returns [v, head] where v is the value that was removed, and head
+    // is the new head pointer (possibly undefined).
+    removeFirst() {
+        return [this.value, this.next];
+    }
+}
+
+// Test removeFirst(...)
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+var [aValue, bNode] = head.removeFirst();
+var [bValue, cNode] = bNode.removeFirst();
+var [cValue, undef] = cNode.removeFirst();
+
+assert(aValue == "A");
+assert(bValue == "B");
+assert(cValue == "C");
+
+assert(bNode.value == "B");
+assert(cNode.value == "C");
+assert(undef == undefined);
+
+```
+
+`removeFirst(...)` is *O(1)*
+
+## <a name="lec6">Lecture 6. `removeLast(...)`</a>
+
+Let's walk through the steps of defining a `removeLast(...)` method.
+
+### Define the method's semantics in a comment
+
+```js
+class Node {
+ 
+    ...
+
+    // returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined)
+    removeLast() {
+        // ?
+    }
+}
+```
+
+### Define the semantics of the base case
+
+The base case is when `this` is a reference to the last object.
+
+```js
+class Node {
+ 
+    ...
+
+    // returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined)
+    removeLast() {
+    
+        // base case: if this is the last node
+        if (this.next == undefined) {
+            // say "prev" is the node previous to this node
+            // prev.next = undefined
+            // return [this.value, prev]
+        }
+        
+        // recursive case
+        else {
+            // ?
+        }
+    }
+}
+```
+
+Unfortunately, it isn't possible to implement the base case (as is) because
+we do not have access to "prev" --- the node previous to `this` node.
+
+### Change the base case
+
+So, we modify the base case to be the second-to-last node:
+
+```js
+class Node {
+ 
+    ...
+
+    // returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined)
+    removeLast() {
+    
+        // base case: when this is the second-to-last node
+        if (this.next.next == undefined) {
+            var value = this.next.value;
+            this.next = undefined;
+            return [value, this];
+        }
+        
+        // recursive case
+        else {
+            // ?
+        }
+    }
+}
+```
+
+But now we have a problem: what happens if we call `removeLast()` on a list that has exactly one node?
+`this.next == undefined` so therefore `this.next.next` will crash the function.
+
+### Add another base case
+
+We handle this situation by adding another base case: the case where there is exactly one node in the list:
+
+```js
+class Node {
+ 
+    ...
+
+    // returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined)
+    removeLast() {
+    
+        // base case: when this is the last node
+        if (this.next == undefined) {
+            return [this.value, undefined];
+        }
+        
+        // base case: when this is the second-to-last node
+        if (this.next.next == undefined) {
+            var value = this.next.value;
+            this.next = undefined;
+            return [value, this];
+        }
+        
+        // recursive case
+        else {
+            // ?
+        }
+    }
+}
+```
+
+### Implement the recursive case
+
+First let's assume that whenever we invoke `removeLast()`, it works just as advertised.
+Therefore we can simply invoke `this.next.removeLast()` to remove the last element
+of the next list.
+
+Recall, `removeLast()` returns the last value as well as the head of the list.
+
+We always ignore the head returned by `removeLast()` because we return our own head (`this`)
+instead.
+
+```js
+class Node {
+ 
+    ...
+
+    // returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined)
+    removeLast() {
+    
+        // base case: when this is the last node
+        if (this.next == undefined) {
+            return [this.value, undefined];
+        }
+        
+        // base case: when this is the second-to-last node
+        if (this.next.next == undefined) {
+            var value = this.next.value;
+            this.next = undefined;
+            return [value, this];
+        }
+        
+        // recursive case
+        else {
+            var [value, _] = this.next.removeLast(this);
+            return [value, this];
+        }
+    }
+}
+```
+
+### Unit tests
+```
+// Test removeLast(...)
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+var [cValue, cHead] = head.removeLast();
+var [bValue, bHead] = cHead.removeLast();
+var [aValue, aHead] = bHead.removeLast();
+
+assert(aValue == "A");
+assert(bValue == "B");
+assert(cValue == "C");
+
+assert(cHead.value == "A");
+assert(bHead.value == "A");
+assert(aHead == undefined);
+```
+
+`removeLast(...)` is *O(N)*
