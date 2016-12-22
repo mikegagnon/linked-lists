@@ -661,6 +661,9 @@ assert(aHead == undefined);
 
 Let's walk through the steps of defining a `removeValue(...)` method.
 
+This one's more complex than the previous functions; take your time
+and make sure you understand everything.
+
 ### Define the method's semantics in a comment
 
 ```js
@@ -796,6 +799,10 @@ For example:
 var newHead = head.removeValue("foo", undefined, head);
 ```
 
+#### Coding up our solution so far
+
+The code in the 
+
 ```js
 class Node {
  
@@ -804,22 +811,89 @@ class Node {
     // removes the node from the list that contains value
     // returns the head of the new list, possibly undefined
     // it is an error if the list does not contain the value
-    removeValue(value) {
-    
+    removeValue(value, prev = undefined, head = this) {
+
         // Base case 1: found value
         if (this.value == value) {
-            // ...
-        }
+            
+            // Case (A) `this` == first node AND `this` == last node
+            if (this == head && this.next == undefined) {
+                return undefined;
+            }
 
+            // Case (B) `this` == first node AND `this` != last node
+            else if (this == head && this.next != undefined) {
+                return this.next;
+            }
+
+            // Case (C) `this` != first node AND `this` == last node
+            else if (this != head && this.next == undefined) {
+                prev.next = undefined;
+                return head;
+            }
+
+            // Case (D) `this` != first node AND `this` != last node
+            else {
+                assert(this != head && this.next != undefined);
+                prev.next = this.next;
+                return head;
+            }
+        }
+        
         // Base case 2: end of list
         else if (this.next == undefined) {
             console.error("The list did not contain the value we're looking for");
         }
-
+        
         // Recursive case
         else {
-            // ?
+            //?
         }
     }
 }
 ```
+
+### Define the semantics of the recursive case
+
+Recall Tip 3: make progress every step of the way.
+
+When the recursive case executes, we know:
+
+1. `this.value != value` (since the first `if` condition was `false`) 
+2. `this.next != undefined` (since the second `if` condition was `false`)
+
+Therefore, we know that `this.next` points to the next node --- the next sublist.
+
+We make progress by taking another step, by invoking `removeValue(...)` on `next` to search the sub list:
+
+```js
+class Node {
+ 
+    ...
+
+    // removes the node from the list that contains value
+    // returns the head of the new list, possibly undefined
+    // it is an error if the list does not contain the value
+    removeValue(value, prev, head) {
+
+        // Base case 1: found value
+        if (this.value == value) {
+            // ...
+        }
+        
+        // Base case 2: end of list
+        else if (this.next == undefined) {
+            // ...
+        }
+        
+        // Recursive case
+        else {  
+            this.next.removeValue(value, this, head);
+        }
+    }
+}
+```
+
+Observe that we set `prev` to equal `this`, since when `this.next.removeValue` executes, it will be in the context of the next node, where `prev` will be this current node.
+
+`head` remains the same.
