@@ -696,8 +696,7 @@ class Node {
     
         // Base case 1: found value
         if (this.value == value) {
-            // If this is the first node in the list, return this.next
-            // Otherwise, return the previous node in the list
+            // ...
         }
 
         // Base case 2: end of list
