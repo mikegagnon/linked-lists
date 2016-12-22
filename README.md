@@ -900,7 +900,9 @@ Observe that we set `prev` to equal `this`, since when `this.next.removeValue` e
 
 ### Putting it all together
 
+Here's our `removeValue(...)` function that is complete in the sense that it works correctly.
 
+However there are still improvements we can make, which we explore in the next section.
 
 ```js
 class Node {
@@ -950,4 +952,35 @@ class Node {
         }
     }
 }
+
+// Test for removeValue(...)
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+bNode = head.removeValue("A");
+cNode = bNode.next;
+assert(bNode.value == "B");
+assert(cNode.next == undefined);
+assert(cNode.value == "C");
+
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+aNode = head.removeValue("B");
+cNode = aNode.next;
+assert(aNode.value == "A");
+assert(cNode.next == undefined);
+assert(cNode.value == "C");
+
+var head = new Node(2);
+head.append(3);
+head.append(1);
+
+var newHead = head.removeValue(1);
+assert(newHead == head);
+assert(head.value == 2);
+assert(head.next.value == 3);
+assert(head.next.next == undefined);
 ```
