@@ -416,7 +416,7 @@ assert(undef == undefined);
 
 Let's walk through the steps of defining a `removeLast(...)` method.
 
-### First, define the method's semantics in a comment
+### Define the method's semantics in a comment
 
 ```js
 class Node {
@@ -431,7 +431,7 @@ class Node {
 }
 ```
 
-### Second, define the base case
+### Define the semantics of the base case
 
 The base case is when `this` is a reference to the last object.
 
@@ -462,6 +462,8 @@ class Node {
 Unfortunately, it isn't possible to implement the base case (as is) because
 we do not have access to "prev" --- the node previous to `this` node.
 
+### Change the base case
+
 So, we modify the base case to be the second-to-last node:
 
 ```js
@@ -490,6 +492,8 @@ class Node {
 
 But now we have a problem: what happens if we call `removeLast()` on a list that has exactly one node?
 `this.next == undefined` so therefore `this.next.next` will crash the function.
+
+### Add another base case
 
 We handle this situation by adding another base case: the case where there is exactly one node in the list:
 
@@ -522,7 +526,16 @@ class Node {
 }
 ```
 
-Study the `removeLast` method and its tests. Type in `removeLast` and its tests into `linked-lists.js`.
+### Implement the recursive case
+
+First let's assume that whenever we invoke `removeLast()`, it works just as advertised.
+Therefore we can simply invoke `this.next.removeLast()` to remove the last element
+of the next list.
+
+Recall, `removeLast()` returns the last value as well as the head of the list.
+
+We always ignore the head returned by `removeLast()` because we return our own head (`this`)
+instead.
 
 ```js
 class Node {
@@ -531,22 +544,31 @@ class Node {
 
     // returns [v, newHead] where v is the value that was removed, and
     // newHead is the new head of the list (possibly undefined)
-    removeLast(prev = undefined) {
+    removeLast() {
+    
+        // base case: when this is the last node
         if (this.next == undefined) {
-
-            if (prev != undefined) {
-                prev.next = undefined;
-            }
-
             return [this.value, undefined];
-
-        } else {
-            var [last, newHead] = this.next.removeLast(this);
-            return [last, this];
+        }
+        
+        // base case: when this is the second-to-last node
+        if (this.next.next == undefined) {
+            var value = this.next.value;
+            this.next = undefined;
+            return [value, this];
+        }
+        
+        // recursive case
+        else {
+            var [value, _] = this.next.removeLast(this);
+            return [value, this];
         }
     }
 }
+```
 
+### Unit tests
+```
 // Test removeLast(...)
 var head = new Node("A");
 head.append("B");
