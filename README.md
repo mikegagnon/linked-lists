@@ -716,4 +716,110 @@ Base case 2 is trivial.
 
 Base case 1 is more challenging.
 
-Let's analyze the corner cases ([Lecture 3, Tip 4](#lec3))for Base case 1.
+Let's analyze the corner cases ([Lecture 3, Tip 4](#lec3)) for Base case 1.
+
+Recall, in a linked list the corner cases that tend to arise are:
+
+- (A) `this` == first node AND `this` == last node
+- (B) `this` == first node AND `this` != last node
+- (C) `this` != first node AND `this` == last node
+- (D) `this` != first node AND `this` != last node
+
+#### (A) What if `this` == first node AND `this` == last node?
+
+In this case, we simply want to return `undefined` since the list is now empty.
+
+But we have a problem: how can we figure out if `this` is the first node?
+We'll solve this problem in a little bit.
+
+#### (B) What if `this` == first node AND `this` != last node?
+
+In this case, we want to return `this.next`, since that is the new head of the list.
+
+We still have the problem of figuring out if `this` is the first node.
+
+#### (C) What if `this` != first node AND `this` == last node?
+
+In this case, we want to find the previous node (say `prev`), and
+set `prev.next` to `undefined`.
+
+We want to return the first node. But how do we know what the first node is?
+
+And we have another problem: how can we find the previous node?
+
+We'll solve these problems in a little bit.
+
+#### (D) What if `this` != first node and `this` != last node?
+
+In this case, we want to find the previous node (say `prev`), and
+set `prev.next` to `this.next`.
+
+We want to return the first node. Once again, how do we know what the first node is?
+
+#### Solving the problems we identified in the above case analysis
+
+We have three problems:
+
+1. How can we figure out if `this` is the first node?
+2. How do we know what the first node is?
+3. How can we find the previous node?
+
+The solutiona  straightforward: we modify the `removeValue(...)` function
+to accept two additional parameters:
+
+1. a reference to the previous node, and
+2. a reference to the head of list
+
+So now our function looks like this:
+
+```js
+class Node {
+
+    ...
+    
+    removeValue(value, prev, head) {
+        // ...
+    }
+}
+```
+
+As long as `removeValue(value, prev, head)` is called with the correct parameters,
+our base case will run correctly.
+
+The code that calls `removeValue(...)` must:
+1. set `prev` to `undefined` (since there is no previous node for the head of the list), and
+2. set `head` to the head of the list.
+
+For example:
+
+```js
+var newHead = head.removeValue("foo", undefined, head);
+```
+
+```js
+class Node {
+ 
+    ...
+
+    // removes the node from the list that contains value
+    // returns the head of the new list, possibly undefined
+    // it is an error if the list does not contain the value
+    removeValue(value) {
+    
+        // Base case 1: found value
+        if (this.value == value) {
+            // ...
+        }
+
+        // Base case 2: end of list
+        else if (this.next == undefined) {
+            console.error("The list did not contain the value we're looking for");
+        }
+
+        // Recursive case
+        else {
+            // ?
+        }
+    }
+}
+```
