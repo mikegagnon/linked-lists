@@ -54,7 +54,7 @@ class Node {
     
 
     // returns the head of the new list, possibly undefined
-    removeValue(value, prev = undefined) {
+    removeValue(value, prev = undefined, head = this) {
 
         if (this.value == value) {
             
@@ -62,13 +62,13 @@ class Node {
                 return this.next;
             } else {
                 prev.next = this.next;
-                return prev;
+                return head;
             }
 
         } else if (this.next == undefined) {
             console.error("The list did not contain the value we're looking for");
         } else {
-            this.next.removeValue(value, this);
+            this.next.removeValue(value, this, head);
             return this;
         }
     }
