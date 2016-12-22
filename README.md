@@ -588,3 +588,59 @@ assert(aHead == undefined);
 ```
 
 `removeLast(...)` is *O(N)*
+
+## <a name="lec7">Lecture 6. `removeValue(...)`</a>
+
+Let's walk through the steps of defining a `removeValue(...)` method.
+
+### Define the method's semantics in a comment
+
+```js
+class Node {
+ 
+    ...
+
+    // removes the node from the list that contains value
+    // returns the head of the new list, possibly undefined
+    // it is an error if the list does not contain the value
+    removeValue(value) {
+        // ?
+    }
+}
+```
+
+### Define the semantics of the base case
+
+There are clearly two cases where the search ends:
+
+1. If the search has arrived at the sought-after value
+2. If the search reaches the end of the list
+
+```js
+class Node {
+ 
+    ...
+
+    // removes the node from the list that contains value
+    // returns the head of the new list, possibly undefined
+    // it is an error if the list does not contain the value
+    removeValue(value) {
+    
+        // Base case 1: found value
+        if (this.value == value) {
+            // If this is the first node in the list, return this.next
+            // Otherwise, return the previous node in the list
+        }
+
+        // Base case 2: end of list
+        else if (this.next == undefined) {
+            console.error("The list did not contain the value we're looking for");
+        }
+
+        // Recursive case
+        else {
+            // ?
+        }
+    }
+}
+```
