@@ -897,3 +897,57 @@ class Node {
 Observe that we set `prev` to equal `this`, since when `this.next.removeValue` executes, it will be in the context of the next node, where `prev` will be this current node.
 
 `head` remains the same.
+
+### Putting it all together
+
+
+
+```js
+class Node {
+ 
+    ...
+
+    // removes the node from the list that contains value
+    // returns the head of the new list, possibly undefined
+    // it is an error if the list does not contain the value
+    removeValue(value, prev = undefined, head = this) {
+
+        // Base case 1: found value
+        if (this.value == value) {
+            
+            // Case (A) `this` == first node AND `this` == last node
+            if (this == head && this.next == undefined) {
+                return undefined;
+            }
+
+            // Case (B) `this` == first node AND `this` != last node
+            else if (this == head && this.next != undefined) {
+                return this.next;
+            }
+
+            // Case (C) `this` != first node AND `this` == last node
+            else if (this != head && this.next == undefined) {
+                prev.next = undefined;
+                return head;
+            }
+
+            // Case (D) `this` != first node AND `this` != last node
+            else {
+                assert(this != head && this.next != undefined);
+                prev.next = this.next;
+                return head;
+            }
+        }
+        
+        // Base case 2: end of list
+        else if (this.next == undefined) {
+            console.error("The list did not contain the value we're looking for");
+        }
+        
+        // Recursive case
+        else {
+            this.next.removeValue(value, this, head);
+        }
+    }
+}
+```
