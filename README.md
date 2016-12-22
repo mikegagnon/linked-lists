@@ -30,6 +30,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
  - Summary
 - [Lecture 5. `removeFirst(...)`] (#lec5)
 - [Lecture 6. `removeLast(...)`] (#lec6)
+- [Lecture 7. `removeValue(...)`] (#lec7)
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -656,7 +657,7 @@ assert(aHead == undefined);
 
 `removeLast(...)` is *O(N)*
 
-## <a name="lec7">Lecture 6. `removeValue(...)`</a>
+## <a name="lec7">Lecture 7. `removeValue(...)`</a>
 
 Let's walk through the steps of defining a `removeValue(...)` method.
 
