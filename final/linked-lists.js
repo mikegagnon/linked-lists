@@ -44,7 +44,7 @@ class Node {
             if (prev == undefined) {
                 return [this.value, undefined];
             } else {
-                prev.next = this.next;
+                prev.next = undefined;
                 return [this.value, head];
             }
         } else {
