@@ -1021,8 +1021,41 @@ if (head == this) {
     return this.next;
 }
 ```
-            
+
 ### Improvement #2
+
+Like Improvement #1, we can make another improvement.
+
+Take a look at Case (C) and Case (D):
+
+```js
+// Case (C) `this` != first node AND `this` == last node
+else if (this != head && this.next == undefined) {
+    prev.next = undefined;
+    return head;
+}
+
+// Case (D) `this` != first node AND `this` != last node
+else {
+    assert(this != head && this.next != undefined);
+    prev.next = this.next;
+    return head;
+}
+```
+
+The trick is realizing that `prev.next = this.next` can be used
+in both (C) and (D) (because `this.next == undefined` in Case (C)).
+
+We can therefore combine (C) and (D) into:
+
+```js
+else {
+    prev.next = this.next;
+    return head;
+}
+```
+
+### Improvement #3
 
 In JavaScript you can include default values for functions:
 
