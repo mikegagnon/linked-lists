@@ -1041,16 +1041,85 @@ Get it?
 Therefore, we can improve `removeValue(...)` by providing default
 values for the `prev` and `head` parameters.
 
+```js
+class Node {
+    ...
+    removeValue(value, prev = undefined, head = this) {
+       // ...
+    }
+}
+```
+
 This way, you can invoke `removeValue(...)` as:
 
 ```js
-head.removeValue(5);
+var newHead = head.removeValue(5);
 ```
 
 Instead of the more cumbersome:
 
 ```js
-head.removeValue(5, undefined, head);
+var newHead = head.removeValue(5, undefined, head);
 ```
 
-Our final imp
+### Final implementation for `removeValue(...)`
+
+```js
+class Node {
+    ...
+    
+    // removes the node from the list that contains value
+    // returns the head of the new list, possibly undefined
+    // it is an error if the list does not contain the value
+    removeValue(value, prev = undefined, head = this) {
+
+        if (this.value == value) {
+            
+            if (head == this) {
+                return this.next;
+            } else {
+                assert(prev != undefined);
+                prev.next = this.next;
+                return head;
+            }
+
+        } else if (this.next == undefined) {
+            console.error("The list did not contain the value we're looking for");
+        } else {
+            this.next.removeValue(value, this, head);
+            return this;
+        }
+    }
+}
+
+// Test for removeValue(...)
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+bNode = head.removeValue("A");
+cNode = bNode.next;
+assert(bNode.value == "B");
+assert(cNode.next == undefined);
+assert(cNode.value == "C");
+
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+aNode = head.removeValue("B");
+cNode = aNode.next;
+assert(aNode.value == "A");
+assert(cNode.next == undefined);
+assert(cNode.value == "C");
+
+var head = new Node(2);
+head.append(3);
+head.append(1);
+
+var newHead = head.removeValue(1);
+assert(newHead == head);
+assert(head.value == 2);
+assert(head.next.value == 3);
+assert(head.next.next == undefined);
+```
