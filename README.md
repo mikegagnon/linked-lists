@@ -268,8 +268,8 @@ append(value) {
 
 #### Base case
 
-The *base case* is the case that does not invoke recursion.
-Write the base case before you write the recursive case.
+A *base case* is a case that does not invoke recursion.
+Write the base case(s) before you write the recursive case.
 
 #### Recursive case
 
@@ -488,7 +488,7 @@ assert(undef == undefined);
 
 Let's walk through the steps of defining a `removeLast(...)` method.
 
-### Define the method's semantics in a comment
+### Use Tip 1: Document function
 
 ```js
 class Node {
@@ -503,7 +503,7 @@ class Node {
 }
 ```
 
-### Define the semantics of the base case
+### Use Tip 2: Define the semantics of the base case
 
 The base case is when `this` is a reference to the last object.
 
