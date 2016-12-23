@@ -20,10 +20,11 @@ Familiarity with JS, particularily object-oriented programming in JS.
  - Linked Lists
  - Visualization
 - [Lecture 3. Tips for developing recursive functions](#lec3)
- - Tip 1. Base case and recursive case
- - Tip 2. Assume correctness
+ - Tip 1. Document function
+ - Tip 2. Base case and recursive case
  - Tip 3. Make progress every step of the way
- - Tip 4: Carefully analyze corner cases
+ - Tip 4. Assume correctness
+ - Tip 5: Carefully analyze corner cases
 - [Lecture 4. `prepend(...)`](#lec4)
  - Analyzing the performance of `append(...)`
  - Analyzing the performance of `prepend(...)`
@@ -231,7 +232,21 @@ This lecture may sound like gibberish now.
 That's fine because we will concretely explore
 how these tips apply to many recursive functions throughout this mini course.
 
-### Tip 1. Base case and recursive case
+### Tip 1. Document function
+
+Before you begin coding a recursive function, you should document the function.
+Specifically, you should precisely document the input to the function and the
+return-value for the function.
+
+```js
+// Appends value to the end of the list.
+// Does not return anything.
+append(value) {
+  // ?
+}
+```
+
+### Tip 2. Base case and recursive case
 
 Every recursive function has at least one "base case" and at least one
 "recursive case."
@@ -256,27 +271,9 @@ append(value) {
 The *base case* is the case that does not invoke recursion.
 Write the base case before you write the recursive case.
 
-r#### Recursive case
+#### Recursive case
 
 For a function `f(...)`, the recursive case is the case that invokes `f(...)` recursively.
-
-### Tip 2. Assume correctness
-
-Before you begin coding a recursive function, you should document the function.
-Specifically, you should precisely document the input to the function and the
-return-value for the function.
-
-```js
-// Appends value to the end of the list.
-// Does not return anything.
-append(value) {
-  // ?
-}
-```
-
-Then, as you code your function **you must assume your function invocation always works exactly as advertised**
-(according to the documentation).
-It's kind of like the inductive step in an inductive proof.
 
 ### Tip 3. Make progress every step of the way
 
@@ -312,7 +309,14 @@ append(value) {
 }
 ```
 
-### Tip 4: Carefully analyze corner cases
+### Tip 4: Assume correctness
+
+When developing the recursive case **you must assume your function invocation always works exactly as advertised**
+(according to the documentation).
+
+It's kind of like the inductive step in an inductive proof.
+
+### Tip 5: Carefully analyze corner cases
 
 In a linked list the corner cases that tend to arise are:
 
