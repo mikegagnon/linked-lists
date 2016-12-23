@@ -38,16 +38,17 @@ class Node {
 
     // returns [v, newHead] where v is the value that was removed, and
     // newHead is the new head of the list (possibly undefined)
-    removeLast() {
+    removeLast(prev = undefined, head = this) {
+        
         if (this.next == undefined) {
-            return [this.value, undefined];
-        } else if (this.next.next == undefined) {
-            var value = this.next.value;
-            this.next = undefined;
-            return [value, this];
+            if (prev == undefined) {
+                return [this.value, undefined];
+            } else {
+                prev.next = this.next;
+                return [this.value, head];
+            }
         } else {
-            var [value, _] = this.next.removeLast(this);
-            return [value, this];
+            return this.next.removeLast(this, head);
         }
     }
 
@@ -58,9 +59,45 @@ class Node {
 
         if (this.value == value) {
             
-            if (prev == undefined) {
+            if (head == this) {
                 return this.next;
             } else {
+                assert(prev != undefined);
+                prev.next = this.next;
+                return head;
+            }
+
+        } else if (this.next == undefined) {
+            console.error("The list did not contain the value we're looking for");
+        } else {
+            this.next.removeValue(value, this, head);
+            return this;
+        }
+    }
+
+    removeValue2(value, prev = undefined, head = this) {
+
+        if (this.value == value) {
+            
+            // Case (A) `this` == first node AND `this` == last node
+            if (this == head && this.next == undefined) {
+                return undefined;
+            }
+
+            // Case (B) `this` == first node AND `this` != last node
+            else if (this == head && this.next != undefined) {
+                return this.next;
+            }
+
+            // Case (C) `this` != first node AND `this` == last node
+            else if (this != head && this.next == undefined) {
+                prev.next = undefined;
+                return head;
+            }
+
+            // Case (D) `this` != first node AND `this` != last node
+            else {
+                assert(this != head && this.next != undefined);
                 prev.next = this.next;
                 return head;
             }
