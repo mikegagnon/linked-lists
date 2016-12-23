@@ -20,11 +20,11 @@ Familiarity with JS, particularily object-oriented programming in JS.
  - Linked Lists
  - Visualization
 - [Lecture 3. Tips for developing recursive functions](#lec3)
- - Tip 1. Document function
+ - Tip 1. Document the function
  - Tip 2. Base case and recursive case
  - Tip 3. Make progress every step of the way
  - Tip 4. Assume correctness
- - Tip 5: Carefully analyze corner cases
+ - Tip 5: Analyze the corner cases
 - [Lecture 4. `prepend(...)`](#lec4)
  - Analyzing the performance of `append(...)`
  - Analyzing the performance of `prepend(...)`
@@ -232,7 +232,7 @@ This lecture may sound like gibberish now.
 That's fine because we will concretely explore
 how these tips apply to many recursive functions throughout this mini course.
 
-### Tip 1. Document function
+### Tip 1. Document the function
 
 Before you begin coding a recursive function, you should document the function.
 Specifically, you should precisely document the input to the function and the
@@ -268,8 +268,15 @@ append(value) {
 
 #### Base case
 
-A *base case* is a case that does not invoke recursion.
+A *base case* is a case that does not invoke recursion (because there is no longer a need for recursion).
+
+For example, if your recursive function is searching for the last element in the list (as in `append(...)`),
+the base case would be the case where the last element has been reached.
+
 Write the base case(s) before you write the recursive case.
+
+If it's not clear how to implement the base case right away, then first document (A) when the base case occurs,
+and (B) what should be done in the base case.
 
 #### Recursive case
 
@@ -316,14 +323,14 @@ When developing the recursive case **you must assume your function invocation al
 
 It's kind of like the inductive step in an inductive proof.
 
-### Tip 5: Carefully analyze corner cases
+### Tip 5: Analyze the corner cases
 
 In a linked list the corner cases that tend to arise are:
 
-1. `this` == first node
-2. `this` == last node
-3. `this` == first node and `this` == last node
-4. `this` != first node and `this` != last node
+- (A) `this` == first node AND `this` == last node
+- (B) `this` == first node AND `this` != last node
+- (C) `this` != first node AND `this` == last node
+- (D) `this` != first node AND `this` != last node
 
 Make sure your recursive function works for all corner cases.
 
@@ -486,180 +493,147 @@ assert(undef == undefined);
 
 ## <a name="lec6">Lecture 6. `removeLast(...)`</a>
 
-Let's walk through the steps of defining a `removeLast(...)` method.
-
-### Use Tip 1: Document function
+Let's implement `removeLast(...)`.
 
 ```js
 class Node {
- 
-    ...
 
-    // returns [v, newHead] where v is the value that was removed, and
-    // newHead is the new head of the list (possibly undefined)
+    // Returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined).
     removeLast() {
         // ?
     }
 }
 ```
 
-### Use Tip 2: Define the semantics of the base case
+Recall the following tips for developing recursive functions:
 
-The base case is when `this` is a reference to the last object.
+- Tip 1. Document the function
+- Tip 2. Base case and recursive case
+- Tip 3. Make progress every step of the way
+- Tip 4. Assume correctness
+- Tip 5: Analyze the corner cases
+
+Let's build the function by going through each of the tips.
+
+### Use Tip 1: Document function
+
+The function is already documented
+
+### Use Tip 2: Base case and recursive case
+
+Here, the base case is when we've reached the end of the list, i.e. when `this.next == undefined`:
 
 ```js
-class Node {
- 
-    ...
-
-    // returns [v, newHead] where v is the value that was removed, and
-    // newHead is the new head of the list (possibly undefined)
-    removeLast() {
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+removeLast() {
     
-        // base case: if this is the last node
-        if (this.next == undefined) {
-            // say "prev" is the node previous to this node
-            // prev.next = undefined
-            // return [this.value, prev]
-        }
-        
-        // recursive case
-        else {
-            // ?
-        }
+    // base case: if we've reached the end of the list
+    if (this.next == undefined) {
+        // modify the list so that this node is no longer the last
+    }
+    
+    // recursive case
+    else {
+        // ?
     }
 }
 ```
 
-Unfortunately, it isn't possible to implement the base case (as is) because
-we do not have access to "prev" --- the node previous to `this` node.
+### Use Tip 5: Analyze the corner cases
 
-### Change the base case
+To implement the base case let's consider the corner cases.
+Keep in mind, we want to modify the list so that `this` node is no longer the last.
 
-So, we modify the base case to be the second-to-last node:
+Recall, in a linked list the corner cases that tend to arise are:
+
+- (A) `this` == first node AND `this` == last node
+- (B) `this` == first node AND `this` != last node
+- (C) `this` != first node AND `this` == last node
+- (D) `this` != first node AND `this` != last node
+
+#### (A) `this` == first node AND `this` == last node
+
+In this case, we simply return `[this.value, undefined]`.
+
+#### (B) `this` == first node AND `this` != last node
+
+This corner case does not apply to the base case, because `this` is guaranteed to be the last node in the base case.
+
+#### (C) `this` != first node AND `this` == last node
+
+In this case, we want to find the previous node, say `prev`, and set `prev.next` to undefined.
+
+Then we want to return `[this.value, head]`, where `head` is the first node of the list.
+
+Now we have two problems:
+
+1. As currently implemented, we don't have a reference to the previous node
+2. As currently implemented, we don't have a reference to the head node
+
+We'll solve these problems in a bit.
+
+#### (D) `this` != first node AND `this` != last node
+
+This corner case does not apply to the base case, because `this` is guaranteed to be the last node in the base case.
+
+#### Combining the corner cases into code
 
 ```js
-class Node {
- 
-    ...
-
-    // returns [v, newHead] where v is the value that was removed, and
-    // newHead is the new head of the list (possibly undefined)
-    removeLast() {
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+removeLast() {
     
-        // base case: when this is the second-to-last node
-        if (this.next.next == undefined) {
-            var value = this.next.value;
-            this.next = undefined;
-            return [value, this];
-        }
-        
-        // recursive case
-        else {
-            // ?
-        }
-    }
-}
-```
-
-But now we have a problem: what happens if we call `removeLast()` on a list that has exactly one node?
-`this.next == undefined` so therefore `this.next.next` will crash the function.
-
-### Add another base case
-
-We handle this situation by adding another base case: the case where there is exactly one node in the list:
-
-```js
-class Node {
- 
-    ...
-
-    // returns [v, newHead] where v is the value that was removed, and
-    // newHead is the new head of the list (possibly undefined)
-    removeLast() {
+    // base case: if we've reached the end of the list
+    if (this.next == undefined) {
     
-        // base case: when this is the last node
-        if (this.next == undefined) {
+        // if this is the first node
+        if (head == this) {
             return [this.value, undefined];
         }
         
-        // base case: when this is the second-to-last node
-        if (this.next.next == undefined) {
-            var value = this.next.value;
-            this.next = undefined;
-            return [value, this];
-        }
-        
-        // recursive case
+        // if this is not the first node
         else {
-            // ?
+            prev.next = undefined;
+            return [this.value, head];
         }
+    }
+    
+    // recursive case
+    else {
+        // ?
     }
 }
 ```
 
-### Implement the recursive case
+#### Finding the `prev` and `head` nodes
 
-First let's assume that whenever we invoke `removeLast()`, it works just as advertised.
-Therefore we can simply invoke `this.next.removeLast()` to remove the last element
-of the next list.
+Our `removeLast(...)` base case requires a `head` node reference (the first node in the list),
+and a `prev` node reference (the previous node in the list, relative to `this`).
 
-Recall, `removeLast()` returns the last value as well as the head of the list.
-
-We always ignore the head returned by `removeLast()` because we return our own head (`this`)
-instead.
+There is a very simple solution: take `prev` and `head` as arguments to `removeLast(...)`:
 
 ```js
-class Node {
- 
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+// prev is a reference to the previous node. If there is no previous node, then set prev to undefined.
+// head is a reference to the first node in the list
+removeLast(prev, head) {
     ...
-
-    // returns [v, newHead] where v is the value that was removed, and
-    // newHead is the new head of the list (possibly undefined)
-    removeLast() {
-    
-        // base case: when this is the last node
-        if (this.next == undefined) {
-            return [this.value, undefined];
-        }
-        
-        // base case: when this is the second-to-last node
-        if (this.next.next == undefined) {
-            var value = this.next.value;
-            this.next = undefined;
-            return [value, this];
-        }
-        
-        // recursive case
-        else {
-            var [value, _] = this.next.removeLast(this);
-            return [value, this];
-        }
-    }
 }
 ```
 
-### Unit tests
-```
-// Test removeLast(...)
-var head = new Node("A");
-head.append("B");
-head.append("C");
+Client code must now invoke `removeLast` as follows:
 
-var [cValue, cHead] = head.removeLast();
-var [bValue, bHead] = cHead.removeLast();
-var [aValue, aHead] = bHead.removeLast();
-
-assert(aValue == "A");
-assert(bValue == "B");
-assert(cValue == "C");
-
-assert(cHead.value == "A");
-assert(bHead.value == "A");
-assert(aHead == undefined);
+```js
+var [value, newHead] = head.removeLast(undefined, head);
 ```
 
-`removeLast(...)` is *O(N)*
+
+### Use Tips 3 & 4: Make progress and assume correctness
+
+We'll uses Tips 3 & 4 to implement the recursive case
 
 ## <a name="lec7">Lecture 7. `removeValue(...)`</a>
 
