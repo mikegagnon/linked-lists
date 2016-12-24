@@ -531,6 +531,8 @@ Let's implement `removeLast(...)`.
 ```js
 class Node {
 
+    // Deletes the last node in this list.
+    //
     // Returns [v, newHead] where v is the value that was removed, and
     // newHead is the new head of the list (possibly undefined).
     removeLast() {
@@ -558,6 +560,8 @@ The function is already documented
 Here, the base case is when we've reached the end of the list, i.e. when `this.next == undefined`:
 
 ```js
+// Deletes the last node in this list.
+//
 // Returns [v, newHead] where v is the value that was removed, and
 // newHead is the new head of the list (possibly undefined).
 removeLast() {
@@ -614,6 +618,8 @@ This corner case does not apply to the base case, because `this` is guaranteed t
 #### Combining the corner cases into code
 
 ```js
+// Deletes the last node in this list.
+//
 // Returns [v, newHead] where v is the value that was removed, and
 // newHead is the new head of the list (possibly undefined).
 removeLast() {
@@ -648,10 +654,15 @@ and a `prev` node reference (the previous node in the list, relative to `this`).
 There is a very simple solution: take `prev` and `head` as arguments to `removeLast(...)`:
 
 ```js
+// Deletes the last node in this list.
+//
 // Returns [v, newHead] where v is the value that was removed, and
 // newHead is the new head of the list (possibly undefined).
-// prev is a reference to the previous node. If there is no previous node, then set prev to undefined.
-// head is a reference to the first node in the list
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
 removeLast(prev, head) {
     ...
 }
@@ -671,10 +682,15 @@ We'll implement the recursive case by using Tips 3 & 4.
 Here's the function we've developed so far:
 
 ```js
+// Deletes the last node in this list.
+//
 // Returns [v, newHead] where v is the value that was removed, and
 // newHead is the new head of the list (possibly undefined).
-// prev is a reference to the previous node. If there is no previous node, then set prev to undefined.
-// head is a reference to the first node in the list
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
 removeLast(prev, head) {
     // base case: if we've reached the end of the list
     if (this.next == undefined) {
@@ -717,11 +733,15 @@ class Node {
 
     ...
 
-    // returns [v, newHead] where v is the value that was removed, and
-    // newHead is the new head of the list (possibly undefined)
-    // prev is a reference to the previous node. If there is no previous node,
-    // then set prev to undefined.
-    // head is a reference to the first node in the list
+    // Deletes the last node in this list.
+    //
+    // Returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined).
+    //
+    // Arguments:
+    //   prev is a reference to the previous node. If there is no previous node,
+    //   then set prev to undefined.
+    //   head is a reference to the first node in the list.
     removeLast(prev = undefined, head = this) {
         
         if (this.next == undefined) {
