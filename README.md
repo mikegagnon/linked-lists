@@ -33,6 +33,8 @@ Familiarity with JS, particularily object-oriented programming in JS.
 - [Lecture 6. `removeLast(...)`] (#lec6)
 - [Lecture 7. `removeValue(...)`] (#lec7)
 
+<br><br><br><br>
+
 ## <a name="lec1">Lecture 1. Recursion</a>
 
 > "In order to understand recursion, one must first understand recursion."
@@ -175,6 +177,8 @@ Therefore, `fibonacci(n + 1)` clearly terminates in all cases.
 
 QED.
 
+<br><br><br><br>
+
 ## <a name="lec2">Lecture 2. Node `append(...)`</a>
 
 Study the `Node` class, and type it in to `linked-lists.js`:
@@ -224,6 +228,9 @@ A chain of nodes is called a linked list.
 To help make sense of linked lists, we visualize them like so:
 
 <img src="linked-list-01.png">
+
+<br><br><br><br>
+
 
 ## <a name="lec3">Lecture 3. Tips for developing recursive functions</a>
 
@@ -388,6 +395,8 @@ Just like Case 2 (immediately above), the base case executes the desired behavio
 Since this is not the last node, then `this.next` will be defined, so we only
 need to look at the recursive case. The recursive case looks correct in this case.
 
+<br><br><br><br>
+
 
 ## <a name="lec4">Lecture 4. `prepend(...)`</a>
 
@@ -454,6 +463,8 @@ Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a
 - `append(...)` is *O(N)* -- slow
 - `prepend(...)` is *O(1)* -- fast
 
+<br><br><br><br>
+
 ## <a name="lec5">Lecture 5. `removeFirst(...)`</a>
 
 Study the `removeFirst` method and its tests. Type in `removeFirst` and its tests into `linked-lists.js`.
@@ -490,6 +501,8 @@ assert(undef == undefined);
 ```
 
 `removeFirst(...)` is *O(1)*
+
+<br><br><br><br>
 
 ## <a name="lec6">Lecture 6. `removeLast(...)`</a>
 
@@ -634,6 +647,8 @@ var [value, newHead] = head.removeLast(undefined, head);
 ### Use Tips 3 & 4: Make progress and assume correctness
 
 We'll uses Tips 3 & 4 to implement the recursive case
+
+<br><br><br><br>
 
 ## <a name="lec7">Lecture 7. `removeValue(...)`</a>
 
