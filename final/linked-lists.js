@@ -11,6 +11,10 @@ class Node {
         this.next = undefined;
     }
 
+    // Creates a new node to hold value, and appends the new node to the end
+    // of this list.
+    //
+    // Doesn't return anything.
     append(value) {
         if (this.next == undefined) {
             var newNode = new Node(value);
@@ -20,8 +24,11 @@ class Node {
         }
     }
 
-    
-    // returns the new head pointer
+    // Creates a new node to hold value, and prepends the new node to this list
+    // making the new node the head of the list.
+    //
+    // Returns a reference to the new head of the list (which is the newly
+    // created node).
     prepend(value) {
         var newNode = new Node(value);
 
@@ -30,17 +37,23 @@ class Node {
         return newNode;
     }
 
-    // returns [v, head] where v is the value that was removed, and head
+    // Deletes the first node in this list.
+    //
+    // Returns [v, head] where v is the value that was removed, and head
     // is the new head pointer (possibly undefined).
     removeFirst() {
         return [this.value, this.next];
     }
 
-    // returns [v, newHead] where v is the value that was removed, and
-    // newHead is the new head of the list (possibly undefined)
-    // prev is a reference to the previous node. If there is no previous node,
-    // then set prev to undefined.
-    // head is a reference to the first node in the list
+    // Deletes the last node in this list.
+    //
+    // Returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined).
+    //
+    // Arguments:
+    //   prev is a reference to the previous node. If there is no previous node,
+    //   then set prev to undefined.
+    //   head is a reference to the first node in the list.
     removeLast(prev = undefined, head = this) {
         
         if (this.next == undefined) {
@@ -55,12 +68,15 @@ class Node {
         }
     }
 
-    
-
-    // returns the head of the new list, possibly undefined
-    // prev is a reference to the previous node. If there is no previous node,
-    // then set prev to undefined.
-    // head is a reference to the first node in the list
+    // Deletes the node with the specified value.
+    // It is an error if value is not found in the list.
+    //
+    // Returns the head of the new list, possibly undefined
+    //
+    // Arguments:
+    //   prev is a reference to the previous node. If there is no previous node,
+    //   then set prev to undefined.
+    //   head is a reference to the first node in the list.
     removeValue(value, prev = undefined, head = this) {
 
         if (this.value == value) {
@@ -116,7 +132,6 @@ class Node {
         }
     }
 
-    
     // returns the smallest value in the list
     findSmallest() {
         if (this.next == undefined) {
@@ -132,8 +147,9 @@ class Node {
         }
     }
 
-    // Returns a new linked list, containg all the elements in this linked list,
-    // but in sorted order
+    // Sorts the list in ascending order.
+    // 
+    // Returns the head of the new list.
     sort() {
         if (this.next == undefined) {
             return this;
