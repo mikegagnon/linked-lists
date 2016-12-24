@@ -829,31 +829,68 @@ class Node {
 }
 ```
 
-### Use Tip 5: Analyze the corner cases
+### Use Tip 5: Analyze the typical- and corner-cases
 
-Recall, in the previous Lecture ([Lecture 6](#lec6) we explicitly analyzed these four corner cases, one by one:
+For Base Case 1, the typical case is when `this` refers to a node in the middle of the list -- i.e.,
+`this` is not the head of the list and `this` is not the last node in the list.
 
-- (A) `this` == first node AND `this` == last node
-- (B) `this` == first node AND `this` != last node
-- (C) `this` != first node AND `this` == last node
-- (D) `this` != first node AND `this` != last node
+In this case, we want to find the previous node, say `prev`, and set `prev.next` to `this.next`.
 
-Here, we use a different approach but the end result is the same (i.e. we analyze all four corner cases and write
-correct code to handle them).
+Then, we want to return the head of list.
 
-Let's look at Base Case 1:
+As in ([Lecture 6](#lec6), we have two problems:
+
+1. How do we find the previous node?
+2. How do we find the head of the list?
+
+As in Lecture 6, we solve these problems by introducing `prev` and `head` arguments to the `removeValue(...)`  function.
+
+All together, the `removeValue(...)` function looks like this so far:
 
 ```js
-removeValue(value) {
-    
+// Deletes the node with the specified value.
+// It is an error if value is not found in the list.
+//
+// Returns the head of the new list, possibly undefined
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeValue(value, prev = undefined, head = this) {
+
     // Base case 1: found value
     if (this.value == value) {
-        // ...
+
+        // typical case
+        if (this != head and this.next != undefined) {
+            prev.next = this.next;
+            return head;
+        } else {
+            // ?
+        }
     }
-    
+
     ...
+
 }
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 TODO: reorder (A) (B) (C) (D) cases
