@@ -762,30 +762,40 @@ class Node {
 
 ## <a name="lec7">Lecture 7. `removeValue(...)`</a>
 
-Let's walk through the steps of defining a `removeValue(...)` method.
-
-This one's more complex than the previous functions; take your time
-and make sure you understand everything.
-
-### Define the method's semantics in a comment
+Let's implement `removeValue(...)`.
 
 ```js
 class Node {
  
     ...
 
-    // removes the node from the list that contains value
-    // returns the head of the new list, possibly undefined
-    // it is an error if the list does not contain the value
+    // Deletes the node with the specified value.
+    // It is an error if value is not found in the list.
+    //
+    // Returns the head of the new list, possibly undefined
     removeValue(value) {
         // ?
     }
-}
+} 
 ```
 
-### Define the semantics of the base case
+Recall the following tips for developing recursive functions:
 
-There are clearly two cases where the search ends:
+- Tip 1. Document the function
+- Tip 2. Base case and recursive case
+- Tip 3. Make progress every step of the way
+- Tip 4. Assume correctness
+- Tip 5: Analyze the corner cases
+
+Let's build the function by going through each of the tips.
+
+### Use Tip 1: Document function
+
+The function is already documented
+
+### Use Tip 2: Base case and recursive case
+
+There are two base cases since there are two cases where the search ends:
 
 1. If the search has arrived at the sought-after value
 2. If the search reaches the end of the list
@@ -795,9 +805,10 @@ class Node {
  
     ...
 
-    // removes the node from the list that contains value
-    // returns the head of the new list, possibly undefined
-    // it is an error if the list does not contain the value
+    // Deletes the node with the specified value.
+    // It is an error if value is not found in the list.
+    //
+    // Returns the head of the new list, possibly undefined
     removeValue(value) {
     
         // Base case 1: found value
@@ -818,18 +829,53 @@ class Node {
 }
 ```
 
-Base case 2 is trivial.
+### Use Tip 5: Analyze the corner cases
 
-Base case 1 is more challenging.
-
-Let's analyze the corner cases ([Lecture 3, Tip 4](#lec3)) for Base case 1.
-
-Recall, in a linked list the corner cases that tend to arise are:
+Recall, in the previous Lecture ([Lecture 6](#lec6) we explicitly analyzed these four corner cases, one by one:
 
 - (A) `this` == first node AND `this` == last node
 - (B) `this` == first node AND `this` != last node
 - (C) `this` != first node AND `this` == last node
 - (D) `this` != first node AND `this` != last node
+
+Here, we use a different approach but the end result is the same (i.e. we analyze all four corner cases and write
+correct code to handle them).
+
+Let's look at Base Case 1:
+
+```js
+removeValue(value) {
+    
+    // Base case 1: found value
+    if (this.value == value) {
+        // ...
+    }
+    
+    ...
+}
+```
+
+TODO
+
+#### (B) `this` == first node AND `this` != last node
+
+In this case, we want to remove the first node in the list, and return the second node as the new head.
+
+```js
+removeValue(value) {
+    
+    // Base case 1: found value
+    if (this.value == value) {
+        
+        // Check for Case (B)
+        if (head == this) {
+            return this.next;
+        }
+    }
+    
+    ...
+}
+```
 
 #### (A) What if `this` == first node AND `this` == last node?
 
