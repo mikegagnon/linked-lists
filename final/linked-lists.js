@@ -40,7 +40,7 @@ class Node {
     // Deletes the first node in this list.
     //
     // Returns [v, head] where v is the value that was removed, and head
-    // is the new head pointer (possibly undefined).
+    // is a reference to the new head (possibly undefined).
     removeFirst() {
         return [this.value, this.next];
     }
