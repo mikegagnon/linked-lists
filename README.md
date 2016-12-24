@@ -873,7 +873,7 @@ As in ([Lecture 6](#lec6), we have two problems:
 
 As in Lecture 6, we solve these problems by introducing `prev` and `head` arguments to the `removeValue(...)`  function.
 
-All together the `removeValue(...)` function looks like this so far:
+All together, the `removeValue(...)` function looks like this so far:
 
 ```js
 class Node {
@@ -911,6 +911,42 @@ class Node {
     }
 }
 ```
+
+#### (C) `this` != first node AND `this` == last node
+
+In this case, we want to find the previous node, say `prev`, and set `prev.next` to `undefined`.
+
+But note: `this.next == undefined`
+
+Therefore Case (C) and (D) are the exact same, so we just update the comment in our base case:
+
+```js
+removeValue(value, prev = undefined, head = this) {
+    
+    // Base case 1: found value
+    if (this.value == value) {
+
+        // assuming head != this
+        prev.next = this.next;
+        return head;
+    }
+    
+    ...
+}
+```
+
+#### (B) `this` == first node AND `this` != last node
+
+In this case 
+
+
+
+
+
+
+
+
+
 
 #### (B) `this` == first node AND `this` != last node
 
