@@ -855,7 +855,62 @@ removeValue(value) {
 }
 ```
 
-TODO
+
+TODO: reorder (A) (B) (C) (D) cases
+
+TODO: prelude
+
+#### (D) `this` != first node AND `this` != last node
+
+In this case, we want to find the previous node, say `prev`, and set `prev.next` to `this.next`.
+
+Then, we want to return the head of list.
+
+As in ([Lecture 6](#lec6), we have two problems:
+
+1. How do we find the previous node?
+2. How do we find the head of the list?
+
+As in Lecture 6, we solve these problems by introducing `prev` and `head` arguments to the `removeValue(...)`  function.
+
+All together the `removeValue(...)` function looks like this so far:
+
+```js
+class Node {
+ 
+    ...
+
+    // Deletes the node with the specified value.
+    // It is an error if value is not found in the list.
+    //
+    // Returns the head of the new list, possibly undefined
+    //
+    // Arguments:
+    //   prev is a reference to the previous node. If there is no previous node,
+    //   then set prev to undefined.
+    //   head is a reference to the first node in the list.
+    removeValue(value, prev = undefined, head = this) {
+    
+        // Base case 1: found value
+        if (this.value == value) {
+            
+            // assuming head != this and this.next != undefined
+            prev.next = this.next;
+            return head;
+        }
+
+        // Base case 2: end of list
+        else if (this.next == undefined) {
+            console.error("The list did not contain the value we're looking for");
+        }
+
+        // Recursive case
+        else {
+            // ?
+        }
+    }
+}
+```
 
 #### (B) `this` == first node AND `this` != last node
 
