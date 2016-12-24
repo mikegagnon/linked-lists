@@ -38,10 +38,13 @@ class Node {
 
     // returns [v, newHead] where v is the value that was removed, and
     // newHead is the new head of the list (possibly undefined)
+    // prev is a reference to the previous node. If there is no previous node,
+    // then set prev to undefined.
+    // head is a reference to the first node in the list
     removeLast(prev = undefined, head = this) {
         
         if (this.next == undefined) {
-            if (prev == undefined) {
+            if (head == this) {
                 return [this.value, undefined];
             } else {
                 prev.next = undefined;
@@ -55,6 +58,9 @@ class Node {
     
 
     // returns the head of the new list, possibly undefined
+    // prev is a reference to the previous node. If there is no previous node,
+    // then set prev to undefined.
+    // head is a reference to the first node in the list
     removeValue(value, prev = undefined, head = this) {
 
         if (this.value == value) {
