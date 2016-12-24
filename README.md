@@ -195,8 +195,10 @@ class Node {
         this.next = undefined;
     }
 
-    // Appends value to the end of the list.
-    // Does not return anything.
+    // Creates a new node to hold value, and appends the new node to the end
+    // of this list.
+    //
+    // Doesn't return anything.
     append(value) {
         if (this.next == undefined) {
             this.next = new Node(value);
@@ -247,12 +249,14 @@ how these tips apply to many recursive functions throughout this mini course.
 ### Tip 1. Document the function
 
 Before you begin coding a recursive function, you should document the function.
-Specifically, you should precisely document the input to the function and the
-return-value for the function.
+Specifically, you should precisely document the input to the function, the
+return-value for the function, and any side effects.
 
 ```js
-// Appends value to the end of the list.
-// Does not return anything.
+// Creates a new node to hold value, and appends the new node to the end
+// of this list.
+//
+// Doesn't return anything.
 append(value) {
   // ?
 }
@@ -312,8 +316,10 @@ progress by invoking `append` on `this.next`.
 
 ```js
 
-// Appends value to the end of the list.
-// Does not return anything.
+// Creates a new node to hold value, and appends the new node to the end
+// of this list.
+//
+// Doesn't return anything.
 append(value) {
 
     // base case
@@ -352,8 +358,10 @@ Let's revist the `append(...)` function:
 
 ```js
 
-// Appends value to the end of the list.
-// Does not return anything.
+// Creates a new node to hold value, and appends the new node to the end
+// of this list.
+//
+// Doesn't return anything.
 append(value) {
 
     // base case
@@ -412,6 +420,11 @@ class Node {
 
    ...
 
+   // Creates a new node to hold value, and prepends the new node to this list
+   // making the new node the head of the list.
+   //
+   // Returns a reference to the new head of the list (which is the newly
+   // created node).
    prepend(value) {
      var newNode = new Node(value);
 
