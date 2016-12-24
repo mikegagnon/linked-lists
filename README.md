@@ -31,6 +31,11 @@ Familiarity with JS, particularily object-oriented programming in JS.
  - Summary
 - [Lecture 5. `removeFirst(...)`] (#lec5)
 - [Lecture 6. `removeLast(...)`] (#lec6)
+ - Use Tip 1: Document function
+ - Use Tip 2: Base case and recursive case
+ - Use Tip 5: Analyze the corner cases
+ - Use Tips 3 & 4: Make progress and assume correctness
+ - Complete implementation of `removeLast(...)`
 - [Lecture 7. `removeValue(...)`] (#lec7)
 
 <br><br><br><br>
