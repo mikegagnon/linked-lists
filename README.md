@@ -831,12 +831,12 @@ class Node {
 
 ### Use Tip 5: Analyze the typical- and corner-cases
 
+#### Typical case: `this` != first node AND `this` != last node
+
 For Base Case 1, the typical case is when `this` refers to a node in the middle of the list -- i.e.,
 `this` is not the head of the list and `this` is not the last node in the list.
 
-In this case, we want to find the previous node, say `prev`, and set `prev.next` to `this.next`.
-
-Then, we want to return the head of list.
+In the typical case, we want to find the previous node, say `prev`, and set `prev.next` to `this.next`. Then, we want to return the head of list.
 
 As in ([Lecture 6](#lec6), we have two problems:
 
@@ -861,14 +861,22 @@ removeValue(value, prev = undefined, head = this) {
 
     // Base case 1: found value
     if (this.value == value) {
-
-        // typical case
-        if (this != head and this.next != undefined) {
-            prev.next = this.next;
-            return head;
+    
+        // if this is not the first node
+        if (this != head) {
+        
+            // if this is not the last node
+            if (this.next != undefined) {
+                prev.next = this.next;
+                return head;
+             } else {
+                // ?
+             } 
+             
         } else {
             // ?
         }
+        
     }
 
     ...
@@ -876,13 +884,94 @@ removeValue(value, prev = undefined, head = this) {
 }
 ```
 
+#### Corner case:  `this` != first node AND `this` == last node
 
+The next corner case we assess is when `this` is the last node, but `this` is not the first node.
 
+In this case we want to set `prev.next == undefined` and return `head`.
 
+```js
+removeValue(value, prev = undefined, head = this) {
 
+    // Base case 1: found value
+    if (this.value == value) {
+    
+        // if this is not the first node
+        if (this != head) {
+        
+            // if this is not the last node
+            if (this.next != undefined) {
+                prev.next = this.next;
+                return head;
+             } else { // <---------------------------------
+                prev.next = undefined;
+                return head;
+             } 
+             
+        } else {
+            // ?
+        }
+        
+    }
 
+    ...
 
+}
+```
 
+But note: when `this` is the last node, `this.next == undefined`. Therefore, we could set `prev.next = this.next` and it would be the same. Making this change looks like this:
+
+```js
+removeValue(value, prev = undefined, head = this) {
+
+    // Base case 1: found value
+    if (this.value == value) {
+    
+        // if this is not the first node
+        if (this != head) {
+        
+            // if this is not the last node
+            if (this.next != undefined) {
+                prev.next = this.next;
+                return head;
+             } else {
+                prev.next = this.next; // <---------------------------------
+                return head;
+             } 
+             
+        } else {
+            // ?
+        }
+        
+    }
+
+    ...
+
+}
+```
+
+Notice the bodies of the `if` and `else` conditions are identical! We can completely remove the `if`-`else` statement, and simply replace it with one copy of its bodies.
+
+```js
+removeValue(value, prev = undefined, head = this) {
+
+    // Base case 1: found value
+    if (this.value == value) {
+    
+        // if this is not the first node
+        if (this != head) {
+            prev.next = this.next;
+            return head;
+        } else {
+            // ?
+        }
+        
+    }
+
+    ...
+
+}
+```
 
 
 
