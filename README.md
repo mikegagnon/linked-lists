@@ -876,62 +876,57 @@ As in Lecture 6, we solve these problems by introducing `prev` and `head` argume
 All together, the `removeValue(...)` function looks like this so far:
 
 ```js
-class Node {
- 
-    ...
+// Deletes the node with the specified value.
+// It is an error if value is not found in the list.
+//
+// Returns the head of the new list, possibly undefined
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeValue(value, prev = undefined, head = this) {
 
-    // Deletes the node with the specified value.
-    // It is an error if value is not found in the list.
-    //
-    // Returns the head of the new list, possibly undefined
-    //
-    // Arguments:
-    //   prev is a reference to the previous node. If there is no previous node,
-    //   then set prev to undefined.
-    //   head is a reference to the first node in the list.
-    removeValue(value, prev = undefined, head = this) {
-    
-        // Base case 1: found value
-        if (this.value == value) {
-            
-            // assuming head != this and this.next != undefined
+    // Base case 1: found value
+    if (this.value == value) {
+
+        if (this != head and this.next != undefined) {
             prev.next = this.next;
             return head;
-        }
-
-        // Base case 2: end of list
-        else if (this.next == undefined) {
-            console.error("The list did not contain the value we're looking for");
-        }
-
-        // Recursive case
-        else {
+        } else {
             // ?
         }
     }
+
+    ...
+
 }
 ```
 
 #### (C) `this` != first node AND `this` == last node
 
-In this case, we want to find the previous node, say `prev`, and set `prev.next` to `undefined`.
+This case is just like the previous case, except now `this` == last node.
 
-But note: `this.next == undefined`
+In this case, we want to set `prev.next` to `undefined`. But note: `this.next == undefined`.
 
 Therefore Case (C) and (D) are the exact same, so we just update the comment in our base case:
 
 ```js
 removeValue(value, prev = undefined, head = this) {
-    
+
     // Base case 1: found value
     if (this.value == value) {
 
-        // assuming head != this
-        prev.next = this.next;
-        return head;
+        if (this != head) {
+            prev.next = this.next;
+            return head;
+        } else {
+            // ?
+        }
     }
-    
+
     ...
+
 }
 ```
 
