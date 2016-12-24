@@ -646,7 +646,77 @@ var [value, newHead] = head.removeLast(undefined, head);
 
 ### Use Tips 3 & 4: Make progress and assume correctness
 
-We'll uses Tips 3 & 4 to implement the recursive case
+We'll implement the recursive case by using Tips 3 & 4.
+
+Here's the function we've developed so far:
+
+```js
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+// prev is a reference to the previous node. If there is no previous node, then set prev to undefined.
+// head is a reference to the first node in the list
+removeLast(prev, head) {
+    // base case: if we've reached the end of the list
+    if (this.next == undefined) {
+        // ...
+    }
+    
+    // recursive case
+    else {
+        // ?
+    }
+}
+```
+
+First, let's assume (Tip 4) that if we invoke `node.removeLast(prev, head)` it will work correctly; that is,
+it will remove the last element in the list, and return `[v, newHead]`.
+
+We make progress by invoking `removeLast(...)`  on `this.next`, i.e.:
+
+```js
+this.next.removeLast(prev, head)
+```
+
+But what is the value of `prev` for this invocation? Well, from the perspective of the `next` node, this node
+is the `prev` node. Therefore, we set `prev` to `this`:
+
+```js
+this.next.removeLast(this, head)
+```
+
+Finally, we want to return `[v, head]`, which is actually what `this.next.removeLast(this, head)` returns.
+
+Therefore simply: `return this.next.removeLast(this, head)` 
+
+### Complete implementation of `removeLast(...)`
+
+Our complete and final implemention of `removeLast` is as follows:
+
+```js
+class Node {
+
+    ...
+
+    // returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined)
+    // prev is a reference to the previous node. If there is no previous node,
+    // then set prev to undefined.
+    // head is a reference to the first node in the list
+    removeLast(prev = undefined, head = this) {
+        
+        if (this.next == undefined) {
+            if (head == this) {
+                return [this.value, undefined];
+            } else {
+                prev.next = undefined;
+                return [this.value, head];
+            }
+        } else {
+            return this.next.removeLast(this, head);
+        }
+    }
+}
+```
 
 <br><br><br><br>
 
