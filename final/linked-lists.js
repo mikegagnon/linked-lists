@@ -88,15 +88,19 @@ class Node {
     //   then set prev to undefined.
     //   head is a reference to the first node in the list.
     removeLast(prev = undefined, head = this) {
-        
+
+        // Base Case: When we have reached the end of the list
         if (this.next == undefined) {
-            if (head == this) {
-                return [this.value, undefined];
-            } else {
+            if (this != head) {
                 prev.next = undefined;
                 return [this.value, head];
+            } else {
+                return [this.value, undefined];
             }
-        } else {
+        }
+        
+        // Recursive case
+        else {
             return this.next.removeLast(this, head);
         }
     }
