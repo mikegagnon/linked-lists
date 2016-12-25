@@ -1236,7 +1236,7 @@ removeValue(value, prev = undefined, head = this) {
 
 ## <a name="lec8">Lecture 8. `findSmallest(...)`</a>
 
-Let's implement `removeValue(...)`.
+Let's implement `findSmallest(...)`.
 
 ```js
 class Node {
@@ -1261,7 +1261,7 @@ Recall the two steps for developing a recursive function:
 
 ### Step 1. Base Case(s)
 
-There is one base casee for `findSmallest(...)`: when we have reached the end of the list.
+There is one base case for `findSmallest(...)`: when we have reached the end of the list.
 
 Therefore the framework for our function is as follows:
 
@@ -1281,9 +1281,6 @@ findSmallest() {
 
 }
 ```
-
-#### Analyze the corner cases
-analyze the corner cases and seek opportunies to merge cases.
 
 #### Analyze the corner cases and Merge cases
 
@@ -1307,7 +1304,7 @@ In this case *this* list has only one node (the last node), therefore
 `this.value` is the smallest value in *this* list, therefore
 we simply want to return `this.value`.
 
-You may be confused because we know there is a first node that is not *this*.
+You may be confused because in Case (B) we know there is a first node that is not *this*.
 However, this first node is not a part of *this* list. Rather, it
 is a part of the outermost parent list.
 
