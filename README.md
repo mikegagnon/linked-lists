@@ -30,11 +30,6 @@ Familiarity with JS, particularily object-oriented programming in JS.
         - Assume correctness
         - Make one step of progress
 - [Lecture 6. `removeLast(...)`] (#lec6)
- - Use Tip 1: Document function
- - Use Tip 2: Base case and recursive case
- - Use Tip 5: Analyze the corner cases
- - Use Tips 3 & 4: Make progress and assume correctness
- - Complete implementation of `removeLast(...)`
 - [Lecture 7. `removeValue(...)`] (#lec7)
 
 <br><br><br><br>
@@ -696,7 +691,6 @@ removeLast(prev = undefined, head = this) {
 
     // Base Case: When we have reached the end of the list
     if (this.next == undefined) {
-
         if (this != head) {
             prev.next = undefined;
             return [this.value, head];
@@ -734,7 +728,6 @@ removeLast(prev = undefined, head = this) {
 
     // Base Case: When we have reached the end of the list
     if (this.next == undefined) {
-
         if (this != head) {
             prev.next = undefined;
             return [this.value, head];
@@ -750,9 +743,83 @@ removeLast(prev = undefined, head = this) {
 }
 ```
 
+#### Merge cases
 
+We cannot merge Corner Case (B) with Corner Case (D) because their operations are not the same.
 
+### Step 2. Recursive Case
 
+Recall, the two tips for the recursive case are:
+
+1. Assume correctness
+2. Make one step of progress
+
+So, we assume that when we invoke `removeLast(prev, head)` it performs the operation correctly and returns the new `[v, head]` where `v` is the value that was removed, and `head` is the new head of the list.
+
+We want to make one step of progress, so we simply call `this.next.removeLast(prev, head)` and return its value.
+
+We need to ensure we invoke `removeLast(...)` with the correct arguments for `prev`, and `head`.
+
+`head` is simply `head`.
+
+For `prev` though, went to set it to `this`. The reason being is that `this` is the previous node for `this.next`.
+
+Therefore our recurisve case is implemented as follows:
+
+```js
+// Deletes the last node in this list.
+//
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeLast(prev = undefined, head = this) {
+
+    // Base Case: When we have reached the end of the list
+    if (this.next == undefined) {
+        ...
+    }
+    
+    // Recursive case
+    else {
+        return this.next.removeLast(this, head); // <------------------------------
+    }
+}
+```
+
+### Completed function
+
+```js
+// Deletes the last node in this list.
+//
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeLast(prev = undefined, head = this) {
+
+    // Base Case: When we have reached the end of the list
+    if (this.next == undefined) {
+        if (this != head) {
+            prev.next = undefined;
+            return [this.value, head];
+        } else {
+            return [this.value, undefined];
+        }
+    }
+    
+    // Recursive case
+    else {
+        return this.next.removeLast(this, head);
+    }
+}
+```
 
 
 
@@ -1046,7 +1113,7 @@ We need to ensure we invoke `removeValue(...)` with the correct arguments for `v
 
 `value` is simply `value`, and `head` is simply `head`.
 
-For `prev` though, went to set it to `this`. The reason being is that `this` is the previous node `this.next`.
+For `prev` though, went to set it to `this`. The reason being is that `this` is the previous node for `this.next`.
 
 Therefore our recurisve case is implemented as follows:
 
