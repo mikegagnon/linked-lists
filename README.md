@@ -48,7 +48,31 @@ A linked list is a "recursive" data structure, and uses "recursive" algorithms.
 
 Recursive simply means self referential.
 
-Rather than elucidating further in English, we'll just dive into the classic example: Fibonacci numbers.
+Rather than elucidating further in English, we'll just dive into a classic example: the "factorial" function.
+
+### Example 1. Factorial
+
+Examples of factorials:
+
+- `factorial(1)` == 1
+- `factorial(2)` == 1 &times; 2 == 2
+- `factorial(3)` == 1 &times; 2 &times; 3 == 6
+- `factorial(4)` == 1 &times; 2 &times; 3 &times; 4 == 24
+- `factorial(5)` == 1 &times; 2 &times; 3 &times; 4 &times; 5 == 120
+- ...
+
+The recursive definition for the factorial function is:
+
+- `factorial(n) == n` &times; `factorial(n - 1)`, and
+- A special case of `factorial(1) == 1`
+
+
+
+
+ 
+
+
+
 
 ### Fibonacci numbers
 
