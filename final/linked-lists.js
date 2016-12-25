@@ -79,21 +79,31 @@ class Node {
     //   head is a reference to the first node in the list.
     removeValue(value, prev = undefined, head = this) {
 
+        // Base Case 1: When we have found the sought-after value
         if (this.value == value) {
-            
-            if (head == this) {
-                return this.next;
-            } else {
-                assert(prev != undefined);
+        
+            // Corner Case (A) and (B)
+            if (this != head) {
                 prev.next = this.next;
                 return head;
             }
-
-        } else if (this.next == undefined) {
+            
+            // Corner Case (C) and (D)
+            else {
+                return this.next;
+            }
+        }
+        
+        // Base Case 2: When we have reached the end of the list
+        else if (this.next == undefined) {
             console.error("The list did not contain the value we're looking for");
-        } else {
+        }
+        
+        // Recursive case
+        else {
             return this.next.removeValue(value, this, head);
         }
+
     }
 
     removeValue2(value, prev = undefined, head = this) {
