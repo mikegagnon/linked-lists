@@ -53,6 +53,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
     - Step 2. Recursive case
         - Assume correctness
         - Make one step of progress
+    - Completed function
     - Algorithmic performance
 
 
@@ -1381,6 +1382,8 @@ But it is not necessarily the smallest value in `this` list because `this.value`
 
 Therefore, we must check if `this.value < smallest`.
 
+### Completed function
+
 Our recurisve case (and the completed function) is then implemented as follows:
 
 ```js
@@ -1409,3 +1412,96 @@ findSmallest() {
 ### Algorithmic performance
 
 `findSmallest(...)` is *O(N)*
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br>
+
+## <a name="lec9">Lecture 9. `sort(...)`</a>
+
+Let's implement `sort(...)`, the pinnacle of our exploration of recursive functions
+on linked lists.
+
+```js
+class Node {
+ 
+    ...
+
+    // Sorts the list in ascending order.
+    // 
+    // Returns the head of the new list.
+    sort(value) {
+        // ?
+    }
+} 
+```
+
+Recall the two steps for developing a recursive function:
+
+- Step 1. Base case(s)
+- Step 2. Recursive case
+ - Assume correctness
+ - Make one step of progress
+
+### Step 1. Base case(s)
+
+Similar to the `findSmallest()` function, `sort()` has one base case: when `this` is the end of the list.
+Since there is only one node in the list, we simply return a reference for `this` node:
+
+```js
+// Sorts the list in ascending order.
+// 
+// Returns the head of the new list.
+sort() {
+
+    // Base case
+    if (this.next == undefined) {
+        return this;
+    }
+
+    // Recursive case
+    else {
+        // ?
+    }
+}
+```
+
+### Step 2. Recursive case
+
+First, I'll present the algorithm we want to use:
+
+1. Find and remove the smallest value in the `this.next` list
+2. Sort the `this.next` list
+3. Prepend the smallest value with the `this.next` list
+
+Do you understand how that algorithm sorts `this` list?
+
+### Completed function
+
+```js
+// Sorts the list in ascending order.
+// 
+// Returns the head of the new list.
+sort() {
+
+    // Base case
+    if (this.next == undefined) {
+        return this;
+    }
+
+    // Recursive case
+    else {
+        var smallest = this.findSmallest();
+        var sublist = this.removeValue(smallest);
+        var sortedSublist = sublist.sort();
+        return sortedSublist.prepend(smallest);
+    }
+}
+```
