@@ -788,7 +788,7 @@ Recall the two steps for developing a recursive function:
  - Assume correctness
  - Make one step of progress
 
-### Step 1. Base Cases
+### Step 1. Base Case(s)
 
 There are two base cases for `removeValue(...)`:
 
