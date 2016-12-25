@@ -12,14 +12,14 @@ Familiarity with JS, particularily object-oriented programming in JS.
 ## Contents
 
 - [Lecture 1. Recursion](#lec1)
- - Example 1. Factorial
-  - `index.html`
-  - `linked-lists.js`
-  - Unit testing
-  - Unwinding `factorial(...)`
- - Example 2. Fibonacci numbers
-  - Unwinding `fibonacci(...)`
-  - Proof that `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
+    - Example 1. Factorial
+         - `index.html`
+         - `linked-lists.js`
+         - Unit testing
+         - Unwinding `factorial(...)`
+    - Example 2. Fibonacci numbers
+         - Unwinding `fibonacci(...)`
+         - Proof that `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
 - [Lecture 2. Node `append(...)`](#lec2)
  - Linked Lists
  - Visualization
