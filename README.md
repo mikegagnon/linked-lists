@@ -1232,43 +1232,78 @@ removeValue(value, prev = undefined, head = this) {
 ### Completed function
 
 ```js
-// Deletes the node with the specified value.
-// It is an error if value is not found in the list.
-//
-// Returns the head of the new list, possibly undefined
-//
-// Arguments:
-//   prev is a reference to the previous node. If there is no previous node,
-//   then set prev to undefined.
-//   head is a reference to the first node in the list.
-removeValue(value, prev = undefined, head = this) {
-
-    // Base Case 1: When we have found the sought-after value
-    if (this.value == value) {
+    class Node {
     
-        // Corner Case (A) and (B)
-        if (this != head) {
-            prev.next = this.next;
-            return head;
+    ...
+    
+    // Deletes the node with the specified value.
+    // It is an error if value is not found in the list.
+    //
+    // Returns the head of the new list, possibly undefined
+    //
+    // Arguments:
+    //   prev is a reference to the previous node. If there is no previous node,
+    //   then set prev to undefined.
+    //   head is a reference to the first node in the list.
+    removeValue(value, prev = undefined, head = this) {
+
+        // Base Case 1: When we have found the sought-after value
+        if (this.value == value) {
+
+            // Corner Case (A) and (B)
+            if (this != head) {
+                prev.next = this.next;
+                return head;
+            }
+
+            // Corner Case (C) and (D)
+            else {
+                return this.next;
+            }
         }
-        
-        // Corner Case (C) and (D)
+
+        // Base Case 2: When we have reached the end of the list
+        else if (this.next == undefined) {
+            console.error("The list did not contain the value we're looking for");
+        }
+
+        // Recursive case
         else {
-            return this.next;
+            return this.next.removeValue(value, this, head);
         }
-    }
-    
-    // Base Case 2: When we have reached the end of the list
-    else if (this.next == undefined) {
-        console.error("The list did not contain the value we're looking for");
-    }
-    
-    // Recursive case
-    else {
-        return this.next.removeValue(value, this, head);
-    }
 
+    }
 }
+
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+bNode = head.removeValue("A");
+cNode = bNode.next;
+assert(bNode.value == "B");
+assert(cNode.next == undefined);
+assert(cNode.value == "C");
+
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+aNode = head.removeValue("B");
+cNode = aNode.next;
+assert(aNode.value == "A");
+assert(cNode.next == undefined);
+assert(cNode.value == "C");
+
+var head = new Node(2);
+head.append(3);
+head.append(1);
+
+var newHead = head.removeValue(1);
+assert(newHead == head);
+assert(head.value == 2);
+assert(head.next.value == 3);
+assert(head.next.next == undefined);
 ```
 
 ### Algorithmic performance
@@ -1414,26 +1449,48 @@ Therefore, we must check if `this.value < smallest`.
 Our recurisve case (and the completed function) is then implemented as follows:
 
 ```js
-// Finds and returns the smallest value in this list
-findSmallest() {
-
-    // Base Case: When we have reached the end of the list
-    if (this.next == undefined) {
-        return this.value;
-    }
+class Node {
     
-    // Recursive case
-    else {
-        var smallest = this.next.findSmallest();
+    ...
+    
+    // Finds and returns the smallest value in this list
+    findSmallest() {
 
-        if (this.value < smallest) {
+        // Base Case: When we have reached the end of the list
+        if (this.next == undefined) {
             return this.value;
-        } else {
-            return smallest;
         }
-    }
 
+        // Recursive case
+        else {
+            var smallest = this.next.findSmallest();
+
+            if (this.value < smallest) {
+                return this.value;
+            } else {
+                return smallest;
+            }
+        }
+
+    }
 }
+
+var head = new Node("1");
+head.append("2");
+head.append("3");
+assert(head.findSmallest() == 1);
+
+var head = new Node("2");
+head.append("1");
+head.append("3");
+assert(head.findSmallest() == 1);
+
+var head = new Node("2");
+head.append("3");
+head.append("1");
+assert(head.findSmallest() == 1);
+
+
 ```
 
 ### Algorithmic performance
@@ -1513,24 +1570,72 @@ Do you understand how that algorithm sorts `this` list?
 ### Completed function
 
 ```js
-// Sorts the list in ascending order.
-// 
-// Returns the head of the new list.
-sort() {
+class Node {
 
-    // Base case
-    if (this.next == undefined) {
-        return this;
-    }
+    ...
 
-    // Recursive case
-    else {
-        var smallest = this.findSmallest();
-        var sublist = this.removeValue(smallest);
-        var sortedSublist = sublist.sort();
-        return sortedSublist.prepend(smallest);
+    // Sorts the list in ascending order.
+    // 
+    // Returns the head of the new list.
+    sort() {
+
+        // Base case
+        if (this.next == undefined) {
+            return this;
+        }
+
+        // Recursive case
+        else {
+            var smallest = this.findSmallest();
+            var sublist = this.removeValue(smallest);
+            var sortedSublist = sublist.sort();
+            return sortedSublist.prepend(smallest);
+        }
     }
 }
+
+var head = new Node(1);
+head.append(2);
+head.append(3);
+var sorted = head.sort();
+
+aNode = sorted;
+bNode = aNode.next;
+cNode = bNode.next;
+
+assert(aNode.value == 1);
+assert(bNode.value == 2);
+assert(cNode.value == 3);
+assert(cNode.next == undefined);
+
+
+var head = new Node(2);
+head.append(1);
+head.append(3);
+var sorted = head.sort();
+
+aNode = sorted;
+bNode = aNode.next;
+cNode = bNode.next;
+
+assert(aNode.value == 1);
+assert(bNode.value == 2);
+assert(cNode.value == 3);
+assert(cNode.next == undefined);
+
+
+var head = new Node(2);
+head.append(3);
+head.append(1);
+var sorted = head.sort();
+
+aNode = sorted;
+bNode = aNode.next;
+cNode = bNode.next;
+
+assert(aNode.value == 1);
+assert(bNode.value == 2);
+assert(cNode.value == 3);
 ```
 
 ### Algorithmic performance
