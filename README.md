@@ -55,6 +55,8 @@ Familiarity with JS, particularily object-oriented programming in JS.
         - Make one step of progress
     - Completed function
     - Algorithmic performance
+- [Lecture 9. `sort()`](#lec9)
+
 
 
 
@@ -1505,3 +1507,7 @@ sort() {
     }
 }
 ```
+
+### Algorithmic performance
+
+`sort()` is *O(N^2)*
