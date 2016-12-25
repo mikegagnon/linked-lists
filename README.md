@@ -1344,4 +1344,47 @@ findSmallest() {
 
 ### Step 2. Recursive case
 
+Recall, the two tips for the recursive case are:
+
+1. Assume correctness
+2. Make one step of progress
+
+#### Assume correctness
+
+We assume that when we invoke `node.findSmallest()` it performs the operation correctly and returns the new `smallest`, where `smallest` is the smallest value in the list beginning at `node`.
+
+#### Make one step of progress
+
+We want to make one step of progress, so we call `var smallest = this.next.findSmallest()`.
+
+This gives us the smallest value in the `this.next` list.
+But it is not necessarily the smallest value in `this` list because `this.value` might be smaller than `smallest`.
+
+Therefore, we must check if `this.value < smallest`.
+
+Our recurisve case (and the completed function) is then implemented as follows:
+
+```js
+// Finds and returns the smallest value in this list
+findSmallest() {
+
+    // Base Case: When we have reached the end of the list
+    if (this.next == undefined) {
+        return this.value;
+    }
+    
+    // Recursive case
+    else {
+        var smallest = this.next.findSmallest();
+
+        if (this.value < smallest) {
+            return this.value;
+        } else {
+            return smallest;
+        }
+    }
+
+}
+```
+
 ### Completed function
