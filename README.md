@@ -45,7 +45,17 @@ Familiarity with JS, particularily object-oriented programming in JS.
         - Make one step of progress    
     - Completed function
 - [Lecture 8. `findSmallest()`](#lec8)
-    
+    - Step 1. Base case(s)
+        - Analyze the corner cases and Merge cases
+    - Step 2. Recursive case
+        - Assume correctness
+        - Make one step of progress
+
+
+
+
+
+
 <br><br><br><br>
 
 ## <a name="lec1">Lecture 1. Recursion</a>
