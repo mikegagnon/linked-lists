@@ -411,6 +411,31 @@ The way to cover corner cases is to:
 
 #### Merge cases
 
+When you're covering cases you may end up with code that looks something like this:
+
+```js
+if (this.head != this && this.next != undefined) {
+    // perform Operation A
+} else if (this.head != this && this.next == undefined) {
+    // perform Operation A
+}
+```
+
+These two cases can be merged into the following:
+
+```js
+if (this.head != this) {
+    // perform Operation A
+}
+```
+
+The merge is possible since Operation A is performed regardless of whether `this.next` is defined.
+
+Whenever you're covering a new corner case, check to see if it can be merged
+with an existing case.
+
+Merging cases is desirable because it leads to simplified, concise code.
+
 ### Step 2. Recursive case
 
 #### Assume correctness
