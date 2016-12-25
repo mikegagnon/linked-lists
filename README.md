@@ -1077,3 +1077,44 @@ removeValue(value, prev = undefined, head = this) {
 }
 ```
 
+### Completed function
+
+```js
+// Deletes the node with the specified value.
+// It is an error if value is not found in the list.
+//
+// Returns the head of the new list, possibly undefined
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeValue(value, prev = undefined, head = this) {
+
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+    
+        // Corner Case (A) and (B)
+        if (this != head) {
+            prev.next = this.next;
+            return head;
+        }
+        
+        // Corner Case (C) and (D)
+        else {
+            return this.next;
+        }
+    }
+    
+    // Base Case 2: When we have reached the end of the list
+    else if (this.next == undefined) {
+        console.error("The list did not contain the value we're looking for");
+    }
+    
+    // Recursive case
+    else {
+        return this.next.removeValue(value, this, head);
+    }
+
+}
+```
