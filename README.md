@@ -559,19 +559,210 @@ class Node {
 }
 ```
 
-Recall the following tips for developing recursive functions:
+Recall the two steps for developing a recursive function:
 
-- Tip 1. Document the function
-- Tip 2. Base case and recursive case
-- Tip 3. Make progress every step of the way
-- Tip 4. Assume correctness
-- Tip 5: Analyze the corner cases
+- Step 1. Base case(s)
+    - Analyze the corner cases
+    - Merge cases
+- Step 2. Recursive case
+    - Assume correctness
+    - Make one step of progress
 
-Let's build the function by going through each of the tips.
+### Step 1. Base Case(s)
 
-### Use Tip 1: Document function
+There is one base case for `removeLast(...)`: when we have reached the end of the list.
 
-The function is already documented
+Therefore the framework for our function is as follows:
+
+```js
+// Deletes the last node in this list.
+//
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+removeLast() {
+
+    // Base Case: When we have reached the end of the list
+    if (this.next == undefined) {
+        // ?
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+}
+```
+
+For the base case, we analyze the corner cases and seek opportunies to merge cases.
+
+#### Analyze the corner cases
+
+Recall the four corner cases:
+
+- (A) `this` != first node AND `this` != last node
+- (B) `this` != first node AND `this` == last node
+- (C) `this` == first node AND `this` != last node
+- (D) `this` == first node AND `this` == last node
+
+We can outright ignore cases (A) and (C), since we know `this` == last node.
+
+Now we only have two cases:
+
+- (B) `this` != first node
+- (D) `this` == first node
+
+##### Corner Case (B): `this` != first node AND `this` == last node
+
+Since `this` != first node, we know there is a previous node.
+
+We want to find the previous node, say `prev`, and set `prev.next` to `undefined`, thereby
+modifying the list so that `prev` becomes the last node in the list.
+
+Then we want to return `[v, head]` where `v` is the value of the last node, and
+`head` is a reference to the first node of the list.
+
+For this to work, we must have a reference for the previous node and a reference for the first node.
+
+###### Finding the `prev` and `head` nodes
+
+Our `removeLast(...)` base case requires a `head` node reference (the first node in the list),
+and a `prev` node reference (the previous node in the list, relative to `this`).
+
+There is a very simple solution to our problem: take `prev` and `head` as arguments to `removeLast(...)`:
+
+```js
+// Deletes the last node in this list.
+//
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeLast(prev, head) { //<-----------------------------------------------------------
+    ...
+}
+```
+
+Client code must now invoke `removeLast` as follows:
+
+```js
+var [value, newHead] = head.removeLast(undefined, head);
+```
+
+Since we don't want to impose unnecessary burden upon our clients, we use default parameters for our `removeLast(...)` arguments:
+
+```js
+// Deletes the last node in this list.
+//
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeLast(prev = undefined, head = this) { //<--------------------------------------
+    ...
+}
+```
+
+Now, client code can invoke `removeLast(...)` as before:
+
+```js
+var [value, newHead] = head.removeLast();
+```
+
+###### Implementing code for Corner Case (B)
+
+Recall, we want to set `prev.next` to `undefined`, thereby
+modifying the list so that `prev` becomes the last node in the list.
+
+Then we want to return `[v, head]` where `v` is the value of the last node, and
+`head` is a reference to the first node of the list.
+
+```js
+// Deletes the last node in this list.
+//
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeLast(prev = undefined, head = this) {
+
+    // Base Case: When we have reached the end of the list
+    if (this.next == undefined) {
+
+        if (this != head) {
+            prev.next = undefined;
+            return [this.value, head];
+        }
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+}
+```
+
+##### Corner Case (D): `this` == first node AND `this` == last node
+
+Since this node is both the first and the last node, we
+know it is the only node in the list.
+
+Therefore, all we need to do is return `[this.value, undefined]` so that
+returning `head == undefined` signifies the list is now empty.
+
+Our complete implementation of the base case is therefore:
+
+```js
+// Deletes the last node in this list.
+//
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeLast(prev = undefined, head = this) {
+
+    // Base Case: When we have reached the end of the list
+    if (this.next == undefined) {
+
+        if (this != head) {
+            prev.next = undefined;
+            return [this.value, head];
+        } else {
+            return [this.value, undefined];
+        }
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+##
 
 ### Use Tip 2: Base case and recursive case
 
