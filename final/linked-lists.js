@@ -168,15 +168,16 @@ class Node {
     // 
     // Returns the head of the new list.
     sort() {
+
+        // Base case
         if (this.next == undefined) {
             return this;
-        } else {
+        }
 
+        // Recursive case
+        else {
             var smallest = this.findSmallest();
             var sublist = this.removeValue(smallest);
-
-            assert(sublist != undefined);
-
             var sortedSublist = sublist.sort();
             return sortedSublist.prepend(smallest);
         }
