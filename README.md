@@ -21,7 +21,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
  - Analyzing the performance of `append(...)`
  - Analyzing the performance of `prepend(...)`
  - Summary
-- [Lecture 4. Tips for developing recursive functions](#lec4)
+- [Lecture 4. Steps for developing a recursive function](#lec4)
  - Tip 1. Document the function
  - Tip 2. Base case and recursive case
  - Tip 3. Make progress every step of the way
@@ -298,7 +298,7 @@ class Node {
 
    ...
 
-   // Creates a new node to hold value, and prepends the new node to this list
+   // Creates a new node to hold value, and prepends the new node to this list,
    // making the new node the head of the list.
    //
    // Returns a reference to the new head of the list (which is the newly
@@ -349,7 +349,7 @@ mini course, however, we satisfy ourselves with an informal, rough understanding
 If should be clear that the amount of time it takes to 
 execute `prepend(...)` is independent of the size of the linked list.
 
-To be more precise, `prepend(...)` takes a constant (i.e. non variable)
+To be more precise, `prepend(...)` takes a constant (i.e. non-variable relative to N)
 amount of time to execute.
 
 Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a constant).
@@ -359,30 +359,11 @@ Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a
 - `append(...)` is *O(N)* -- slow
 - `prepend(...)` is *O(1)* -- fast
 
-
-
-## <a name="lec4">Lecture 4. Tips for developing recursive functions</a>
+## <a name="lec4">Lecture 4. Steps for developing a recursive function</a>
 
 This lecture may sound like gibberish now.
 
-That's fine because we will concretely explore
-how these tips apply to many recursive functions throughout this mini course.
-
-### Tip 1. Document the function
-
-Before you begin coding a recursive function, you should document the function.
-Specifically, you should precisely document the input to the function, the
-return-value for the function, and any side effects.
-
-```js
-// Creates a new node to hold value, and appends the new node to the end
-// of this list.
-//
-// Doesn't return anything.
-append(value) {
-  // ?
-}
-```
+That's fine because we will concretely explore these steps throughout this mini course, over and over again.
 
 ### Tip 2. Base case and recursive case
 
