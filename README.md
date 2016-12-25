@@ -783,7 +783,7 @@ Recall the two steps for developing a recursive function:
 
 - Step 1. Base case
  - Analyze the corner cases
- - Simplify
+ - Merge cases
 - Step 2. Recursive case:
  - Make one step of progress
  - Assume correctness
@@ -849,7 +849,7 @@ removeValue(value) {
 }
 ```
 
-The first base case requires more care. It is here we analyze the corner cases.
+The first base case requires more care. It is here we analyze the corner cases and seek opportunies to merge cases.
 
 #### Analyze the corner cases
 
@@ -917,10 +917,14 @@ removeValue(value, prev = undefined, head = this) {
 
     // Base Case 1: When we have found the sought-after value
     if (this.value == value) {
+    
+        // Corner Case (A)
         if (this != head && this.next != undefined) { // <-------------------------------
             prev.next = this.next;
             return head;
         }
+        
+        ...
     }
     
     // Base Case 2: When we have reached the end of the list
@@ -934,4 +938,92 @@ removeValue(value, prev = undefined, head = this) {
     }
 
 }
+```
+
+##### Corner Case (B): `this` != first node AND `this` == last node
+
+Here, we want to set `prev.next` equal to `undefined`.
+
+Let's see if we can Merge Corner Case (A) with Corner Case (B), rather than implementing Corner Case (B) as a separate case.
+
+Observe, `this.next == undefined`, since `this` is the last node.
+
+Therefore, we can set `prev.next` equal to `this.next`, which is what we do in Corner Case (A).
+
+Therefore, Corner Case (A) and (B) are equivalent cases, so we can Merge them.
+
+We modify the conditional for Corner Case (A) to include Corner Case (B) as well:
+
+```js
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        
+        // Corner Case (A) and (B)
+        if (this != head) { // <----------------------------------------------------
+            prev.next = this.next;
+            return head;
+        }
+        
+        ...
+    }
+```
+
+### Corner Case (C): `this` == first node AND `this` != last node
+
+Here, we simply want to change the head of the list to `this.next`.
+
+Let's see if we can Merge Corner Case (C) with (A) or (B), rather than implementing Corner Case (C) as a separate case.
+
+Clearly, we can't make this Merge because (A) and (B) return `head` and it is impossible for `head` to be equal to `this.next`.
+
+So, we implement (C) by defining an `else if` statement that returns `this.next`:
+
+```js
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        
+        // Corner Case (A) and (B)
+        if (this != head) {
+            prev.next = this.next;
+            return head;
+        }
+        
+        // Corner Case (C)
+        else if (this.next != undefined) // <----------------------------------------------------
+            return this.next
+        }
+
+        ...
+    }
+```
+
+##### Corner Case (D): `this` == first node AND `this` == last node
+
+In this case, `this` is the only node. Therefore, we want to return `undefined` which signifies an empty list.
+
+Let's see if we can Merge Corner Case (C) and (D), rather than implementing Corner Case (D) as a separate case.
+
+Observe, `this.next == undefined`, since `this` is the last node.
+
+Therefore, we can Merge (C) and (D) by returning `this.next` to achieve the desired effect.
+
+We modify the conditional for Corner Case (C) to include Corner Case (D). We simplify change the `else if` to an `else`:
+
+```js
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        
+        // Corner Case (A) and (B)
+        if (this != head) {
+            prev.next = this.next;
+            return head;
+        }
+        
+        // Corner Case (C) and (D)
+        else { // <----------------------------------------------------
+            return this.next
+        }
+
+        ...
+    }
 ```
