@@ -38,7 +38,13 @@ Familiarity with JS, particularily object-oriented programming in JS.
         - Make one step of progress
     - Completed function
 - [Lecture 7. `removeValue(...)`] (#lec7)
-
+    - Step 1. Base case(s)
+        - Analyze the corner cases and Merge cases
+    - Step 2. Recursive case
+        - Assume correctness
+        - Make one step of progress    
+    - Completed function
+    
 <br><br><br><br>
 
 ## <a name="lec1">Lecture 1. Recursion</a>
@@ -932,7 +938,7 @@ removeValue(value) {
 
 The first base case requires more care. It is here we analyze the corner cases and seek opportunies to merge cases.
 
-#### Analyze the corner cases
+#### Analyze the corner cases and Merge cases
 
 Recall the four corner cases:
 
@@ -1049,7 +1055,7 @@ We modify the conditional for Corner Case (A) to include Corner Case (B) as well
     }
 ```
 
-### Corner Case (C): `this` == first node AND `this` != last node
+##### Corner Case (C): `this` == first node AND `this` != last node
 
 Here, we simply want to change the head of the list to `this.next`.
 
@@ -1116,7 +1122,11 @@ Recall, the two tips for the recursive case are:
 1. Assume correctness
 2. Make one step of progress
 
+#### Assume correctness
+
 So, we assume that when we invoke `removeValue(value, prev, head)` it performs the operation correctly and returns the new head of the list.
+
+#### Make one step of progress
 
 We want to make one step of progress, so we simply call `this.next.removeValue(value, prev, head)` and return its value.
 
