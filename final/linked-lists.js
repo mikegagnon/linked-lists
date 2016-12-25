@@ -15,11 +15,11 @@ function factorial(n) {
   }
 }
 
-console.log(factorial(1));
-console.log(factorial(2));
-console.log(factorial(3));
-console.log(factorial(4));
-console.log(factorial(5));
+assert(factorial(1) == 1);
+assert(factorial(2) == 2);
+assert(factorial(3) == 6);
+assert(factorial(4) == 24);
+assert(factorial(5) == 120);
 
 class Node {
     constructor(value) {
