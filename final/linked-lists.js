@@ -143,11 +143,16 @@ class Node {
 
     }
 
-    // returns the smallest value in the list
+    // Finds and returns the smallest value in this list
     findSmallest() {
+
+        // Base Case: When we have reached the end of the list
         if (this.next == undefined) {
             return this.value;
-        } else {
+        }
+        
+        // Recursive case
+        else {
             var smallest = this.next.findSmallest();
 
             if (this.value < smallest) {
@@ -156,6 +161,7 @@ class Node {
                 return smallest;
             }
         }
+
     }
 
     // Sorts the list in ascending order.
