@@ -366,37 +366,78 @@ This lecture may sound like gibberish now.
 
 That's fine because we will concretely explore these steps throughout this mini course, over and over again.
 
-### Tip 2. Base case and recursive case
+### Step 1. Base case(s)
 
 Every recursive function has at least one "base case" and at least one
-"recursive case."
+"recursive case." Consider the `append(...)` function:
 
 ```js
 append(value) {
 
-    // base case
+    // Base case
     if (this.next == undefined) {
         this.next = new Node(value);
     }
 
-    // recursive case
+    // Recursive case
     else {
         this.next.append(value);
     }
 }
 ```
 
-#### Base case
-
 A *base case* is a case that does not invoke recursion (because there is no longer a need for recursion).
 
 For example, if your recursive function is searching for the last element in the list (as in `append(...)`),
 the base case would be the case where the last element has been reached.
 
-Write the base case(s) before you write the recursive case.
+#### Analyze the corner cases
 
-If it's not clear how to implement the base case right away, then first document (A) when the base case occurs,
-and (B) what should be done in the base case.
+In a linked-list method (for the base case(s)) these corner cases tend to arise are:
+
+- (A) `this` != first node AND `this` != last node
+- (B) `this` != first node AND `this` == last node
+- (C) `this` == first node AND `this` != last node
+- (D) `this` == first node AND `this` == last node
+
+Make sure your recursive function works for all corner cases.
+
+The way to cover corner cases is to:
+
+1. Implement the code for one corner case
+2. Implement the code for another corner case
+3. Merge the cases if possible
+4. Repeat until you have covered every corner case
+
+#### Merge cases
+
+### Step 2. Recursive case
+
+#### Assume correctness
+
+#### Make one step of progress
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Tip 2. Base case and recursive case
+
+#### Base case
 
 #### Recursive case
 
@@ -447,14 +488,7 @@ It's kind of like the inductive step in an inductive proof.
 
 ### Tip 5: Analyze the corner cases
 
-In a linked list the corner cases that tend to arise are:
 
-- (A) `this` == first node AND `this` == last node
-- (B) `this` == first node AND `this` != last node
-- (C) `this` != first node AND `this` == last node
-- (D) `this` != first node AND `this` != last node
-
-Make sure your recursive function works for all corner cases.
 
 #### Example
 
