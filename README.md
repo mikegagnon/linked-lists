@@ -781,14 +781,14 @@ class Node {
 
 Recall the two steps for developing a recursive function:
 
-- Step 1. Base case
+- Step 1. Base case(s)
  - Analyze the corner cases
  - Merge cases
-- Step 2. Recursive case:
- - Make one step of progress
+- Step 2. Recursive case
  - Assume correctness
+ - Make one step of progress
 
-### Step 1. Base Case
+### Step 1. Base Cases
 
 There are two base cases for `removeValue(...)`:
 
@@ -1027,3 +1027,53 @@ We modify the conditional for Corner Case (C) to include Corner Case (D). We sim
         ...
     }
 ```
+
+### Step 2. Recursive case
+
+Recall, the two tips for the recursive case are:
+
+1. Assume correctness
+2. Make one step of progress
+
+So, we assume that when we invoke `removeValue(value, prev, head)` it performs the operation correctly and returns the new head of the list.
+
+We want to make one step of progress, so we simply call `this.next.removeValue(value, prev, head)` and return its value.
+
+We need to ensure we invoke `removeValue(...)` with the correct arguments for `value`, `prev`, and `head`.
+
+`value` is simply `value`, and `head` is simply `head`.
+
+For `prev` though, went to set it to `this`. The reason being is that `this` is the previous node `this.next`.
+
+Therefore our recurisve case is implemented as follows:
+
+```js
+// Deletes the node with the specified value.
+// It is an error if value is not found in the list.
+//
+// Returns the head of the new list, possibly undefined
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeValue(value, prev = undefined, head = this) {
+
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        ...
+    }
+    
+    // Base Case 2: When we have reached the end of the list
+    else if (this.next == undefined) {
+        ...
+    }
+    
+    // Recursive case
+    else {
+        return this.next.removeValue(value, this, head); // <-----------------------------------
+    }
+
+}
+```
+
