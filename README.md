@@ -37,13 +37,14 @@ Familiarity with JS, particularily object-oriented programming in JS.
         - Assume correctness
         - Make one step of progress
     - Completed function
-- [Lecture 7. `removeValue(...)`] (#lec7)
+- [Lecture 7. `removeValue(...)`](#lec7)
     - Step 1. Base case(s)
         - Analyze the corner cases and Merge cases
     - Step 2. Recursive case
         - Assume correctness
         - Make one step of progress    
     - Completed function
+- [Lecture 8. `findSmallest()`](#lec8)
     
 <br><br><br><br>
 
@@ -1209,3 +1210,43 @@ removeValue(value, prev = undefined, head = this) {
 
 }
 ```
+
+
+
+
+
+
+
+
+<br><br><br><br>
+
+## <a name="lec8">Lecture 8. `findSmallest(...)`</a>
+
+Let's implement `removeValue(...)`.
+
+```js
+class Node {
+ 
+    ...
+
+    // Finds and returns the smallest value in this list
+    removeValue(value) {
+        // ?
+    }
+} 
+```
+
+Recall the two steps for developing a recursive function:
+
+- Step 1. Base case(s)
+ - Analyze the corner cases
+ - Merge cases
+- Step 2. Recursive case
+ - Assume correctness
+ - Make one step of progress
+
+### Step 1. Base Case(s)
+
+### Step 2. Recursive case
+
+### Completed function
