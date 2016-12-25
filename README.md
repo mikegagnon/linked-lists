@@ -1230,7 +1230,7 @@ class Node {
     ...
 
     // Finds and returns the smallest value in this list
-    removeValue(value) {
+    findSmallest(value) {
         // ?
     }
 } 
@@ -1246,6 +1246,27 @@ Recall the two steps for developing a recursive function:
  - Make one step of progress
 
 ### Step 1. Base Case(s)
+
+There is one base casee for `findSmallest(...)`: when we have reached the end of the list.
+
+Therefore the framework for our function is as follows:
+
+```js
+// Finds and returns the smallest value in this list
+findSmallest() {
+
+    // Base Case: When we have reached the end of the list
+    else if (this.next == undefined) {
+        // ?
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+
+}
+```
 
 ### Step 2. Recursive case
 
