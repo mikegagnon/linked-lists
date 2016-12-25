@@ -56,6 +56,10 @@ Familiarity with JS, particularily object-oriented programming in JS.
     - Completed function
     - Algorithmic performance
 - [Lecture 9. `sort()`](#lec9)
+    - Step 1. Base case(s)
+    - Step 2. Recursive case
+    - Completed function
+    - Algorithmic performance
 
 
 
@@ -1511,3 +1515,11 @@ sort() {
 ### Algorithmic performance
 
 `sort()` is *O(N^2)*
+
+Why?
+
+Every step in `sort()` invokes two *O(N)* algorithms (`findSmallest()` and `removeValue(...)`).
+Therefore every step in `sort()` is *O(N)*.
+
+Since there are ~*N* steps in `sort()`, the total performance is *O(N^2)*.
+
