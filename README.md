@@ -75,30 +75,9 @@ Let's analyze the recursive defintion of the factorial function.
 - `factorial(5)` == 5 &times; `factorial(4)` == 5 &times; 24 == 120
 - ...
 
+Let's write a `factorial(n)` function in JavaScript.
 
-
-
-
- 
-
-
-
-
-### Fibonacci numbers
-
-Here are the first 9 Fibonacci numbers:
- 
-1, 1, 2, 3, 5, 8, 13, 21, 34, ...
- 
-Do you see the pattern?
- 
-The pattern is this: every Fibonacci number equals the sum of the previous two Fibonacci numbers.
-
-Except for the first two Fibonacci numbers -- the "base cases." By fiat, they are defined to be equal to 1.
-
-Let's write a JS function that computes the *nth* Fibonacci number.
-
-### `index.html`
+#### `index.html`
 
 ```html
 <!DOCTYPE html>
@@ -110,7 +89,76 @@ Let's write a JS function that computes the *nth* Fibonacci number.
 </html>
 ```
 
-### `linked-lists.js`
+#### `linked-lists.js`
+
+```js
+function factorial(n) {
+  if (n <= 0) {
+    console.error("The factorial function is not defined when n <= 0");
+  } else if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+
+console.log(factorial(1));
+console.log(factorial(2));
+console.log(factorial(3));
+console.log(factorial(4));
+console.log(factorial(5));
+```
+
+View your JS console to verify that `factorial(...)` computes the first 5 factorial numbers correctly.
+
+Actually, it would be better to *unit test* the `factorial(...)` function, rather than viewing results
+on the console.
+
+#### Unit Testing
+
+A *unit test* is a piece of code that tests a single unit of code.
+
+Unit testing is awesome and essential.
+
+Here's a unit test for `factorial(...)`:
+
+```js
+function assert(condition) {
+    if (!condition) {
+        console.error("Test failed");
+    }
+}
+
+assert(factorial(1) == 1);
+assert(factorial(2) == 2);
+assert(factorial(3) == 6);
+assert(factorial(4) == 24);
+assert(factorial(5) == 120);
+```
+
+#### Unwinding `factorial(...)`
+
+Let's trace the code and see what happens when we call `factorial(4)`.
+
+- `factorial(4)` calls `factorial(3)`
+- `factorial(3)` calls `factorial(2)`
+- `factorial(2)` calls `factorial(1)`
+- `factorial(1)` returns 1
+- `factorial(2)` multiplies 2 &times; the result of factorial(1), then returns the product, which is 2
+- `factorial(3)` multiplies 3 &times; the result of factorial(2), then returns the product, which is 6
+- `factorial(4)` multiplies 4 &times; the result of factorial(3), then returns the product, which is 24
+
+### Example 2. Fibonacci numbers
+
+Here are the first 9 Fibonacci numbers:
+ 
+1, 1, 2, 3, 5, 8, 13, 21, 34, ...
+ 
+Do you see the pattern?
+ 
+The pattern is this: every Fibonacci number equals the sum of the previous two Fibonacci numbers... except for the first two Fibonacci numbers -- the "base cases." By fiat, the first two Fibonacci numbers are defined to be equal to 1.
+
+Let's write a JS function that computes the *nth* Fibonacci number.
 
 ```js
 function fibonacci(n) {
@@ -123,34 +171,6 @@ function fibonacci(n) {
   }
 }
 
-console.log(fibonacci(1));
-console.log(fibonacci(2));
-console.log(fibonacci(3));
-console.log(fibonacci(4));
-console.log(fibonacci(5));
-console.log(fibonacci(6));
-```
-
-View your JS console to verify that `fibonacci(...)` computes the first 6 Fibonacci numbers correctly.
-
-Actually, it would be better to *unit test* the `fibonacci(...)` function, rather than viewing results
-on the console.
-
-### Unit Testing
-
-A *unit test* is a piece of code that tests a single unit of code.
-
-Unit testing is awesome and essential.
-
-Here's a unit test for `fibonacci(...)`:
-
-```js
-function assert(condition) {
-    if (!condition) {
-        console.error("Test failed");
-    }
-}
-
 assert(fibonacci(1) == 1);
 assert(fibonacci(2) == 1);
 assert(fibonacci(3) == 2);
@@ -159,7 +179,7 @@ assert(fibonacci(5) == 5);
 assert(fibonacci(6) == 8);
 ```
 
-### Unwinding `fibonacci(...)`
+#### Unwinding `fibonacci(...)`
 
 Let's trace the code and see what happens when we call `fibonacci(3)`.
 
@@ -179,7 +199,7 @@ Ok.  Now let's trace a call to `fibonacci(4)`
 
 Get it?
 
-### Proof that `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
+#### Proof that `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
 
 This section is optional. I present it just in case you enjoy proofs using mathematical induction.
 
@@ -189,17 +209,17 @@ works as follows:
 - Base case: Prove that the theorem holds when *n* == 1
 - Inductive step: Prove that if the theorem holds for all *n* (where 1 <= n), then the theorem also holds for *n + 1*
 
-#### Theorem
+##### Theorem
 
 `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
  
-#### Proof
+##### Proof
 
-##### Base case
+###### Base case
 
 Clearly, the `fibonacci(n)` function terminates when *n* == 1.
 
-##### Inductive step
+###### Inductive step
 
 Assumption 1: Assume `fibonacci(n)` terminates for all 1 <= *n*.
 
