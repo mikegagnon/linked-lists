@@ -1301,9 +1301,46 @@ Now we only have two cases:
 - (B) `this` != first node
 - (D) `this` == first node
 
-##### Corner Case (B): `this` != first node AND `this` == last node
+##### Corner Cases (B) and (D)
 
-##### Corner Case (D): `this` == first node AND `this` == last node
+In this case *this* list has only one node (the last node), therefore
+`this.value` is the smallest value in *this* list, therefore
+we simply want to return `this.value`.
+
+You may be confused because we know there is a first node that is not *this*.
+However, this first node is not a part of *this* list. Rather, it
+is a part of the outermost parent list.
+
+According to the documentation for `findSmallest`, the `findSmallest`
+function "*Finds and returns the smallest value in this list*."
+So even if the first node's value is smaller
+than `this.value`, we still want to return `this.value` because
+`this` is the *one and only* node in `this` list --
+the first node is not a part of *this* list.
+
+We also observe that in Case (D) we want to return `this.value`.
+
+Since Cases (B) and (D) perform the same operation (returning `this.value`),
+we can merge them.
+
+Our final base case code is therefore as follows:
+
+```js
+// Finds and returns the smallest value in this list
+findSmallest() {
+
+    // Base Case: When we have reached the end of the list
+    if (this.next == undefined) {
+        return this.value;
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+
+}
+```
 
 ### Step 2. Recursive case
 
