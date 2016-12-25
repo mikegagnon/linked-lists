@@ -783,9 +783,82 @@ Recall the two steps for developing a recursive function:
 
 - Step 1. Base case
  - Analyze the corner cases
+ - Simplify
 - Step 2. Recursive case:
  - Make one step of progress
  - Assume correctness
 
-Let's build the function by going through each of the tips.
+### Step 1. Base Case
+
+There are two base cases for `removeValue(...)`:
+
+1. When we have found the sought-after value
+2. When we have reached the end of the list
+
+Therefore the framework for our function is as follows:
+
+```js
+// Deletes the node with the specified value.
+// It is an error if value is not found in the list.
+//
+// Returns the head of the new list, possibly undefined
+removeValue(value) {
+
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        // ?
+    }
+    
+    // Base Case 2: When we have reached the end of the list
+    else if (this.next == undefined) {
+        // ?
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+
+}
+```
+
+For the second base case, we simply want to report an error message:
+
+```js
+// Deletes the node with the specified value.
+// It is an error if value is not found in the list.
+//
+// Returns the head of the new list, possibly undefined
+removeValue(value) {
+
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        // ?
+    }
+    
+    // Base Case 2: When we have reached the end of the list
+    else if (this.next == undefined) {
+        console.error("The list did not contain the value we're looking for"); // <---------------
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+
+}
+```
+
+The first base case requires more care. It is here we analyze the corner cases.
+
+#### Analyze the corner cases
+
+Recall the four corner cases:
+
+- (A) `this` != first node AND `this` != last node
+- (B) `this` != first node AND `this` == last node
+- (C) `this` == first node AND `this` != last node
+- (D) `this` == first node AND `this` == last node
+
+##### Corner Case (A): `this` != first node AND `this` != last node
 
