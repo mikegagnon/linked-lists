@@ -66,6 +66,16 @@ The recursive definition for the factorial function is:
 - `factorial(n) == n` &times; `factorial(n - 1)`, and
 - A special case of `factorial(1) == 1`
 
+Let's analyze the recursive defintion of the factorial function.
+
+- `factorial(1)` == 1
+- `factorial(2)` == 2 &times; `factorial(1)` == 2 &times; 1 == 2
+- `factorial(3)` == 3 &times; `factorial(2)` == 3 &times; 2 == 6
+- `factorial(4)` == 4 &times; `factorial(3)` == 4 &times; 6 == 24
+- `factorial(5)` == 5 &times; `factorial(4)` == 5 &times; 24 == 120
+- ...
+
+
 
 
 
