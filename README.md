@@ -21,14 +21,14 @@ Familiarity with JS, particularily object-oriented programming in JS.
  - Analyzing the performance of `append(...)`
  - Analyzing the performance of `prepend(...)`
  - Summary
-- [Lecture 4. Steps for developing a recursive function](#lec4)
+- [Lecture 4. `removeFirst(...)`](#lec4)
+- [Lecture 5. Steps for developing a recursive function](#lec5)
     - Step 1. Base case(s)
         - Analyze the corner cases
         - Merge cases
     - Step 2. Recursive case
         - Assume correctness
         - Make one step of progress
-- [Lecture 5. `removeFirst(...)`] (#lec5)
 - [Lecture 6. `removeLast(...)`] (#lec6)
  - Use Tip 1: Document function
  - Use Tip 2: Base case and recursive case
@@ -360,7 +360,50 @@ Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a
 - `append(...)` is *O(N)* -- slow
 - `prepend(...)` is *O(1)* -- fast
 
-## <a name="lec4">Lecture 4. Steps for developing a recursive function</a>
+<br><br><br><br>
+
+## <a name="lec4">Lecture 4. `removeFirst(...)`</a>
+
+Study the `removeFirst` method and its tests. Type in `removeFirst` and its tests into `linked-lists.js`.
+
+```js
+class Node {
+ 
+    ...
+
+    // Deletes the first node in this list.
+    //
+    // Returns [v, head] where v is the value that was removed, and head
+    // is a reference to the new head (possibly undefined).
+    removeFirst() {
+        return [this.value, this.next];
+    }
+}
+
+// Test removeFirst(...)
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+var [aValue, bNode] = head.removeFirst();
+var [bValue, cNode] = bNode.removeFirst();
+var [cValue, undef] = cNode.removeFirst();
+
+assert(aValue == "A");
+assert(bValue == "B");
+assert(cValue == "C");
+
+assert(bNode.value == "B");
+assert(cNode.value == "C");
+assert(undef == undefined);
+
+```
+
+`removeFirst(...)` is *O(1)*
+
+<br><br><br><br>
+
+## <a name="lec5">Lecture 5. Steps for developing a recursive function</a>
 
 This lecture may sound like gibberish now.
 
@@ -497,48 +540,6 @@ It makes one step forward by computing `this.next.append(value)`, which is
 one node away from `this`.
 
 
-
-<br><br><br><br>
-
-## <a name="lec5">Lecture 5. `removeFirst(...)`</a>
-
-Study the `removeFirst` method and its tests. Type in `removeFirst` and its tests into `linked-lists.js`.
-
-```js
-class Node {
- 
-    ...
-
-    // Deletes the first node in this list.
-    //
-    // Returns [v, head] where v is the value that was removed, and head
-    // is a reference to the new head (possibly undefined).
-    removeFirst() {
-        return [this.value, this.next];
-    }
-}
-
-// Test removeFirst(...)
-var head = new Node("A");
-head.append("B");
-head.append("C");
-
-var [aValue, bNode] = head.removeFirst();
-var [bValue, cNode] = bNode.removeFirst();
-var [cValue, undef] = cNode.removeFirst();
-
-assert(aValue == "A");
-assert(bValue == "B");
-assert(cValue == "C");
-
-assert(bNode.value == "B");
-assert(cNode.value == "C");
-assert(undef == undefined);
-
-```
-
-`removeFirst(...)` is *O(1)*
-
 <br><br><br><br>
 
 ## <a name="lec6">Lecture 6. `removeLast(...)`</a>
@@ -558,14 +559,19 @@ class Node {
 }
 ```
 
-Recall the two steps for developing a recursive function:
+Recall the following tips for developing recursive functions:
 
-- Step 1. Base case(s)
-    - Analyze the corner cases
-    - Merge cases
-- Step 2. Recursive case
-    - Assume correctness
-    - Make one step of progress
+- Tip 1. Document the function
+- Tip 2. Base case and recursive case
+- Tip 3. Make progress every step of the way
+- Tip 4. Assume correctness
+- Tip 5: Analyze the corner cases
+
+Let's build the function by going through each of the tips.
+
+### Use Tip 1: Document function
+
+The function is already documented
 
 ### Use Tip 2: Base case and recursive case
 
