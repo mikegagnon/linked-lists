@@ -848,32 +848,53 @@ removeLast(prev = undefined, head = this) {
 ### Completed function
 
 ```js
-// Deletes the last node in this list.
-//
-// Returns [v, newHead] where v is the value that was removed, and
-// newHead is the new head of the list (possibly undefined).
-//
-// Arguments:
-//   prev is a reference to the previous node. If there is no previous node,
-//   then set prev to undefined.
-//   head is a reference to the first node in the list.
-removeLast(prev = undefined, head = this) {
+class Node {
+    
+    ...
+    
+    // Deletes the last node in this list.
+    //
+    // Returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined).
+    //
+    // Arguments:
+    //   prev is a reference to the previous node. If there is no previous node,
+    //   then set prev to undefined.
+    //   head is a reference to the first node in the list.
+    removeLast(prev = undefined, head = this) {
 
-    // Base Case: When we have reached the end of the list
-    if (this.next == undefined) {
-        if (this != head) {
-            prev.next = undefined;
-            return [this.value, head];
-        } else {
-            return [this.value, undefined];
+        // Base Case: When we have reached the end of the list
+        if (this.next == undefined) {
+            if (this != head) {
+                prev.next = undefined;
+                return [this.value, head];
+            } else {
+                return [this.value, undefined];
+            }
+        }
+
+        // Recursive case
+        else {
+            return this.next.removeLast(this, head);
         }
     }
-    
-    // Recursive case
-    else {
-        return this.next.removeLast(this, head);
-    }
 }
+
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+var [cValue, cHead] = head.removeLast();
+var [bValue, bHead] = cHead.removeLast();
+var [aValue, aHead] = bHead.removeLast();
+
+assert(aValue == "A");
+assert(bValue == "B");
+assert(cValue == "C");
+
+assert(cHead.value == "A");
+assert(bHead.value == "A");
+assert(aHead == undefined);
 ```
 
 ### Algorithmic performance
