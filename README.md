@@ -418,6 +418,8 @@ assert(undef == undefined);
 
 ```
 
+### Algorithmic performance
+
 `removeFirst(...)` is *O(1)*
 
 <br><br><br><br>
@@ -863,7 +865,9 @@ removeLast(prev = undefined, head = this) {
 }
 ```
 
+### Algorithmic performance
 
+`removeLast(...)` is *O(N)*
 
 
 
