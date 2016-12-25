@@ -1393,5 +1393,3 @@ findSmallest() {
 
 }
 ```
-
-### Completed function
