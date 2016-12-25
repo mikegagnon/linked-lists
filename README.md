@@ -869,7 +869,7 @@ modifying the list so that `this` is skipped over.
 
 Then we want to return the head of the list.
 
-For this to work, we must have a reference to the previous node and the first node. We use the same approach from (Lecture 6)[#lec6], which is to add `prev` and `head` to the argument list:
+For this to work, we must have a reference to the previous node and the first node. We use the same approach from [Lecture 6](#lec6), which is to add `prev` and `head` to the argument list:
 
 ```js
 // Deletes the first node with the specified value.
