@@ -19,16 +19,16 @@ Familiarity with JS, particularily object-oriented programming in JS.
 - [Lecture 2. Node `append(...)`](#lec2)
  - Linked Lists
  - Visualization
-- [Lecture 3. Tips for developing recursive functions](#lec3)
+- [Lecture 3. `prepend(...)`](#lec3)
+ - Analyzing the performance of `append(...)`
+ - Analyzing the performance of `prepend(...)`
+ - Summary
+- [Lecture 4. Tips for developing recursive functions](#lec4)
  - Tip 1. Document the function
  - Tip 2. Base case and recursive case
  - Tip 3. Make progress every step of the way
  - Tip 4. Assume correctness
  - Tip 5: Analyze the corner cases
-- [Lecture 4. `prepend(...)`](#lec4)
- - Analyzing the performance of `append(...)`
- - Analyzing the performance of `prepend(...)`
- - Summary
 - [Lecture 5. `removeFirst(...)`] (#lec5)
 - [Lecture 6. `removeLast(...)`] (#lec6)
  - Use Tip 1: Document function
@@ -238,8 +238,82 @@ To help make sense of linked lists, we visualize them like so:
 
 <br><br><br><br>
 
+<br><br><br><br>
 
-## <a name="lec3">Lecture 3. Tips for developing recursive functions</a>
+
+## <a name="lec3">Lecture 3. `prepend(...)`</a>
+
+Study the `prepend` method and its tests. Type in `prepend` and its tests into `linked-lists.js`.
+
+```js
+class Node {
+
+   ...
+
+   // Creates a new node to hold value, and prepends the new node to this list
+   // making the new node the head of the list.
+   //
+   // Returns a reference to the new head of the list (which is the newly
+   // created node).
+   prepend(value) {
+     var newNode = new Node(value);
+
+     newNode.next = this;
+
+     return newNode;
+   }
+}
+
+// Test prepend(...)
+var head = new Node("A");
+head = head.prepend("B");
+head = head.prepend("C");
+
+var cNode = head;
+var bNode = cNode.next;
+var aNode = bNode.next;
+
+assert(aNode.value == "A");
+assert(bNode.value == "B");
+assert(cNode.value == "C");
+assert(aNode.next == undefined);
+```
+
+Which is more efficient: `append(...)` or `prepend(...)`?
+
+### Analyzing the performance of `append(...)`
+
+It should be clear that the amount of time it takes 
+to execute `append(...)` is proportional to the size of the linked list.
+
+For example, if a linked list has 1 billion nodes, then it will
+take a long time to execute `append(...)`.
+
+In computer science terminology and notation, we
+say the time performance of `append(...)` is *O(N)*, where *N* is the size of the list.
+
+This is called "Big Oh" notation. In a college-level algorithms course, you would
+learn the formal mathematical definition of Big O and Big O analysis. In this
+mini course, however, we satisfy ourselves with an informal, rough understanding of Big O.
+
+### Analyzing the performance of `prepend(...)`
+
+If should be clear that the amount of time it takes to 
+execute `prepend(...)` is independent of the size of the linked list.
+
+To be more precise, `prepend(...)` takes a constant (i.e. non variable)
+amount of time to execute.
+
+Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a constant).
+
+### Summary
+
+- `append(...)` is *O(N)* -- slow
+- `prepend(...)` is *O(1)* -- fast
+
+
+
+## <a name="lec4">Lecture 4. Tips for developing recursive functions</a>
 
 This lecture may sound like gibberish now.
 
@@ -408,78 +482,6 @@ Just like Case 2 (immediately above), the base case executes the desired behavio
 Since this is not the last node, then `this.next` will be defined, so we only
 need to look at the recursive case. The recursive case looks correct in this case.
 
-<br><br><br><br>
-
-
-## <a name="lec4">Lecture 4. `prepend(...)`</a>
-
-Study the `prepend` method and its tests. Type in `prepend` and its tests into `linked-lists.js`.
-
-```js
-class Node {
-
-   ...
-
-   // Creates a new node to hold value, and prepends the new node to this list
-   // making the new node the head of the list.
-   //
-   // Returns a reference to the new head of the list (which is the newly
-   // created node).
-   prepend(value) {
-     var newNode = new Node(value);
-
-     newNode.next = this;
-
-     return newNode;
-   }
-}
-
-// Test prepend(...)
-var head = new Node("A");
-head = head.prepend("B");
-head = head.prepend("C");
-
-var cNode = head;
-var bNode = cNode.next;
-var aNode = bNode.next;
-
-assert(aNode.value == "A");
-assert(bNode.value == "B");
-assert(cNode.value == "C");
-assert(aNode.next == undefined);
-```
-
-Which is more efficient: `append(...)` or `prepend(...)`?
-
-### Analyzing the performance of `append(...)`
-
-It should be clear that the amount of time it takes 
-to execute `append(...)` is proportional to the size of the linked list.
-
-For example, if a linked list has 1 billion nodes, then it will
-take a long time to execute `append(...)`.
-
-In computer science terminology and notation, we
-say the time performance of `append(...)` is *O(N)*, where *N* is the size of the list.
-
-This is called "Big Oh" notation. In a college-level algorithms course, you would
-learn the formal mathematical definition of Big O and Big O analysis. In this
-mini course, however, we satisfy ourselves with an informal, rough understanding of Big O.
-
-### Analyzing the performance of `prepend(...)`
-
-If should be clear that the amount of time it takes to 
-execute `prepend(...)` is independent of the size of the linked list.
-
-To be more precise, `prepend(...)` takes a constant (i.e. non variable)
-amount of time to execute.
-
-Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a constant).
-
-### Summary
-
-- `append(...)` is *O(N)* -- slow
-- `prepend(...)` is *O(1)* -- fast
 
 <br><br><br><br>
 
