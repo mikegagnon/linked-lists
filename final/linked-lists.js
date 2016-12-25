@@ -5,6 +5,22 @@ function assert(condition) {
     }
 }
 
+function factorial(n) {
+  if (n <= 0) {
+    console.error("The factorial function is not defined when n <= 0");
+  } else if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+
+console.log(factorial(1));
+console.log(factorial(2));
+console.log(factorial(3));
+console.log(factorial(4));
+console.log(factorial(5));
+
 class Node {
     constructor(value) {
         this.value = value;
@@ -68,7 +84,7 @@ class Node {
         }
     }
 
-    // Deletes the node with the specified value.
+    // Deletes the first node with the specified value.
     // It is an error if value is not found in the list.
     //
     // Returns the head of the new list, possibly undefined
