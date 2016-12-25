@@ -549,6 +549,20 @@ It makes one step forward by computing `this.next.append(value)`, which is
 one node away from `this`.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <br><br><br><br>
 
 ## <a name="lec6">Lecture 6. `removeLast(...)`</a>
@@ -1256,7 +1270,7 @@ Therefore the framework for our function is as follows:
 findSmallest() {
 
     // Base Case: When we have reached the end of the list
-    else if (this.next == undefined) {
+    if (this.next == undefined) {
         // ?
     }
     
@@ -1267,6 +1281,29 @@ findSmallest() {
 
 }
 ```
+
+#### Analyze the corner cases
+analyze the corner cases and seek opportunies to merge cases.
+
+#### Analyze the corner cases and Merge cases
+
+Recall the four corner cases:
+
+- (A) `this` != first node AND `this` != last node
+- (B) `this` != first node AND `this` == last node
+- (C) `this` == first node AND `this` != last node
+- (D) `this` == first node AND `this` == last node
+
+We can outright ignore cases (A) and (C), since we know `this` == last node.
+
+Now we only have two cases:
+
+- (B) `this` != first node
+- (D) `this` == first node
+
+##### Corner Case (B): `this` != first node AND `this` == last node
+
+##### Corner Case (D): `this` == first node AND `this` == last node
 
 ### Step 2. Recursive case
 
