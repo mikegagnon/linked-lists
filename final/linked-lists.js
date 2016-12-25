@@ -92,8 +92,7 @@ class Node {
         } else if (this.next == undefined) {
             console.error("The list did not contain the value we're looking for");
         } else {
-            this.next.removeValue(value, this, head);
-            return this;
+            return this.next.removeValue(value, this, head);
         }
     }
 
