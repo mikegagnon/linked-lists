@@ -30,6 +30,13 @@ Familiarity with JS, particularily object-oriented programming in JS.
         - Assume correctness
         - Make one step of progress
 - [Lecture 6. `removeLast(...)`] (#lec6)
+    - Step 1. Base case(s)
+        - Analyze the corner cases
+        - Merge cases
+    - Step 2. Recursive case
+        - Assume correctness
+        - Make one step of progress
+    - Completed function
 - [Lecture 7. `removeValue(...)`] (#lec7)
 
 <br><br><br><br>
@@ -754,7 +761,11 @@ Recall, the two tips for the recursive case are:
 1. Assume correctness
 2. Make one step of progress
 
-So, we assume that when we invoke `removeLast(prev, head)` it performs the operation correctly and returns the new `[v, head]` where `v` is the value that was removed, and `head` is the new head of the list.
+#### Assume correctness
+
+We assume that when we invoke `removeLast(prev, head)` it performs the operation correctly and returns the new `[v, head]` where `v` is the value that was removed, and `head` is the new head of the list.
+
+#### Make one step of progress
 
 We want to make one step of progress, so we simply call `this.next.removeLast(prev, head)` and return its value.
 
