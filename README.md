@@ -22,6 +22,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
  - Analyzing the performance of `prepend(...)`
  - Summary
 - [Lecture 4. `removeFirst(...)`](#lec4)
+    - Algorithmic performance
 - [Lecture 5. Steps for developing a recursive function](#lec5)
     - Step 1. Base case(s)
         - Analyze the corner cases
@@ -37,6 +38,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
         - Assume correctness
         - Make one step of progress
     - Completed function
+    - Algorithmic performance
 - [Lecture 7. `removeValue(...)`](#lec7)
     - Step 1. Base case(s)
         - Analyze the corner cases and Merge cases
@@ -44,12 +46,14 @@ Familiarity with JS, particularily object-oriented programming in JS.
         - Assume correctness
         - Make one step of progress    
     - Completed function
+    - Algorithmic performance
 - [Lecture 8. `findSmallest()`](#lec8)
     - Step 1. Base case(s)
         - Analyze the corner cases and Merge cases
     - Step 2. Recursive case
         - Assume correctness
         - Make one step of progress
+    - Algorithmic performance
 
 
 
@@ -1239,6 +1243,10 @@ removeValue(value, prev = undefined, head = this) {
 }
 ```
 
+### Algorithmic performance
+
+`removeValue(...)` is *O(N)*
+
 
 
 
@@ -1397,3 +1405,7 @@ findSmallest() {
 
 }
 ```
+
+### Algorithmic performance
+
+`findSmallest(...)` is *O(N)*
