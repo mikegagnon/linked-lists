@@ -862,3 +862,76 @@ Recall the four corner cases:
 
 ##### Corner Case (A): `this` != first node AND `this` != last node
 
+In this case, we know that the `this` node is sandwiched between two other nodes.
+
+We want to find the previous node, say `prev`, and set `prev.next` to `this.next`, thereby
+modifying the list so that `this` is skipped over.
+
+Then we want to return the head of the list.
+
+For this to work, we must have a reference to the previous node and the first node. We use the same approach from (Lecture 6)[#lec6], which is to add `prev` and `head` to the argument list:
+
+```js
+// Deletes the node with the specified value.
+// It is an error if value is not found in the list.
+//
+// Returns the head of the new list, possibly undefined
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeValue(value, prev = undefined, head = this) { // <----------------------------------------
+
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        // ?
+    }
+    
+    // Base Case 2: When we have reached the end of the list
+    else if (this.next == undefined) {
+        console.error("The list did not contain the value we're looking for");
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+
+}
+```
+
+Then we can implement Corner Case (A):
+
+```js
+// Deletes the node with the specified value.
+// It is an error if value is not found in the list.
+//
+// Returns the head of the new list, possibly undefined
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeValue(value, prev = undefined, head = this) {
+
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        if (this != head && this.next != undefined) { // <-------------------------------
+            prev.next = this.next;
+            return head;
+        }
+    }
+    
+    // Base Case 2: When we have reached the end of the list
+    else if (this.next == undefined) {
+        console.error("The list did not contain the value we're looking for");
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+
+}
+```
