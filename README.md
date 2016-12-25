@@ -274,11 +274,9 @@ assert(head.next.next.value == "C");
 assert(head.next.next.next == undefined);
 ```
 
-Add the `Node` class and usage example into `linked-lists.js`.
-
 ### Linked Lists
 
-Node objects link together via the *next* field.
+Node objects link together via the `next` field.
 
 A chain of nodes is called a linked list.
 
@@ -287,8 +285,6 @@ A chain of nodes is called a linked list.
 To help make sense of linked lists, we visualize them like so:
 
 <img src="linked-list-01.png">
-
-<br><br><br><br>
 
 <br><br><br><br>
 
