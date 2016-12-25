@@ -143,41 +143,6 @@ class Node {
 
     }
 
-    removeValue2(value, prev = undefined, head = this) {
-
-        if (this.value == value) {
-            
-            // Case (A) `this` == first node AND `this` == last node
-            if (this == head && this.next == undefined) {
-                return undefined;
-            }
-
-            // Case (B) `this` == first node AND `this` != last node
-            else if (this == head && this.next != undefined) {
-                return this.next;
-            }
-
-            // Case (C) `this` != first node AND `this` == last node
-            else if (this != head && this.next == undefined) {
-                prev.next = undefined;
-                return head;
-            }
-
-            // Case (D) `this` != first node AND `this` != last node
-            else {
-                assert(this != head && this.next != undefined);
-                prev.next = this.next;
-                return head;
-            }
-
-        } else if (this.next == undefined) {
-            console.error("The list did not contain the value we're looking for");
-        } else {
-            this.next.removeValue(value, this, head);
-            return this;
-        }
-    }
-
     // returns the smallest value in the list
     findSmallest() {
         if (this.next == undefined) {
