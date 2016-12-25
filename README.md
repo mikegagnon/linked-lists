@@ -1657,3 +1657,14 @@ Since there are ~*N* steps in `sort()`, the total performance is *O(N^2)*.
 <br><br><br><br>
 
 ## <a name="summaryperf">Summary of algorithmic performance</a>
+
+
+| Function      | Performance   |
+| ------------- |---------------|
+| `append`      | *O(N)*        | 
+| `prepend`     | *O(1)*        |
+| `removeFirst` | *O(1)*        |
+| `removeLast`  | *O(N)*        |
+| `removeValue` | *O(N)*        |
+| `findSmallest`| *O(N)*        |
+| `removeSort`  | *O(N^2)*      |
