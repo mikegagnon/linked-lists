@@ -60,7 +60,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
     - Step 2. Recursive case
     - Completed function
     - Algorithmic performance
-
+- [Summary of algorithmic performance](#summaryperf)
 
 
 
@@ -1649,3 +1649,11 @@ Therefore every step in `sort()` is *O(N)*.
 
 Since there are ~*N* steps in `sort()`, the total performance is *O(N^2)*.
 
+
+
+
+
+
+<br><br><br><br>
+
+## <a name="summaryperf">Summary of algorithmic performance</a>
