@@ -558,19 +558,14 @@ class Node {
 }
 ```
 
-Recall the following tips for developing recursive functions:
+Recall the two steps for developing a recursive function:
 
-- Tip 1. Document the function
-- Tip 2. Base case and recursive case
-- Tip 3. Make progress every step of the way
-- Tip 4. Assume correctness
-- Tip 5: Analyze the corner cases
-
-Let's build the function by going through each of the tips.
-
-### Use Tip 1: Document function
-
-The function is already documented
+- Step 1. Base case(s)
+    - Analyze the corner cases
+    - Merge cases
+- Step 2. Recursive case
+    - Assume correctness
+    - Make one step of progress
 
 ### Use Tip 2: Base case and recursive case
 
