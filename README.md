@@ -769,7 +769,7 @@ class Node {
  
     ...
 
-    // Deletes the node with the specified value.
+    // Deletes the first node with the specified value.
     // It is an error if value is not found in the list.
     //
     // Returns the head of the new list, possibly undefined
@@ -798,7 +798,7 @@ There are two base cases for `removeValue(...)`:
 Therefore the framework for our function is as follows:
 
 ```js
-// Deletes the node with the specified value.
+// Deletes the first node with the specified value.
 // It is an error if value is not found in the list.
 //
 // Returns the head of the new list, possibly undefined
@@ -872,7 +872,7 @@ Then we want to return the head of the list.
 For this to work, we must have a reference to the previous node and the first node. We use the same approach from (Lecture 6)[#lec6], which is to add `prev` and `head` to the argument list:
 
 ```js
-// Deletes the node with the specified value.
+// Deletes the first node with the specified value.
 // It is an error if value is not found in the list.
 //
 // Returns the head of the new list, possibly undefined
