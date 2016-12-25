@@ -14,7 +14,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
 - [Lecture 1. Recursion](#lec1)
  - Example 1. Factorial
  - Example 2. Fibonacci numbers
-- [Lecture 2. Node `append(...)`](#lec2)
+- [Lecture 2. The `Node` class](#lec2)
  - Linked Lists
  - Visualization
 - [Lecture 3. `prepend(...)`](#lec3)
@@ -236,7 +236,7 @@ QED.
 
 <br><br><br><br>
 
-## <a name="lec2">Lecture 2. Node `append(...)`</a>
+## <a name="lec2">Lecture 2. The `Node` class</a>
 
 Study the `Node` class, and type it in to `linked-lists.js`:
 
