@@ -366,6 +366,15 @@ This lecture may sound like gibberish now.
 
 That's fine because we will concretely explore these steps throughout this mini course, over and over again.
 
+There are primarily two steps when implementing a recursive function:
+
+- Step 1. Base case(s)
+    - Analyze the corner cases
+    - Merge cases
+- Step 2. Recursive case
+    - Assume correctness
+    - Make one step of progress
+
 ### Step 1. Base case(s)
 
 Every recursive function has at least one "base case" and at least one
@@ -438,138 +447,55 @@ Merging cases is desirable because it leads to simplified, concise code.
 
 ### Step 2. Recursive case
 
-#### Assume correctness
+Every recursive function has at least one "base case" and at least one
+"recursive case."
 
-#### Make one step of progress
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Tip 2. Base case and recursive case
-
-#### Base case
-
-#### Recursive case
-
-For a function `f(...)`, the recursive case is the case that invokes `f(...)` recursively.
-
-### Tip 3. Make progress every step of the way
-
-For a recursive function `f(X)`, the recursive case must invoke `f(...)`.
-
-However, it must not invoke `f(X)`, because that would lead to an infinite loop.
-
-Rather, each recursive case must make some progress.
-
-For instance:
-
-- For `f(n)`, the recursive case might call `f(n - 1)`
-- For `f(node)`, the recursive case might call `f(node.next)`
-
-In the `append(...)` example below, the recurisve case makes
-progress by invoking `append` on `this.next`. 
+Consider the `append(...)` function:
 
 ```js
-
-// Creates a new node to hold value, and appends the new node to the end
-// of this list.
-//
-// Doesn't return anything.
 append(value) {
 
-    // base case
+    // Base case
     if (this.next == undefined) {
         this.next = new Node(value);
     }
 
-    // recursive case
+    // Recursive case
     else {
         this.next.append(value);
     }
 }
 ```
 
-### Tip 4: Assume correctness
+For a function `f(...)`, the recursive case is the case that invokes `f(...)` recursively.
 
-When developing the recursive case **you must assume your function invocation always works exactly as advertised**
+#### Assume correctness
+
+When developing the recursive case you must assume your function invocation always works exactly as advertised
 (according to the documentation).
 
 It's kind of like the inductive step in an inductive proof.
 
-### Tip 5: Analyze the corner cases
+For example in the recursive case of the `append(...)` function,
+we assume that if we invoke `node.append(value)`, then the function invocation will correctly append
+`value` to the list beginning at `node`.
 
+#### Make one step of progress
 
+In every recursive case, you make exactly one step forward towards the goal.
 
-#### Example
+For example, in `factorial(n)` the recursive case is `return n * factorial(n - 1);`.
+It makes one step forward by computing the `factorial(n - 1)`, which is one step down
+from `factorial(n)`.
 
-Let's revist the `append(...)` function:
+As an other example, in `fibonacci(n)` the recursive case is `return fibonacci(n - 1) + fibonacci(n - 2);`.
+It makes one step forward by computing `fibonacci(n - 1)` and `fibonacci(n - 2);`, which
+is one step down from `fibonacci(n)`.
 
-```js
+As our last example, in `append(value)`, the recursive case is `this.next.append(value);`.
+It makes one step forward by computing `this.next.append(value)`, which is
+one node away from `this`.
 
-// Creates a new node to hold value, and appends the new node to the end
-// of this list.
-//
-// Doesn't return anything.
-append(value) {
-
-    // base case
-    if (this.next == undefined) {
-        this.next = new Node(value);
-    }
-
-    // recursive case
-    else {
-        this.next.append(value);
-    }
-}
-```
-
-Analyzing the corner cases for `append(...)`:
-
-##### 1. What if `this` == the first node?
-
-In this case, it could either be the base case or the recursive case,
-so we need to make sure `append(...)` works for both of these
-cases when `this` == the first node.
-
-Analyze the code:
-
-If `this` == the first node, the base case will work just fine.
-
-If `this` == the first node, the recursive case will work just fine.
-
-##### 2. What if `this` == the last node?
-
-If `this` == the last node, then `this.next` == undefined
-(because that's how linked lists signify the end of the list).
-
-Therefore, the base case will execute.
-
-And the base case executes the desired behavior for the `append(...)` function.
-
-##### 3. `this` == first node and `this` == last node
-
-Just like Case 2 (immediately above), the base case executes the desired behavior for the `append(...)` function.
-
-##### 4. `this` != first node and `this` != last node
-
-Since this is not the last node, then `this.next` will be defined, so we only
-need to look at the recursive case. The recursive case looks correct in this case.
 
 
 <br><br><br><br>
