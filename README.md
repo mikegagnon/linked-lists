@@ -12,23 +12,62 @@ Familiarity with JS, particularily object-oriented programming in JS.
 ## Contents
 
 - [Lecture 1. Recursion](#lec1)
- - Fibonacci numbers
- - Unit Testing
- - Unwinding `fibonacci(...)`
- - Proof that `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
-- [Lecture 2. Node `append(...)`](#lec2)
+ - Example 1. Factorial
+ - Example 2. Fibonacci numbers
+- [Lecture 2. The `Node` class](#lec2)
  - Linked Lists
  - Visualization
-- [Lecture 3. Tips for developing recursive functions](#lec3)
- - Tip 1. Base case and recursive case
- - Tip 2. Assume correctness
- - Tip 3. Make progress every step of the way
-- [Lecture 4. `prepend(...)`](#lec4)
+- [Lecture 3. `prepend(...)`](#lec3)
  - Analyzing the performance of `append(...)`
  - Analyzing the performance of `prepend(...)`
  - Summary
-- [Lecture 5. `removeFirst(...)`] (#lec5)
+- [Lecture 4. `removeFirst(...)`](#lec4)
+    - Algorithmic performance
+- [Lecture 5. Steps for developing a recursive function](#lec5)
+    - Step 1. Base case(s)
+        - Analyze the corner cases
+        - Merge cases
+    - Step 2. Recursive case
+        - Assume correctness
+        - Make one step of progress
 - [Lecture 6. `removeLast(...)`] (#lec6)
+    - Step 1. Base case(s)
+        - Analyze the corner cases
+        - Merge cases
+    - Step 2. Recursive case
+        - Assume correctness
+        - Make one step of progress
+    - Completed function
+    - Algorithmic performance
+- [Lecture 7. `removeValue(...)`](#lec7)
+    - Step 1. Base case(s)
+        - Analyze the corner cases and Merge cases
+    - Step 2. Recursive case
+        - Assume correctness
+        - Make one step of progress    
+    - Completed function
+    - Algorithmic performance
+- [Lecture 8. `findSmallest()`](#lec8)
+    - Step 1. Base case(s)
+        - Analyze the corner cases and Merge cases
+    - Step 2. Recursive case
+        - Assume correctness
+        - Make one step of progress
+    - Completed function
+    - Algorithmic performance
+- [Lecture 9. `sort()`](#lec9)
+    - Step 1. Base case(s)
+    - Step 2. Recursive case
+    - Completed function
+    - Algorithmic performance
+
+
+
+
+
+
+
+<br><br><br><br>
 
 ## <a name="lec1">Lecture 1. Recursion</a>
 
@@ -38,23 +77,36 @@ A linked list is a "recursive" data structure, and uses "recursive" algorithms.
 
 Recursive simply means self referential.
 
-Rather than elucidating further in English, we'll just dive into the classic example: Fibonacci numbers.
+Rather than elucidating further in English, we'll just dive into a classic example: the "factorial" function.
 
-### Fibonacci numbers
+### Example 1. Factorial
 
-Here are the first 9 Fibonacci numbers:
- 
-1, 1, 2, 3, 5, 8, 13, 21, 34, ...
- 
-Do you see the pattern?
- 
-The pattern is this: every Fibonacci number equals the sum of the previous two Fibonacci numbers.
+Examples of factorials:
 
-Except for the first two Fibonacci numbers -- the "base cases." By fiat, they are defined to be equal to 1.
+- `factorial(1)` == 1
+- `factorial(2)` == 1 &times; 2 == 2
+- `factorial(3)` == 1 &times; 2 &times; 3 == 6
+- `factorial(4)` == 1 &times; 2 &times; 3 &times; 4 == 24
+- `factorial(5)` == 1 &times; 2 &times; 3 &times; 4 &times; 5 == 120
+- ...
 
-Let's write a JS function that computes the *nth* Fibonacci number.
+The recursive definition for the factorial function is:
 
-### `index.html`
+- `factorial(n) == n` &times; `factorial(n - 1)`, and
+- A special case of `factorial(1) == 1`
+
+Let's analyze the recursive defintion of the factorial function.
+
+- `factorial(1)` == 1
+- `factorial(2)` == 2 &times; `factorial(1)` == 2 &times; 1 == 2
+- `factorial(3)` == 3 &times; `factorial(2)` == 3 &times; 2 == 6
+- `factorial(4)` == 4 &times; `factorial(3)` == 4 &times; 6 == 24
+- `factorial(5)` == 5 &times; `factorial(4)` == 5 &times; 24 == 120
+- ...
+
+Let's write a `factorial(n)` function in JavaScript.
+
+#### `index.html`
 
 ```html
 <!DOCTYPE html>
@@ -66,7 +118,76 @@ Let's write a JS function that computes the *nth* Fibonacci number.
 </html>
 ```
 
-### `linked-lists.js`
+#### `linked-lists.js`
+
+```js
+function factorial(n) {
+  if (n <= 0) {
+    console.error("The factorial function is not defined when n <= 0");
+  } else if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+
+console.log(factorial(1));
+console.log(factorial(2));
+console.log(factorial(3));
+console.log(factorial(4));
+console.log(factorial(5));
+```
+
+View your JS console to verify that `factorial(...)` computes the first 5 factorial numbers correctly.
+
+Actually, it would be better to *unit test* the `factorial(...)` function, rather than viewing results
+on the console.
+
+#### Unit Testing
+
+A *unit test* is a piece of code that tests a single unit of code.
+
+Unit testing is awesome and essential.
+
+Here's a unit test for `factorial(...)`:
+
+```js
+function assert(condition) {
+    if (!condition) {
+        console.error("Test failed");
+    }
+}
+
+assert(factorial(1) == 1);
+assert(factorial(2) == 2);
+assert(factorial(3) == 6);
+assert(factorial(4) == 24);
+assert(factorial(5) == 120);
+```
+
+#### Unwinding `factorial(...)`
+
+Let's trace the code and see what happens when we call `factorial(4)`.
+
+- `factorial(4)` calls `factorial(3)`
+- `factorial(3)` calls `factorial(2)`
+- `factorial(2)` calls `factorial(1)`
+- `factorial(1)` returns 1
+- `factorial(2)` multiplies 2 &times; the result of factorial(1), then returns the product, which is 2
+- `factorial(3)` multiplies 3 &times; the result of factorial(2), then returns the product, which is 6
+- `factorial(4)` multiplies 4 &times; the result of factorial(3), then returns the product, which is 24
+
+### Example 2. Fibonacci numbers
+
+Here are the first 9 Fibonacci numbers:
+ 
+1, 1, 2, 3, 5, 8, 13, 21, 34, ...
+ 
+Do you see the pattern?
+ 
+The pattern is this: every Fibonacci number equals the sum of the previous two Fibonacci numbers... except for the first two Fibonacci numbers -- the "base cases." By fiat, the first two Fibonacci numbers are defined to be equal to 1.
+
+Let's write a JS function that computes the *nth* Fibonacci number.
 
 ```js
 function fibonacci(n) {
@@ -79,34 +200,6 @@ function fibonacci(n) {
   }
 }
 
-console.log(fibonacci(1));
-console.log(fibonacci(2));
-console.log(fibonacci(3));
-console.log(fibonacci(4));
-console.log(fibonacci(5));
-console.log(fibonacci(6));
-```
-
-View your JS console to verify that `fibonacci(...)` computes the first 6 Fibonacci numbers correctly.
-
-Actually, it would be better to *unit test* the `fibonacci(...)` function, rather than viewing results
-on the console.
-
-### Unit Testing
-
-A *unit test* is a piece of code that tests a single unit of code.
-
-Unit testing is awesome and essential.
-
-Here's a unit test for `fibonacci(...)`:
-
-```js
-function assert(condition) {
-    if (!condition) {
-        console.error("Test failed");
-    }
-}
-
 assert(fibonacci(1) == 1);
 assert(fibonacci(2) == 1);
 assert(fibonacci(3) == 2);
@@ -115,7 +208,7 @@ assert(fibonacci(5) == 5);
 assert(fibonacci(6) == 8);
 ```
 
-### Unwinding `fibonacci(...)`
+#### Unwinding `fibonacci(...)`
 
 Let's trace the code and see what happens when we call `fibonacci(3)`.
 
@@ -135,7 +228,7 @@ Ok.  Now let's trace a call to `fibonacci(4)`
 
 Get it?
 
-### Proof that `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
+#### Proof that `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
 
 This section is optional. I present it just in case you enjoy proofs using mathematical induction.
 
@@ -145,17 +238,17 @@ works as follows:
 - Base case: Prove that the theorem holds when *n* == 1
 - Inductive step: Prove that if the theorem holds for all *n* (where 1 <= n), then the theorem also holds for *n + 1*
 
-#### Theorem
+##### Theorem
 
 `fibonacci(n)` terminates for all values of *n*, where *n* >= 1
  
-#### Proof
+##### Proof
 
-##### Base case
+###### Base case
 
 Clearly, the `fibonacci(n)` function terminates when *n* == 1.
 
-##### Inductive step
+###### Inductive step
 
 Assumption 1: Assume `fibonacci(n)` terminates for all 1 <= *n*.
 
@@ -172,7 +265,9 @@ Therefore, `fibonacci(n + 1)` clearly terminates in all cases.
 
 QED.
 
-## <a name="lec2">Lecture 2. Node `append(...)`</a>
+<br><br><br><br>
+
+## <a name="lec2">Lecture 2. The `Node` class</a>
 
 Study the `Node` class, and type it in to `linked-lists.js`:
 
@@ -183,8 +278,10 @@ class Node {
         this.next = undefined;
     }
 
-    // Appends value to the end of the list.
-    // Does not return anything.
+    // Creates a new node to hold value, and appends the new node to the end
+    // of this list.
+    //
+    // Doesn't return anything.
     append(value) {
         if (this.next == undefined) {
             this.next = new Node(value);
@@ -208,11 +305,9 @@ assert(head.next.next.value == "C");
 assert(head.next.next.next == undefined);
 ```
 
-Add the `Node` class and usage example into `linked-lists.js`.
-
 ### Linked Lists
 
-Node objects link together via the *next* field.
+Node objects link together via the `next` field.
 
 A chain of nodes is called a linked list.
 
@@ -222,95 +317,10 @@ To help make sense of linked lists, we visualize them like so:
 
 <img src="linked-list-01.png">
 
-## <a name="lec3">Lecture 3. Tips for developing recursive functions</a>
+<br><br><br><br>
 
-This lecture may sound like gibberish now.
 
-That's fine because we will concretely explore
-how these tips apply to many recursive functions throughout this mini course.
-
-### Tip 1. Base case and recursive case
-
-Every recursive function has at least one "base case" and at least one
-"recursive case."
-
-```js
-append(value) {
-
-    // base case
-    if (this.next == undefined) {
-        this.next = new Node(value);
-    }
-
-    // recursive case
-    else {
-        this.next.append(value);
-    }
-}
-```
-
-#### Base case
-
-The *base case* is the case that does not invoke recursion.
-Write the base case before you write the recursive case.
-
-r#### Recursive case
-
-For a function `f(...)`, the recursive case is the case that invokes `f(...)` recursively.
-
-### Tip 2. Assume correctness
-
-Before you begin coding a recursive function, you should document the function.
-Specifically, you should precisely document the input to the function and the
-return-value for the function.
-
-```js
-// Appends value to the end of the list.
-// Does not return anything.
-append(value) {
-  // ?
-}
-```
-
-Then, as you code your function **you must assume your function invocation always works exactly as advertised**
-(according to the documentation).
-It's kind of like the inductive step in an inductive proof.
-
-### Tip 3. Make progress every step of the way
-
-For a recursive function `f(X)`, the recursive case must invoke `f(...)`.
-
-However, it must not invoke `f(X)`, because that would lead to an infinite loop.
-
-Rather, each recursive case must make some progress.
-
-For instance:
-
-- For `f(n)`, the recursive case might call `f(n - 1)`
-- For `f(node)`, the recursive case might call `f(node.next)`
-
-In the `append(...)` example below, the recurisve case makes
-progress by invoking `append` on `this.next`. 
-
-```js
-
-// Appends value to the end of the list.
-// Does not return anything.
-append(value) {
-
-    // base case
-    if (this.next == undefined) {
-        this.next = new Node(value);
-    }
-
-    // recursive case
-    else {
-        this.next.append(value);
-    }
-}
-```
-
-## <a name="lec4">Lecture 4. `prepend(...)`</a>
+## <a name="lec3">Lecture 3. `prepend(...)`</a>
 
 Study the `prepend` method and its tests. Type in `prepend` and its tests into `linked-lists.js`.
 
@@ -319,6 +329,11 @@ class Node {
 
    ...
 
+   // Creates a new node to hold value, and prepends the new node to this list,
+   // making the new node the head of the list.
+   //
+   // Returns a reference to the new head of the list (which is the newly
+   // created node).
    prepend(value) {
      var newNode = new Node(value);
 
@@ -365,7 +380,7 @@ mini course, however, we satisfy ourselves with an informal, rough understanding
 If should be clear that the amount of time it takes to 
 execute `prepend(...)` is independent of the size of the linked list.
 
-To be more precise, `prepend(...)` takes a constant (i.e. non variable)
+To be more precise, `prepend(...)` takes a constant (i.e. non-variable relative to N)
 amount of time to execute.
 
 Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a constant).
@@ -375,7 +390,9 @@ Therefore we say the time performance of `prepend(...)` is *O(1)*  (since 1 is a
 - `append(...)` is *O(N)* -- slow
 - `prepend(...)` is *O(1)* -- fast
 
-## <a name="lec5">Lecture 5. `removeFirst(...)`</a>
+<br><br><br><br>
+
+## <a name="lec4">Lecture 4. `removeFirst(...)`</a>
 
 Study the `removeFirst` method and its tests. Type in `removeFirst` and its tests into `linked-lists.js`.
 
@@ -384,8 +401,10 @@ class Node {
  
     ...
 
-    // returns [v, head] where v is the value that was removed, and head
-    // is the new head pointer (possibly undefined).
+    // Deletes the first node in this list.
+    //
+    // Returns [v, head] where v is the value that was removed, and head
+    // is a reference to the new head (possibly undefined).
     removeFirst() {
         return [this.value, this.next];
     }
@@ -410,166 +429,457 @@ assert(undef == undefined);
 
 ```
 
+### Algorithmic performance
+
 `removeFirst(...)` is *O(1)*
+
+<br><br><br><br>
+
+## <a name="lec5">Lecture 5. Steps for developing a recursive function</a>
+
+This lecture may sound like gibberish now.
+
+That's fine because we will concretely explore these steps throughout this mini course, over and over again.
+
+There are primarily two steps when implementing a recursive function:
+
+- Step 1. Base case(s)
+    - Analyze the corner cases
+    - Merge cases
+- Step 2. Recursive case
+    - Assume correctness
+    - Make one step of progress
+
+### Step 1. Base case(s)
+
+Every recursive function has at least one "base case" and at least one
+"recursive case." Consider the `append(...)` function:
+
+```js
+append(value) {
+
+    // Base case
+    if (this.next == undefined) {
+        this.next = new Node(value);
+    }
+
+    // Recursive case
+    else {
+        this.next.append(value);
+    }
+}
+```
+
+A *base case* is a case that does not invoke recursion (because there is no longer a need for recursion).
+
+For example, if your recursive function is searching for the last element in the list (as in `append(...)`),
+the base case would be the case where the last element has been reached.
+
+#### Analyze the corner cases
+
+In a linked-list method (for the base case(s)) these corner cases tend to arise are:
+
+- (A) `this` != first node AND `this` != last node
+- (B) `this` != first node AND `this` == last node
+- (C) `this` == first node AND `this` != last node
+- (D) `this` == first node AND `this` == last node
+
+Make sure your recursive function works for all corner cases.
+
+The way to cover corner cases is to:
+
+1. Implement the code for one corner case
+2. Implement the code for another corner case
+3. Merge the cases if possible
+4. Repeat until you have covered every corner case
+
+#### Merge cases
+
+When you're covering cases you may end up with code that looks something like this:
+
+```js
+if (this.head != this && this.next != undefined) {
+    // perform Operation A
+} else if (this.head != this && this.next == undefined) {
+    // perform Operation A
+}
+```
+
+These two cases can be merged into the following:
+
+```js
+if (this.head != this) {
+    // perform Operation A
+}
+```
+
+The merge is possible since Operation A is performed regardless of whether `this.next` is defined.
+
+Whenever you're covering a new corner case, check to see if it can be merged
+with an existing case.
+
+Merging cases is desirable because it leads to simplified, concise code.
+
+### Step 2. Recursive case
+
+Every recursive function has at least one "base case" and at least one
+"recursive case."
+
+Consider the `append(...)` function:
+
+```js
+append(value) {
+
+    // Base case
+    if (this.next == undefined) {
+        this.next = new Node(value);
+    }
+
+    // Recursive case
+    else {
+        this.next.append(value);
+    }
+}
+```
+
+For a function `f(...)`, the recursive case is the case that invokes `f(...)` recursively.
+
+#### Assume correctness
+
+When developing the recursive case you must assume your function invocation always works exactly as advertised
+(according to the documentation).
+
+It's kind of like the inductive step in an inductive proof.
+
+For example in the recursive case of the `append(...)` function,
+we assume that if we invoke `node.append(value)`, then the function invocation will correctly append
+`value` to the list beginning at `node`.
+
+#### Make one step of progress
+
+In every recursive case, you make exactly one step forward towards the goal.
+
+For example, in `factorial(n)` the recursive case is `return n * factorial(n - 1);`.
+It makes one step forward by computing the `factorial(n - 1)`, which is one step down
+from `factorial(n)`.
+
+As an other example, in `fibonacci(n)` the recursive case is `return fibonacci(n - 1) + fibonacci(n - 2);`.
+It makes one step forward by computing `fibonacci(n - 1)` and `fibonacci(n - 2);`, which
+is one step down from `fibonacci(n)`.
+
+As our last example, in `append(value)`, the recursive case is `this.next.append(value);`.
+It makes one step forward by computing `this.next.append(value)`, which is
+one node away from `this`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br>
 
 ## <a name="lec6">Lecture 6. `removeLast(...)`</a>
 
-Let's walk through the steps of defining a `removeLast(...)` method.
-
-### Define the method's semantics in a comment
+Let's implement `removeLast(...)`.
 
 ```js
 class Node {
- 
-    ...
 
-    // returns [v, newHead] where v is the value that was removed, and
-    // newHead is the new head of the list (possibly undefined)
+    // Deletes the last node in this list.
+    //
+    // Returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined).
     removeLast() {
         // ?
     }
 }
 ```
 
-### Define the semantics of the base case
+Recall the two steps for developing a recursive function:
 
-The base case is when `this` is a reference to the last object.
+- Step 1. Base case(s)
+    - Analyze the corner cases
+    - Merge cases
+- Step 2. Recursive case
+    - Assume correctness
+    - Make one step of progress
+
+### Step 1. Base Case(s)
+
+There is one base case for `removeLast(...)`: when we have reached the end of the list.
+
+Therefore the framework for our function is as follows:
 
 ```js
-class Node {
- 
-    ...
+// Deletes the last node in this list.
+//
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+removeLast() {
 
-    // returns [v, newHead] where v is the value that was removed, and
-    // newHead is the new head of the list (possibly undefined)
-    removeLast() {
+    // Base Case: When we have reached the end of the list
+    if (this.next == undefined) {
+        // ?
+    }
     
-        // base case: if this is the last node
-        if (this.next == undefined) {
-            // say "prev" is the node previous to this node
-            // prev.next = undefined
-            // return [this.value, prev]
-        }
-        
-        // recursive case
-        else {
-            // ?
-        }
+    // Recursive case
+    else {
+        // ?
     }
 }
 ```
 
-Unfortunately, it isn't possible to implement the base case (as is) because
-we do not have access to "prev" --- the node previous to `this` node.
+For the base case, we analyze the corner cases and seek opportunies to merge cases.
 
-### Change the base case
+#### Analyze the corner cases
 
-So, we modify the base case to be the second-to-last node:
+Recall the four corner cases:
+
+- (A) `this` != first node AND `this` != last node
+- (B) `this` != first node AND `this` == last node
+- (C) `this` == first node AND `this` != last node
+- (D) `this` == first node AND `this` == last node
+
+We can outright ignore cases (A) and (C), since we know `this` == last node.
+
+Now we only have two cases:
+
+- (B) `this` != first node
+- (D) `this` == first node
+
+##### Corner Case (B): `this` != first node AND `this` == last node
+
+Since `this` != first node, we know there is a previous node.
+
+We want to find the previous node, say `prev`, and set `prev.next` to `undefined`, thereby
+modifying the list so that `prev` becomes the last node in the list.
+
+Then we want to return `[v, head]` where `v` is the value of the last node, and
+`head` is a reference to the first node of the list.
+
+For this to work, we must have a reference for the previous node and a reference for the first node.
+
+###### Finding the `prev` and `head` nodes
+
+Our `removeLast(...)` base case requires a `head` node reference (the first node in the list),
+and a `prev` node reference (the previous node in the list, relative to `this`).
+
+There is a very simple solution to our problem: take `prev` and `head` as arguments to `removeLast(...)`:
 
 ```js
-class Node {
- 
+// Deletes the last node in this list.
+//
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeLast(prev, head) { //<-----------------------------------------------------------
     ...
+}
+```
 
-    // returns [v, newHead] where v is the value that was removed, and
-    // newHead is the new head of the list (possibly undefined)
-    removeLast() {
+Client code must now invoke `removeLast` as follows:
+
+```js
+var [value, newHead] = head.removeLast(undefined, head);
+```
+
+Since we don't want to impose unnecessary burden upon our clients, we use default parameters for our `removeLast(...)` arguments:
+
+```js
+// Deletes the last node in this list.
+//
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeLast(prev = undefined, head = this) { //<--------------------------------------
+    ...
+}
+```
+
+Now, client code can invoke `removeLast(...)` as before:
+
+```js
+var [value, newHead] = head.removeLast();
+```
+
+###### Implementing code for Corner Case (B)
+
+Recall, we want to set `prev.next` to `undefined`, thereby
+modifying the list so that `prev` becomes the last node in the list.
+
+Then we want to return `[v, head]` where `v` is the value of the last node, and
+`head` is a reference to the first node of the list.
+
+```js
+// Deletes the last node in this list.
+//
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeLast(prev = undefined, head = this) {
+
+    // Base Case: When we have reached the end of the list
+    if (this.next == undefined) {
+        if (this != head) {
+            prev.next = undefined;
+            return [this.value, head];
+        }
+    }
     
-        // base case: when this is the second-to-last node
-        if (this.next.next == undefined) {
-            var value = this.next.value;
-            this.next = undefined;
-            return [value, this];
-        }
-        
-        // recursive case
-        else {
-            // ?
-        }
+    // Recursive case
+    else {
+        // ?
     }
 }
 ```
 
-But now we have a problem: what happens if we call `removeLast()` on a list that has exactly one node?
-`this.next == undefined` so therefore `this.next.next` will crash the function.
+##### Corner Case (D): `this` == first node AND `this` == last node
 
-### Add another base case
+Since this node is both the first and the last node, we
+know it is the only node in the list.
 
-We handle this situation by adding another base case: the case where there is exactly one node in the list:
+Therefore, all we need to do is return `[this.value, undefined]` so that
+returning `head == undefined` signifies the list is now empty.
+
+Our complete implementation of the base case is therefore:
 
 ```js
-class Node {
- 
-    ...
+// Deletes the last node in this list.
+//
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeLast(prev = undefined, head = this) {
 
-    // returns [v, newHead] where v is the value that was removed, and
-    // newHead is the new head of the list (possibly undefined)
-    removeLast() {
-    
-        // base case: when this is the last node
-        if (this.next == undefined) {
+    // Base Case: When we have reached the end of the list
+    if (this.next == undefined) {
+        if (this != head) {
+            prev.next = undefined;
+            return [this.value, head];
+        } else {
             return [this.value, undefined];
         }
-        
-        // base case: when this is the second-to-last node
-        if (this.next.next == undefined) {
-            var value = this.next.value;
-            this.next = undefined;
-            return [value, this];
-        }
-        
-        // recursive case
-        else {
-            // ?
-        }
+    }
+    
+    // Recursive case
+    else {
+        // ?
     }
 }
 ```
 
-### Implement the recursive case
+#### Merge cases
 
-First let's assume that whenever we invoke `removeLast()`, it works just as advertised.
-Therefore we can simply invoke `this.next.removeLast()` to remove the last element
-of the next list.
+We cannot merge Corner Case (B) with Corner Case (D) because their operations are not the same.
 
-Recall, `removeLast()` returns the last value as well as the head of the list.
+### Step 2. Recursive Case
 
-We always ignore the head returned by `removeLast()` because we return our own head (`this`)
-instead.
+Recall, the two tips for the recursive case are:
+
+1. Assume correctness
+2. Make one step of progress
+
+#### Assume correctness
+
+We assume that when we invoke `removeLast(prev, head)` it performs the operation correctly and returns the new `[v, head]` where `v` is the value that was removed, and `head` is the new head of the list.
+
+#### Make one step of progress
+
+We want to make one step of progress, so we simply call `this.next.removeLast(prev, head)` and return its value.
+
+We need to ensure we invoke `removeLast(...)` with the correct arguments for `prev`, and `head`.
+
+`head` is simply `head`.
+
+For `prev` though, went to set it to `this`. The reason being is that `this` is the previous node for `this.next`.
+
+Therefore our recurisve case is implemented as follows:
+
+```js
+// Deletes the last node in this list.
+//
+// Returns [v, newHead] where v is the value that was removed, and
+// newHead is the new head of the list (possibly undefined).
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeLast(prev = undefined, head = this) {
+
+    // Base Case: When we have reached the end of the list
+    if (this.next == undefined) {
+        ...
+    }
+    
+    // Recursive case
+    else {
+        return this.next.removeLast(this, head); // <------------------------------
+    }
+}
+```
+
+### Completed function
 
 ```js
 class Node {
- 
-    ...
-
-    // returns [v, newHead] where v is the value that was removed, and
-    // newHead is the new head of the list (possibly undefined)
-    removeLast() {
     
-        // base case: when this is the last node
+    ...
+    
+    // Deletes the last node in this list.
+    //
+    // Returns [v, newHead] where v is the value that was removed, and
+    // newHead is the new head of the list (possibly undefined).
+    //
+    // Arguments:
+    //   prev is a reference to the previous node. If there is no previous node,
+    //   then set prev to undefined.
+    //   head is a reference to the first node in the list.
+    removeLast(prev = undefined, head = this) {
+
+        // Base Case: When we have reached the end of the list
         if (this.next == undefined) {
-            return [this.value, undefined];
+            if (this != head) {
+                prev.next = undefined;
+                return [this.value, head];
+            } else {
+                return [this.value, undefined];
+            }
         }
-        
-        // base case: when this is the second-to-last node
-        if (this.next.next == undefined) {
-            var value = this.next.value;
-            this.next = undefined;
-            return [value, this];
-        }
-        
-        // recursive case
+
+        // Recursive case
         else {
-            var [value, _] = this.next.removeLast(this);
-            return [value, this];
+            return this.next.removeLast(this, head);
         }
     }
 }
-```
 
-### Unit tests
-```
-// Test removeLast(...)
 var head = new Node("A");
 head.append("B");
 head.append("C");
@@ -587,60 +897,755 @@ assert(bHead.value == "A");
 assert(aHead == undefined);
 ```
 
+### Algorithmic performance
+
 `removeLast(...)` is *O(N)*
 
-## <a name="lec7">Lecture 6. `removeValue(...)`</a>
 
-Let's walk through the steps of defining a `removeValue(...)` method.
 
-### Define the method's semantics in a comment
+
+
+
+<br><br><br><br>
+
+## <a name="lec7">Lecture 7. `removeValue(...)`</a>
+
+Let's implement `removeValue(...)`.
 
 ```js
 class Node {
  
     ...
 
-    // removes the node from the list that contains value
-    // returns the head of the new list, possibly undefined
-    // it is an error if the list does not contain the value
+    // Deletes the first node with the specified value.
+    // It is an error if value is not found in the list.
+    //
+    // Returns the head of the new list, possibly undefined
     removeValue(value) {
         // ?
     }
+} 
+```
+
+Recall the two steps for developing a recursive function:
+
+- Step 1. Base case(s)
+ - Analyze the corner cases
+ - Merge cases
+- Step 2. Recursive case
+ - Assume correctness
+ - Make one step of progress
+
+### Step 1. Base Case(s)
+
+There are two base cases for `removeValue(...)`:
+
+1. When we have found the sought-after value
+2. When we have reached the end of the list
+
+Therefore the framework for our function is as follows:
+
+```js
+// Deletes the first node with the specified value.
+// It is an error if value is not found in the list.
+//
+// Returns the head of the new list, possibly undefined
+removeValue(value) {
+
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        // ?
+    }
+    
+    // Base Case 2: When we have reached the end of the list
+    else if (this.next == undefined) {
+        // ?
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+
 }
 ```
 
-### Define the semantics of the base case
-
-There are clearly two cases where the search ends:
-
-1. If the search has arrived at the sought-after value
-2. If the search reaches the end of the list
+For the second base case, we simply want to report an error message:
 
 ```js
-class Node {
- 
-    ...
+// Deletes the node with the specified value.
+// It is an error if value is not found in the list.
+//
+// Returns the head of the new list, possibly undefined
+removeValue(value) {
 
-    // removes the node from the list that contains value
-    // returns the head of the new list, possibly undefined
-    // it is an error if the list does not contain the value
-    removeValue(value) {
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        // ?
+    }
     
-        // Base case 1: found value
-        if (this.value == value) {
-            // If this is the first node in the list, return this.next
-            // Otherwise, return the previous node in the list
+    // Base Case 2: When we have reached the end of the list
+    else if (this.next == undefined) {
+        console.error("The list did not contain the value we're looking for"); // <---------------
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+
+}
+```
+
+The first base case requires more care. It is here we analyze the corner cases and seek opportunies to merge cases.
+
+#### Analyze the corner cases and Merge cases
+
+Recall the four corner cases:
+
+- (A) `this` != first node AND `this` != last node
+- (B) `this` != first node AND `this` == last node
+- (C) `this` == first node AND `this` != last node
+- (D) `this` == first node AND `this` == last node
+
+##### Corner Case (A): `this` != first node AND `this` != last node
+
+In this case, we know that the `this` node is sandwiched between two other nodes.
+
+We want to find the previous node, say `prev`, and set `prev.next` to `this.next`, thereby
+modifying the list so that `this` is skipped over.
+
+Then we want to return the head of the list.
+
+For this to work, we must have a reference to the previous node and the first node. We use the same approach from [Lecture 6](#lec6), which is to add `prev` and `head` to the argument list:
+
+```js
+// Deletes the first node with the specified value.
+// It is an error if value is not found in the list.
+//
+// Returns the head of the new list, possibly undefined
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeValue(value, prev = undefined, head = this) { // <----------------------------------------
+
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        // ?
+    }
+    
+    // Base Case 2: When we have reached the end of the list
+    else if (this.next == undefined) {
+        console.error("The list did not contain the value we're looking for");
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+
+}
+```
+
+Then we can implement Corner Case (A):
+
+```js
+// Deletes the node with the specified value.
+// It is an error if value is not found in the list.
+//
+// Returns the head of the new list, possibly undefined
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeValue(value, prev = undefined, head = this) {
+
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+    
+        // Corner Case (A)
+        if (this != head && this.next != undefined) { // <-------------------------------
+            prev.next = this.next;
+            return head;
+        }
+        
+        ...
+    }
+    
+    // Base Case 2: When we have reached the end of the list
+    else if (this.next == undefined) {
+        console.error("The list did not contain the value we're looking for");
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+
+}
+```
+
+##### Corner Case (B): `this` != first node AND `this` == last node
+
+Here, we want to set `prev.next` equal to `undefined`.
+
+Let's see if we can Merge Corner Case (A) with Corner Case (B), rather than implementing Corner Case (B) as a separate case.
+
+Observe, `this.next == undefined`, since `this` is the last node.
+
+Therefore, we can set `prev.next` equal to `this.next`, which is what we do in Corner Case (A).
+
+Therefore, Corner Case (A) and (B) are equivalent cases, so we can Merge them.
+
+We modify the conditional for Corner Case (A) to include Corner Case (B) as well:
+
+```js
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        
+        // Corner Case (A) and (B)
+        if (this != head) { // <----------------------------------------------------
+            prev.next = this.next;
+            return head;
+        }
+        
+        ...
+    }
+```
+
+##### Corner Case (C): `this` == first node AND `this` != last node
+
+Here, we simply want to change the head of the list to `this.next`.
+
+Let's see if we can Merge Corner Case (C) with (A) or (B), rather than implementing Corner Case (C) as a separate case.
+
+Clearly, we can't make this Merge because (A) and (B) return `head` and it is impossible for `head` to be equal to `this.next`.
+
+So, we implement (C) by defining an `else if` statement that returns `this.next`:
+
+```js
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        
+        // Corner Case (A) and (B)
+        if (this != head) {
+            prev.next = this.next;
+            return head;
+        }
+        
+        // Corner Case (C)
+        else if (this.next != undefined) // <----------------------------------------------------
+            return this.next
         }
 
-        // Base case 2: end of list
+        ...
+    }
+```
+
+##### Corner Case (D): `this` == first node AND `this` == last node
+
+In this case, `this` is the only node. Therefore, we want to return `undefined` which signifies an empty list.
+
+Let's see if we can Merge Corner Case (C) and (D), rather than implementing Corner Case (D) as a separate case.
+
+Observe, `this.next == undefined`, since `this` is the last node.
+
+Therefore, we can Merge (C) and (D) by returning `this.next` to achieve the desired effect.
+
+We modify the conditional for Corner Case (C) to include Corner Case (D). We simplify change the `else if` to an `else`:
+
+```js
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        
+        // Corner Case (A) and (B)
+        if (this != head) {
+            prev.next = this.next;
+            return head;
+        }
+        
+        // Corner Case (C) and (D)
+        else { // <----------------------------------------------------
+            return this.next
+        }
+
+        ...
+    }
+```
+
+### Step 2. Recursive case
+
+Recall, the two tips for the recursive case are:
+
+1. Assume correctness
+2. Make one step of progress
+
+#### Assume correctness
+
+So, we assume that when we invoke `removeValue(value, prev, head)` it performs the operation correctly and returns the new head of the list.
+
+#### Make one step of progress
+
+We want to make one step of progress, so we simply call `this.next.removeValue(value, prev, head)` and return its value.
+
+We need to ensure we invoke `removeValue(...)` with the correct arguments for `value`, `prev`, and `head`.
+
+`value` is simply `value`, and `head` is simply `head`.
+
+For `prev` though, went to set it to `this`. The reason being is that `this` is the previous node for `this.next`.
+
+Therefore our recurisve case is implemented as follows:
+
+```js
+// Deletes the node with the specified value.
+// It is an error if value is not found in the list.
+//
+// Returns the head of the new list, possibly undefined
+//
+// Arguments:
+//   prev is a reference to the previous node. If there is no previous node,
+//   then set prev to undefined.
+//   head is a reference to the first node in the list.
+removeValue(value, prev = undefined, head = this) {
+
+    // Base Case 1: When we have found the sought-after value
+    if (this.value == value) {
+        ...
+    }
+    
+    // Base Case 2: When we have reached the end of the list
+    else if (this.next == undefined) {
+        ...
+    }
+    
+    // Recursive case
+    else {
+        return this.next.removeValue(value, this, head); // <-----------------------------------
+    }
+
+}
+```
+
+### Completed function
+
+```js
+    class Node {
+    
+    ...
+    
+    // Deletes the node with the specified value.
+    // It is an error if value is not found in the list.
+    //
+    // Returns the head of the new list, possibly undefined
+    //
+    // Arguments:
+    //   prev is a reference to the previous node. If there is no previous node,
+    //   then set prev to undefined.
+    //   head is a reference to the first node in the list.
+    removeValue(value, prev = undefined, head = this) {
+
+        // Base Case 1: When we have found the sought-after value
+        if (this.value == value) {
+
+            // Corner Case (A) and (B)
+            if (this != head) {
+                prev.next = this.next;
+                return head;
+            }
+
+            // Corner Case (C) and (D)
+            else {
+                return this.next;
+            }
+        }
+
+        // Base Case 2: When we have reached the end of the list
         else if (this.next == undefined) {
             console.error("The list did not contain the value we're looking for");
         }
 
         // Recursive case
         else {
-            // ?
+            return this.next.removeValue(value, this, head);
         }
+
+    }
+}
+
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+bNode = head.removeValue("A");
+cNode = bNode.next;
+assert(bNode.value == "B");
+assert(cNode.next == undefined);
+assert(cNode.value == "C");
+
+var head = new Node("A");
+head.append("B");
+head.append("C");
+
+aNode = head.removeValue("B");
+cNode = aNode.next;
+assert(aNode.value == "A");
+assert(cNode.next == undefined);
+assert(cNode.value == "C");
+
+var head = new Node(2);
+head.append(3);
+head.append(1);
+
+var newHead = head.removeValue(1);
+assert(newHead == head);
+assert(head.value == 2);
+assert(head.next.value == 3);
+assert(head.next.next == undefined);
+```
+
+### Algorithmic performance
+
+`removeValue(...)` is *O(N)*
+
+
+
+
+
+
+
+
+<br><br><br><br>
+
+## <a name="lec8">Lecture 8. `findSmallest(...)`</a>
+
+Let's implement `findSmallest(...)`.
+
+```js
+class Node {
+ 
+    ...
+
+    // Finds and returns the smallest value in this list
+    findSmallest(value) {
+        // ?
+    }
+} 
+```
+
+Recall the two steps for developing a recursive function:
+
+- Step 1. Base case(s)
+ - Analyze the corner cases
+ - Merge cases
+- Step 2. Recursive case
+ - Assume correctness
+ - Make one step of progress
+
+### Step 1. Base Case(s)
+
+There is one base case for `findSmallest(...)`: when we have reached the end of the list.
+
+Therefore the framework for our function is as follows:
+
+```js
+// Finds and returns the smallest value in this list
+findSmallest() {
+
+    // Base Case: When we have reached the end of the list
+    if (this.next == undefined) {
+        // ?
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+
+}
+```
+
+#### Analyze the corner cases and Merge cases
+
+Recall the four corner cases:
+
+- (A) `this` != first node AND `this` != last node
+- (B) `this` != first node AND `this` == last node
+- (C) `this` == first node AND `this` != last node
+- (D) `this` == first node AND `this` == last node
+
+We can outright ignore cases (A) and (C), since we know `this` == last node.
+
+Now we only have two cases:
+
+- (B) `this` != first node
+- (D) `this` == first node
+
+##### Corner Cases (B) and (D)
+
+In this case *this* list has only one node (the last node), therefore
+`this.value` is the smallest value in *this* list, therefore
+we simply want to return `this.value`.
+
+You may be confused because in Case (B) we know there is a first node that is not *this*.
+However, this first node is not a part of *this* list. Rather, it
+is a part of the outermost parent list.
+
+According to the documentation for `findSmallest`, the `findSmallest`
+function "*Finds and returns the smallest value in this list*."
+So even if the first node's value is smaller
+than `this.value`, we still want to return `this.value` because
+`this` is the *one and only* node in `this` list --
+the first node is not a part of *this* list.
+
+We also observe that in Case (D) we want to return `this.value`.
+
+Since Cases (B) and (D) perform the same operation (returning `this.value`),
+we can merge them.
+
+Our final base case code is therefore as follows:
+
+```js
+// Finds and returns the smallest value in this list
+findSmallest() {
+
+    // Base Case: When we have reached the end of the list
+    if (this.next == undefined) {
+        return this.value;
+    }
+    
+    // Recursive case
+    else {
+        // ?
+    }
+
+}
+```
+
+### Step 2. Recursive case
+
+Recall, the two tips for the recursive case are:
+
+1. Assume correctness
+2. Make one step of progress
+
+#### Assume correctness
+
+We assume that when we invoke `node.findSmallest()` it performs the operation correctly and returns the new `smallest`, where `smallest` is the smallest value in the list beginning at `node`.
+
+#### Make one step of progress
+
+We want to make one step of progress, so we call `var smallest = this.next.findSmallest()`.
+
+This gives us the smallest value in the `this.next` list.
+But it is not necessarily the smallest value in `this` list because `this.value` might be smaller than `smallest`.
+
+Therefore, we must check if `this.value < smallest`.
+
+### Completed function
+
+Our recurisve case (and the completed function) is then implemented as follows:
+
+```js
+class Node {
+    
+    ...
+    
+    // Finds and returns the smallest value in this list
+    findSmallest() {
+
+        // Base Case: When we have reached the end of the list
+        if (this.next == undefined) {
+            return this.value;
+        }
+
+        // Recursive case
+        else {
+            var smallest = this.next.findSmallest();
+
+            if (this.value < smallest) {
+                return this.value;
+            } else {
+                return smallest;
+            }
+        }
+
+    }
+}
+
+var head = new Node("1");
+head.append("2");
+head.append("3");
+assert(head.findSmallest() == 1);
+
+var head = new Node("2");
+head.append("1");
+head.append("3");
+assert(head.findSmallest() == 1);
+
+var head = new Node("2");
+head.append("3");
+head.append("1");
+assert(head.findSmallest() == 1);
+
+
+```
+
+### Algorithmic performance
+
+`findSmallest(...)` is *O(N)*
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br>
+
+## <a name="lec9">Lecture 9. `sort(...)`</a>
+
+Let's implement `sort(...)`, the pinnacle of our exploration of recursive functions
+on linked lists.
+
+```js
+class Node {
+ 
+    ...
+
+    // Sorts the list in ascending order.
+    // 
+    // Returns the head of the new list.
+    sort(value) {
+        // ?
+    }
+} 
+```
+
+Recall the two steps for developing a recursive function:
+
+- Step 1. Base case(s)
+- Step 2. Recursive case
+ - Assume correctness
+ - Make one step of progress
+
+### Step 1. Base case(s)
+
+Similar to the `findSmallest()` function, `sort()` has one base case: when `this` is the end of the list.
+Since there is only one node in the list, we simply return a reference for `this` node:
+
+```js
+// Sorts the list in ascending order.
+// 
+// Returns the head of the new list.
+sort() {
+
+    // Base case
+    if (this.next == undefined) {
+        return this;
+    }
+
+    // Recursive case
+    else {
+        // ?
     }
 }
 ```
+
+### Step 2. Recursive case
+
+First, I'll present the algorithm we want to use:
+
+1. Find and remove the smallest value in the `this.next` list
+2. Sort the `this.next` list
+3. Prepend the smallest value with the `this.next` list
+
+Do you understand how that algorithm sorts `this` list?
+
+### Completed function
+
+```js
+class Node {
+
+    ...
+
+    // Sorts the list in ascending order.
+    // 
+    // Returns the head of the new list.
+    sort() {
+
+        // Base case
+        if (this.next == undefined) {
+            return this;
+        }
+
+        // Recursive case
+        else {
+            var smallest = this.findSmallest();
+            var sublist = this.removeValue(smallest);
+            var sortedSublist = sublist.sort();
+            return sortedSublist.prepend(smallest);
+        }
+    }
+}
+
+var head = new Node(1);
+head.append(2);
+head.append(3);
+var sorted = head.sort();
+
+aNode = sorted;
+bNode = aNode.next;
+cNode = bNode.next;
+
+assert(aNode.value == 1);
+assert(bNode.value == 2);
+assert(cNode.value == 3);
+assert(cNode.next == undefined);
+
+
+var head = new Node(2);
+head.append(1);
+head.append(3);
+var sorted = head.sort();
+
+aNode = sorted;
+bNode = aNode.next;
+cNode = bNode.next;
+
+assert(aNode.value == 1);
+assert(bNode.value == 2);
+assert(cNode.value == 3);
+assert(cNode.next == undefined);
+
+
+var head = new Node(2);
+head.append(3);
+head.append(1);
+var sorted = head.sort();
+
+aNode = sorted;
+bNode = aNode.next;
+cNode = bNode.next;
+
+assert(aNode.value == 1);
+assert(bNode.value == 2);
+assert(cNode.value == 3);
+```
+
+### Algorithmic performance
+
+`sort()` is *O(N^2)*
+
+Why?
+
+Every step in `sort()` invokes two *O(N)* algorithms (`findSmallest()` and `removeValue(...)`).
+Therefore every step in `sort()` is *O(N)*.
+
+Since there are ~*N* steps in `sort()`, the total performance is *O(N^2)*.
+
