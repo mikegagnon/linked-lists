@@ -322,7 +322,9 @@ To help make sense of linked lists, we visualize them like so:
 
 ## <a name="lec3">Lecture 3. `prepend(...)`</a>
 
-Study the `prepend` method and its tests. Type in `prepend` and its tests into `linked-lists.js`.
+Study the `prepend` method, the diagram, and its tests. Type in `prepend` and its tests into `linked-lists.js`.
+
+<img src="prepend.png">
 
 ```js
 class Node {
