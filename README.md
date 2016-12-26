@@ -643,6 +643,13 @@ removeLast() {
 
 For the base case, we analyze the corner cases and seek opportunies to merge cases.
 
+#### Diagrams
+
+<img src="removeLast1.png">
+
+<img src="removeLast2.png">
+
+
 #### Analyze the corner cases
 
 Recall the four corner cases:
