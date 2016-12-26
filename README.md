@@ -1008,6 +1008,12 @@ removeValue(value) {
 
 The first base case requires more care. It is here we analyze the corner cases and seek opportunies to merge cases.
 
+#### Diagrams
+
+<img src="removeValue1.png">
+<img src="removeValue2.png">
+
+
 #### Analyze the corner cases and Merge cases
 
 Recall the four corner cases:
