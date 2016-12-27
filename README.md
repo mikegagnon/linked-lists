@@ -1691,6 +1691,32 @@ concat(secondList) {
         this.next.concat(secondList);
     }
 }
+
+// Test concat
+var list1 = new Node("A");
+list1.append("B");
+list1.append("C");
+
+var list2 = new Node("D");
+list2.append("E");
+list2.append("F");
+
+list1.concat(list2);
+
+aNode = list1;
+bNode = aNode.next;
+cNode = bNode.next;
+dNode = cNode.next;
+eNode = dNode.next;
+fNode = eNode.next;
+
+assert(aNode.value = "A");
+assert(bNode.value = "B");
+assert(cNode.value = "C");
+assert(dNode.value = "D");
+assert(eNode.value = "E");
+assert(fNode.value = "F");
+
 ```
 
 ### Algorithmic performance
