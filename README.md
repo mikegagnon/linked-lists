@@ -60,6 +60,7 @@ Familiarity with JS, particularily object-oriented programming in JS.
     - Step 2. Recursive case
     - Completed function
     - Algorithmic performance
+- [Lectur 10. `concat`](#lec10)
 - [Summary of algorithmic performance](#summaryperf)
 
 
@@ -1669,6 +1670,35 @@ Since there are ~*N* steps in `sort()`, the total performance is *O(N^2)*.
 
 
 
+
+<br><br><br><br>
+
+## <a name="lec10">Lecture 9. `concat(...)`</a>
+
+The `concat` method concatenates two lists.
+
+For example:
+- if `head1` == 1 -> 2 -> 3
+- if `head2` == 4 -> 5 -> 6
+- then `head1.concat(head2)` modifies `head1` so that it becomes: 1 -> 2 -> 3 -> 4 -> 5 -> 6
+
+```js
+// Modifies this this list by concatenating secondList to this list
+concat(secondList) {
+    if (this.next == undefined) {
+        this.next = secondList;
+    } else {
+        this.next.concat(secondList);
+    }
+}
+```
+
+### Algorithmic performance
+
+`concat(head)` is *O(N)*
+
+
+
 <br><br><br><br>
 
 ## <a name="summaryperf">Summary of algorithmic performance</a>
@@ -1683,3 +1713,4 @@ Since there are ~*N* steps in `sort()`, the total performance is *O(N^2)*.
 | `removeValue` | *O(N)*        |
 | `findSmallest`| *O(N)*        |
 | `removeSort`  | *O(N^2)*      |
+| `concat`      | *O(N)*        |
